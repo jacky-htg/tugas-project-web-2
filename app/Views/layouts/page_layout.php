@@ -6,7 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+    <!-- jQuery -->
+    <script src="<?= base_url('vendors');?>/jquery/dist/jquery.min.js"></script>
+    <script src="<?= base_url('vendors');?>/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <title>Gentelella Alela! | </title>
 
@@ -27,7 +30,15 @@
     <link href="<?= base_url('vendors');?>/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
+    <link href="<?= base_url('vendors');?>/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url('vendors');?>/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url('vendors');?>/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url('vendors');?>/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url('vendors');?>/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url('build');?>/css/custom.min.css" rel="stylesheet">
+    <link href="<?= base_url('vendors');?>/switchery/dist/switchery.min.css" rel="stylesheet">
+    
+    
   </head>
 
   <body class="nav-md">
@@ -84,8 +95,6 @@
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="<?= base_url('vendors');?>/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="<?= base_url('vendors');?>/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
@@ -121,7 +130,7 @@
     <!-- bootstrap-daterangepicker -->
     <script src="<?= base_url('vendors');?>/moment/min/moment.min.js"></script>
     <script src="<?= base_url('vendors');?>/bootstrap-daterangepicker/daterangepicker.js"></script>
-
+    <script src="<?= base_url('vendors');?>/switchery/dist/switchery.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?= base_url('build');?>/js/custom.min.js"></script>
 	
