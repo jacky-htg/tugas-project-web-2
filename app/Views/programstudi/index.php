@@ -51,7 +51,7 @@
                   {
                       text: '<button>Add New Program Studi</button>',
                       action: function ( e, dt, node, config ) {
-                          window.location = "<?= base_url('users');?>/create";
+                        window.location = "/create";
                       }
                   }
               ],

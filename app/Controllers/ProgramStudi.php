@@ -8,7 +8,7 @@ class ProgramStudi extends BaseController
     public function index()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-        return view('users/index');
+        return view('programstudi/index');
     }
 
     public function create()
@@ -40,6 +40,7 @@ class ProgramStudi extends BaseController
         if (empty($this->session->get('user_id'))) return redirect("login");
         
         $programStudiModel = new ProgramStudiModel();
+        $data['programStudi'] = $programStudiModel->findById($id);
         if ($this->request->is('post') || $this->request->is('put')) {
             $validation =  \Config\Services::validation();
             $validation->setRules(['nama' => 'required']);
@@ -91,7 +92,7 @@ class ProgramStudi extends BaseController
             "draw" => intval($draw),
             "iTotalRecords" => $count,
             "iTotalDisplayRecords" => $count,
-            "data" => $userModel->list($search, $offset, $limit, $order, $sort)
+            "data" => $programStudiModel->list($search, $offset, $limit, $order, $sort)
         ];
         return json_encode($data);
     }

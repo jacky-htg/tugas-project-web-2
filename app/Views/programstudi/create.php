@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">SK Akreditasi</label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="sk_akreditasi">SK Akreditasi</label>
                       <div class="col-md-6 col-sm-6 ">
                         <input type="text" id="sk_akreditasi" name="sk_akreditasi" class="form-control " value="<?= set_value('sk_akreditasi') ?>" >
                       </div>

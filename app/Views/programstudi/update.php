@@ -16,7 +16,7 @@
                   <div class="x_content">
                   <?= validation_list_errors() ?>
 
-                  <?= form_open("programstudi/{$user['id']}/update"); ?>
+                  <?= form_open("programstudi/{$programStudi['id']}/update"); ?>
                   <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">Nama <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
