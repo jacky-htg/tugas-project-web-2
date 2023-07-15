@@ -96,4 +96,16 @@ class ProgramStudi extends BaseController
         ];
         return json_encode($data);
     }
+
+    public function listIdNama()
+    {
+        if (empty($this->session->get('user_id'))) return redirect("login");
+        
+        $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $search = $params['search'];
+        
+        $programStudiModel = new ProgramStudiModel();
+        $data = $programStudiModel->listIdNama($search);
+        return json_encode($data);
+    }
 }

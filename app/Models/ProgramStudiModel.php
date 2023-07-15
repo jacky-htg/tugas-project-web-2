@@ -21,6 +21,18 @@ class ProgramStudiModel extends Model
     return $query->findAll($limit, $offset);
   }
 
+  public function listIdNama($search)
+  {
+    $query = $this->select('id, nama');
+    
+    if ($search) {
+      $query = $query->like('nama', $search);
+    }
+    $query = $query->orderBy("nama", "ASC");
+
+    return $query->findAll();
+  }
+
   public function count($search)
   {
     if ($search) {
