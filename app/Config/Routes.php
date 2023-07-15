@@ -39,6 +39,12 @@ $routes->match(['get', 'post'], '/login', 'Users::login');
 $routes->get('/logout', 'Users::logout');
 $routes->get('/api/users', 'Users::list');
 
+$routes->get('/programstudi', 'ProgramStudi');
+$routes->match(['get', 'post'], '/programstudi/create', 'ProgramStudi::create');
+$routes->match(['get', 'post', 'put'], '/programstudi/(:segment)/update', 'ProgramStudi::update/$1');
+$routes->match(['post', 'delete'], '/programstudi/(:segment)/delete', 'ProgramStudi::delete/$1');
+$routes->get('/api/programstudi', 'ProgramStudi::list');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
