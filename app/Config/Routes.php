@@ -44,6 +44,7 @@ $routes->match(['get', 'post'], '/programstudi/create', 'ProgramStudi::create');
 $routes->match(['get', 'post', 'put'], '/programstudi/(:segment)/update', 'ProgramStudi::update/$1');
 $routes->match(['post', 'delete'], '/programstudi/(:segment)/delete', 'ProgramStudi::delete/$1');
 $routes->get('/api/programstudi', 'ProgramStudi::list');
+$routes->get('/api/programstudi/lookup', 'ProgramStudi::listIdNama');
 
 /*
  * --------------------------------------------------------------------
