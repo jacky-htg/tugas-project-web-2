@@ -46,6 +46,9 @@ $routes->match(['post', 'delete'], '/programstudi/(:segment)/delete', 'ProgramSt
 $routes->get('/api/programstudi', 'ProgramStudi::list');
 $routes->get('/api/programstudi/lookup', 'ProgramStudi::listIdNama');
 
+$routes->get('/api/nilai', 'NilaiController::index');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
