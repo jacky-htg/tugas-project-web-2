@@ -25,10 +25,9 @@
                     <td><?= $nilai['nama_taruna']; ?></td>
                     <td>
                         <a href="<?= base_url('transkrip/edit/' . $nilai['id']); ?>" class="btn btn-primary">Edit</a>
-                        <form action="<?= base_url('transkrip/delete/' . $nilai['id']); ?>" method="post">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Delete</button>
-                        </form>
+                       <form method="post" action="<?php echo $deleteUrl;?>"
+                           <button type="submit">Delete</button>
+                       </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
