@@ -48,6 +48,9 @@ $routes->get('/api/programstudi/lookup', 'ProgramStudi::listIdNama');
 
 $routes->get('/api/nilai', 'NilaiController::index');
 
+$routes->match(['get', 'post'], '/transkrip/create', 'Transkrip::create');
+$routes->match(['get', 'post', 'put'], '/transkrip/(:segment)/update', 'Transkrip::update/$1');
+
 
 /*
  * --------------------------------------------------------------------
