@@ -1,24 +1,29 @@
 <?php
 
-namespace app\Controllers;
+namespace App\Controllers;
 
-use app\Models\TranskripNilaiModel;
+use App\Models\TranskripNilaiModel;
 
 class TranskripNilaiController extends BaseController
 {
+    protected $transkripNilaiModel;
+
+    public function __construct()
+    {
+        $this->transkripNilaiModel = new TranskripNilaiModel();
+    }
+
     public function index()
     {
-        $model = new TranskripNilaiModel();
-        $data['transkrip_nilai'] = $model->findAll();
+        $data['transkrip_nilai'] = $this->transkripNilaiModel->findAll();
 
         return view('list_transkrip_nilai', $data);
     }
 
     public function delete($id)
     {
-        $model = new TranskripNilaiModel();
-        $model->delete($id);
+        $this->transkripNilaiModel->deleteTranskrip($id);
 
-        return redirect()->to('/transkrip');
+        return redirect()->to('transkrip');
     }
 }
