@@ -15,14 +15,22 @@ class TranskripNilaiController extends BaseController
 
     public function index()
     {
-        $data['transkrip_nilai'] = $this->transkripNilaiModel->findAll();
+        // Mengambil data dari API
+        $client = \Config\Services::curlrequest();
+        $response = $client->get('http://localhost:8080/api/transkripnilai');
+        $transkripNilai = json_decode($response->getBody(), true);
+
+        // Mengirim data ke view
+        $data['transkrip_nilai'] = $transkripNilai['data'];
 
         return view('list_transkrip_nilai', $data);
     }
 
     public function delete($id)
     {
-        $this->transkripNilaiModel->deleteTranskrip($id);
+        // Menghapus data melalui API
+        $client = \Config\Services::curlrequest();
+        $response = $client->delete('http://localhost:8080/api/transkripnilai/' . $id);
 
         return redirect()->to('transkrip');
     }
