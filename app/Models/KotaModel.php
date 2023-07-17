@@ -9,11 +9,11 @@ class KotaModel extends Model
   protected $primaryId = 'id';
   protected $allowedFields = ['kode_kota', 'nama'];
 
-  /*public function list($search, $offset, $limit, $order, $sort)
+  public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi');
+    $query = $this->select('id, kode_kota, nama');
     if ($search) {
-      $query = $query->like('nama', $search)->orLike('program_pendidikan', $search);
+      $query = $query->like('kode_kota', $search)->orLike('nama', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
@@ -21,7 +21,7 @@ class KotaModel extends Model
     return $query->findAll($limit, $offset);
   }
 
-  public function listIdNama($search)
+  public function lookup($search)
   {
     $query = $this->select('id, nama');
     
@@ -36,12 +36,12 @@ class KotaModel extends Model
   public function count($search)
   {
     if ($search) {
-      return $this->like('nama', $search)->orLike('program_pendidikan', $search)->countAllResults();
+      return $this->like('kode_kota', $search)->orLike('nama', $search)->countAllResults();
     }
     return $this->countAllResults();
   }
 
-  public function findByNama($nama)
+  /*public function findByNama($nama)
   {
     return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
                 ->where('nama', $nama)
