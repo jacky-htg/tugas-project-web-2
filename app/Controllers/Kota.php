@@ -7,7 +7,7 @@ class Kota extends BaseController
 {
     public function index()
     {
-        echo "Halaman Kota";
+        return view("kota/index");
     }
 
     public function create()

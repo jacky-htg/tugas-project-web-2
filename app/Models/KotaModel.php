@@ -11,7 +11,7 @@ class KotaModel extends Model
 
   public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id, kode_kota, nama');
+    $query = $this->select('id as DT_RowId, kode_kota, nama');
     if ($search) {
       $query = $query->like('kode_kota', $search)->orLike('nama', $search);
     }
