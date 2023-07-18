@@ -7,6 +7,7 @@ use CodeIgniter\Validation\StrictRules\CreditCardRules;
 use CodeIgniter\Validation\StrictRules\FileRules;
 use CodeIgniter\Validation\StrictRules\FormatRules;
 use CodeIgniter\Validation\StrictRules\Rules;
+use Config\CaptchaValidation; // Custom reCAPTCHA v2 validation
 
 class Validation extends BaseConfig
 {
@@ -25,6 +26,8 @@ class Validation extends BaseConfig
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
+        \Myth\Auth\Authentication\Passwords\ValidationRules::class,
+        CaptchaValidation::class, // Custom reCAPTCHA v2 validation
     ];
 
     /**
