@@ -19,11 +19,19 @@ class Transkrip extends BaseController
 
     public function delete($id)
     {
-        // Menghapus data melalui API
-        $client = \Config\Services::curlrequest();
-        $response = $client->delete('http://localhost:8080/api/transkripnilai/' . $id);
-
-        return redirect()->to('transkrip');
+        if ($this->request->is('post') || $this->request->is('delete')) {
+            $transkrip = $this->transkripNilaiModel->findById($id);
+            if (isset($transkrip['id']) && !empty($transkrip['id'])) {
+                if ($$this->transkripNilaiModel->deleteById($id)) {
+                    return json_encode(["message" => "pengahapusan data transkrip berhasil"]);
+                } else {
+                    return json_encode(["message" => "pengahapusan data transkrip gagal"]);
+                }
+            } else {
+                return json_encode(["message" => "Invalid ID"]);
+            }
+        }
+        return json_encode(["message" => "Invalid Method"]);
     }
 
     public function create()
