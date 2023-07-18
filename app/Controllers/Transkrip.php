@@ -22,7 +22,7 @@ class Transkrip extends BaseController
         if ($this->request->is('post') || $this->request->is('delete')) {
             $transkrip = $this->transkripNilaiModel->findById($id);
             if (isset($transkrip['id']) && !empty($transkrip['id'])) {
-                if ($$this->transkripNilaiModel->deleteById($id)) {
+                if ($this->transkripNilaiModel->deleteTranskrip($id)) {
                     return json_encode(["message" => "pengahapusan data transkrip berhasil"]);
                 } else {
                     return json_encode(["message" => "pengahapusan data transkrip gagal"]);
@@ -79,7 +79,7 @@ class Transkrip extends BaseController
                 "program_studi" => $this->request->getPost('program_studi')
                 ]);
                 
-                return redirect('/');
+                return redirect('transkrip');
             }
         }
         return view('transkrip/update', $data);

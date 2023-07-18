@@ -64,7 +64,7 @@
               columns: [
                 { data: 'taruna' },
                 { data: 'ijazah' },
-                { data: 'Program Studi' },
+                { data: 'program_studi' },
                 {
                     data: null,
                     defaultContent: '<i data-type="update" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i data-type="delete" class="fa fa-trash-o" aria-hidden="true"></i>',
