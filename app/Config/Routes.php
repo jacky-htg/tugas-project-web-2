@@ -62,6 +62,11 @@ $routes->match(['post', 'delete'], '/kota/(:segment)/delete', 'Kota::delete/$1')
 $routes->get('/api/kota', 'Kota::list');
 $routes->get('/api/kota/lookup', 'Kota::lookup');
 
+$routes->get('/ijazah', 'Ijazah');
+$routes->match(['get', 'post'], '/ijazah/create', 'Ijazah::create');
+$routes->match(['get', 'post', 'put'], '/ijazah/(:segment)/update', 'Ijazah::update/$1');
+$routes->match(['post', 'delete'], '/ijazah/(:segment)/delete', 'Ijazah::delete/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
