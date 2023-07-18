@@ -30,7 +30,7 @@ class ProgramStudiModel extends Model
     }
     $query = $query->orderBy("nama", "ASC");
 
-    return $query->findAll();
+    return $query->findAll(10, 0);
   }
 
   public function count($search)
