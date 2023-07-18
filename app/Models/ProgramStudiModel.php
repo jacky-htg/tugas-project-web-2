@@ -5,13 +5,13 @@ use CodeIgniter\Database\Query;
 
 class ProgramStudiModel extends Model
 {
-  protected $table = 'program studi';
+  protected $table = 'program_studi';
   protected $primaryId = 'id';
   protected $allowedFields = ['nama', 'program_pendidikan', 'akreditasi', 'sk_akreditasi'];
 
   public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi');
+    $query = $this->select('id as DT_RowId, nama, program_pendidikan, akreditasi, sk_akreditasi');
     if ($search) {
       $query = $query->like('nama', $search)->orLike('program_pendidikan', $search);
     }

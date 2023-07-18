@@ -20,6 +20,7 @@
                           <table id="myTable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info" style="width:100%">
                             <thead>
                               <tr role="row">
+                                <th>ID</th>
                                 <th>Nama</th>
                                 <th>Program Pendidikan</th>
                                 <th>Akreditasi</th>
@@ -51,7 +52,7 @@
                   {
                       text: '<button>Add New Program Studi</button>',
                       action: function ( e, dt, node, config ) {
-                        window.location = "/create";
+                        window.location = "<?= base_url('programstudi');?>/create";
                       }
                   }
               ],
@@ -63,6 +64,7 @@
                   dataSrc: 'data'
               },
               columns: [
+                { data: 'DT_RowId' },
                 { data: 'nama' },
                 { data: 'program_pendidikan' },
                 { data: 'akreditasi'},

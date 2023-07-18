@@ -20,6 +20,7 @@
                           <table id="myTable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info" style="width:100%">
                             <thead>
                               <tr role="row">
+                                <th>ID</th>
                                 <th>Kode Kota</th>
                                 <th>Nama</th>
                                 <th>Action</th>
@@ -61,6 +62,7 @@
                   dataSrc: 'data'
               },
               columns: [
+                { data: 'DT_RowId' },
                 { data: 'kode_kota' },
                 { data: 'nama' },
                 {
