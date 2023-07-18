@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `siakad`
 --
-CREATE DATABASE siakad;
+
 -- --------------------------------------------------------
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `pejabat` (
 -- Table structure for table `program studi`
 --
 
-CREATE TABLE `program studi` (
+CREATE TABLE `program_studi` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `program_pendidikan` enum('Diploma III','Diploma IV') DEFAULT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `taruna` (
 -- Table structure for table `transkrip nilai`
 --
 
-CREATE TABLE `transkrip nilai` (
+CREATE TABLE `transkrip_nilai` (
   `id` int(11) NOT NULL,
   `taruna` int(11) DEFAULT NULL,
   `ijazah` int(11) DEFAULT NULL,
@@ -184,7 +184,7 @@ ALTER TABLE `pejabat`
 --
 -- Indexes for table `program studi`
 --
-ALTER TABLE `program studi`
+ALTER TABLE `program_studi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -198,7 +198,7 @@ ALTER TABLE `taruna`
 --
 -- Indexes for table `transkrip nilai`
 --
-ALTER TABLE `transkrip nilai`
+ALTER TABLE `transkrip_nilai`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_transkrip_taruna` (`taruna`),
   ADD KEY `fk_transkrip_ijazah` (`ijazah`),
@@ -241,7 +241,7 @@ ALTER TABLE `pejabat`
 --
 -- AUTO_INCREMENT for table `program studi`
 --
-ALTER TABLE `program studi`
+ALTER TABLE `program_studi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -253,7 +253,7 @@ ALTER TABLE `taruna`
 --
 -- AUTO_INCREMENT for table `transkrip nilai`
 --
-ALTER TABLE `transkrip nilai`
+ALTER TABLE `transkrip_nilai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -265,7 +265,7 @@ ALTER TABLE `transkrip nilai`
 --
 ALTER TABLE `ijazah`
   ADD CONSTRAINT `fk_ijazah_direktur` FOREIGN KEY (`direktur`) REFERENCES `pejabat` (`id`),
-  ADD CONSTRAINT `fk_ijazah_program_studi` FOREIGN KEY (`program_studi`) REFERENCES `program studi` (`id`),
+  ADD CONSTRAINT `fk_ijazah_program_studi` FOREIGN KEY (`program_studi`) REFERENCES `program_studi` (`id`),
   ADD CONSTRAINT `fk_ijazah_taruna` FOREIGN KEY (`taruna`) REFERENCES `taruna` (`id`),
   ADD CONSTRAINT `fk_ijazah_wakil_direktur` FOREIGN KEY (`wakil_direktur`) REFERENCES `pejabat` (`id`);
 
@@ -281,14 +281,14 @@ ALTER TABLE `nilai`
 --
 ALTER TABLE `taruna`
   ADD CONSTRAINT `fk_taruna_kota` FOREIGN KEY (`tempat_lahir`) REFERENCES `kota` (`id`),
-  ADD CONSTRAINT `fk_taruna_program_studi` FOREIGN KEY (`program_studi`) REFERENCES `program studi` (`id`);
+  ADD CONSTRAINT `fk_taruna_program_studi` FOREIGN KEY (`program_studi`) REFERENCES `program_studi` (`id`);
 
 --
 -- Constraints for table `transkrip nilai`
 --
-ALTER TABLE `transkrip nilai`
+ALTER TABLE `transkrip_nilai`
   ADD CONSTRAINT `fk_transkrip_ijazah` FOREIGN KEY (`ijazah`) REFERENCES `ijazah` (`id`),
-  ADD CONSTRAINT `fk_transkrip_program_studi` FOREIGN KEY (`program_studi`) REFERENCES `program studi` (`id`),
+  ADD CONSTRAINT `fk_transkrip_program_studi` FOREIGN KEY (`program_studi`) REFERENCES `program_studi` (`id`),
   ADD CONSTRAINT `fk_transkrip_taruna` FOREIGN KEY (`taruna`) REFERENCES `taruna` (`id`);
 COMMIT;
 
