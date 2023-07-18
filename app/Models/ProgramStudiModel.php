@@ -23,7 +23,7 @@ class ProgramStudiModel extends Model
 
   public function listIdNama($search)
   {
-    $query = $this->select('id, nama');
+    $query = $this->select('id, nama as text');
     
     if ($search) {
       $query = $query->like('nama', $search);

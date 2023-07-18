@@ -22,6 +22,8 @@
     <!-- iCheck -->
     <link href="<?= base_url('vendors');?>/iCheck/skins/flat/green.css" rel="stylesheet">
 	
+    <link href="<?= base_url('vendors');?>/select2/dist/css/select2.css" rel="stylesheet">
+	
     <!-- bootstrap-progressbar -->
     <link href="<?= base_url('vendors');?>/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
