@@ -1,7 +1,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Sistem Informasi Akademik - Tugas Pemrograman Web II by Kelompok 2
           </div>
           <div class="clearfix"></div>
         </footer>

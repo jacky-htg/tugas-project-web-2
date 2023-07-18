@@ -1,3 +1,4 @@
+<?php $session = \Config\Services::session();?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+	  <link rel="icon" href="<?= base_url();?>/images/favicon.ico" type="image/ico" />
     <!-- jQuery -->
     <script src="<?= base_url('vendors');?>/jquery/dist/jquery.min.js"></script>
     <script src="<?= base_url('vendors');?>/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -49,7 +50,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?= base_url();?>" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="<?= base_url();?>" class="site_title"><i class="fa fa-book"></i> <span>Sistem Akademik</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -61,7 +62,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?= $session->get('user_nama');?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -72,16 +73,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?= base_url('login');?>">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
