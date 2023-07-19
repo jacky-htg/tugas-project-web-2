@@ -8,7 +8,7 @@ class Matakuliah extends BaseController
 {
     public function index()
     {
-        echo "Halaman Matakuliah";
+        return view('matakuliah/index');
     }
 
     public function create()
