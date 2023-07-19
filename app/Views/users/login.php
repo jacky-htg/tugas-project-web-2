@@ -83,17 +83,15 @@
     <form id="login-form" action="<?= base_url('login');?>" method="POST">
       <div class="form-group">
         <label for="email">Email :</label>
-        <input type="email" id="email" name="email" placeholder="Masukan Email.." required>
+        <input type="email" id="email" name="email" value="<?= set_value('email');?>" placeholder="Masukan Email.." required>
       </div>
       <div class="form-group">
         <label for="password">Password :</label>
         <input type="password" id="password" name="password" placeholder="Masukan Password.." required>
       </div>
       <div class="form-group">
-        <button class="g-recaptcha" 
-          data-sitekey="<?= getenv('captcha_site_key') ;?>" 
-          data-callback='onSubmit' 
-          data-action='submit'>Submit</button>
+        <div class="g-recaptcha" data-callback="onSubmit" data-sitekey="<?= getenv('captcha_site_key');?>"></div> </br>
+          <input type="submit" value="Login" class="btn btn-primary">
       </div> </br>
       <div class="forgot-password">
         <a href="<?= base_url('forgot-password');?>">Forgot Password?</a> </br> </br>
