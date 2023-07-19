@@ -29,9 +29,10 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 $routes->get('/', 'Home::index');
 $routes->get('/users', 'Users');
-$routes->match(['get', 'post'], '/users/create', 'Users::create');
+$routes->match(['get', 'post'], '/users/create', 'Users::create'); 
 $routes->match(['get', 'post', 'put'], '/users/(:segment)/update', 'Users::update/$1');
 $routes->match(['post', 'delete'], '/users/(:segment)/delete', 'Users::delete/$1');
 $routes->get('/users/(:segment)/verification', 'Users::verification/$1');
@@ -46,17 +47,19 @@ $routes->match(['post', 'delete'], '/programstudi/(:segment)/delete', 'ProgramSt
 $routes->get('/api/programstudi', 'ProgramStudi::list');
 $routes->get('/api/programstudi/lookup', 'ProgramStudi::listIdNama');
 
-$routes->post('/transkrip/delete/(:num)', 'TranskripNilaiController::delete/$1');
-
 $routes->get('/api/nilai', 'NilaiController::index');
 
+$routes->get('/transkrip', 'Transkrip');
 $routes->match(['get', 'post'], '/transkrip/create', 'Transkrip::create');
 $routes->match(['get', 'post', 'put'], '/transkrip/(:segment)/update', 'Transkrip::update/$1');
+$routes->post('/transkrip/(:num)/delete', 'Transkrip::delete/$1');
+$routes->get('/api/transkrip', 'Transkrip::list');
+$routes->get('/api/transkrip/lookup', 'Transkrip::lookup');
 
 $routes->get('/kota', 'Kota');
 $routes->match(['get', 'post'], '/kota/create', 'Kota::create');
 $routes->match(['get', 'post', 'put'], '/kota/(:segment)/update', 'Kota::update/$1');
-$routes->match(['post', 'delete'], '/kota/(:segment)/delete', 'Kota::delete/$1');
+$routes->match(['post', 'delete'],  '/kota/(:segment)/delete', 'Kota::delete/$1');
 $routes->get('/api/kota', 'Kota::list');
 $routes->get('/api/kota/lookup', 'Kota::lookup');
 
@@ -66,6 +69,16 @@ $routes->match(['get', 'post', 'put'], '/pejabat/(:segment)/update', 'Pejabat::u
 $routes->match(['post', 'delete'], '/pejabat/(:segment)/delete', 'Pejabat::delete/$1');
 $routes->get('/api/pejabat', 'Pejabat::list');
 $routes->get('/api/pejabat/lookup', 'Pejabat::lookup');
+
+$routes->get('/matakuliah', 'Matakuliah');
+$routes->match(['get', 'post'], '/matakuliah/create', 'Matakuliah::create');
+$routes->match(['get', 'post', 'put'], '/matakuliah/(:segment)/update', 'Matakuliah::update/$1');
+$routes->match(['post', 'delete'],  '/matakuliah/(:segment)/delete', 'Matakuliah::delete/$1');
+
+$routes->get('/ijazah', 'Ijazah');
+$routes->match(['get', 'post'], '/ijazah/create', 'Ijazah::create');
+$routes->match(['get', 'post', 'put'], '/ijazah/(:segment)/update', 'Ijazah::update/$1');
+$routes->match(['post', 'delete'], '/ijazah/(:segment)/delete', 'Ijazah::delete/$1');
 
 /*
  * --------------------------------------------------------------------

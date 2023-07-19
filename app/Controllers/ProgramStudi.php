@@ -8,7 +8,8 @@ class ProgramStudi extends BaseController
     public function index()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-        return view('programstudi/index');
+        $data['pageTitle'] = 'Program Studi';
+        return view('programstudi/index', $data);
     }
 
     public function create()
@@ -32,7 +33,8 @@ class ProgramStudi extends BaseController
                 return redirect('programstudi');
             }
         }
-        return view('programstudi/create');
+        $data['pageTitle'] = 'Program Studi';
+        return view('programstudi/create', $data);
     }
 
     public function update($id)
@@ -57,6 +59,7 @@ class ProgramStudi extends BaseController
                 return redirect('programstudi');
             }
         }
+        $data['pageTitle'] = 'Program Studi';
         return view('programstudi/update', $data);
     }
 
@@ -102,10 +105,10 @@ class ProgramStudi extends BaseController
         if (empty($this->session->get('user_id'))) return redirect("login");
         
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = $params['search'];
+        $search = isset($params['term'])?$params['term']['term']:'';
         
         $programStudiModel = new ProgramStudiModel();
         $data = $programStudiModel->listIdNama($search);
-        return json_encode($data);
+        return json_encode(["results" => $data]);
     }
 }

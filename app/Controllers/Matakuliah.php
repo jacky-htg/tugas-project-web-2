@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\KotaModel;
+use App\Models\MatakuliahModel;
 
-class Kota extends BaseController
+class Matakuliah extends BaseController
 {
     public function index()
     {
-        $data['pageTitle'] = 'Kota';
-        return view("kota/index", $data);
+        echo "Halaman Matakuliah"; 
     }
 
     public function create()
@@ -17,47 +16,63 @@ class Kota extends BaseController
         
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
-            $validation->setRules(['kode_kota' => 'required']);
-            $validation->setRules(['nama' => 'required']);
+            $validation->setRules(['kode' => 'required']);
+            $validation->setRules(['matakuliah' => 'required']);
+            $validation->setRules(['sks' => 'required']);
+            $validation->setRules(['nilai_angka' => 'required']);
+            $validation->setRules(['nilai_huruf' => 'required']);
+            $validation->setRules(['semester' => 'required']);
             $isDataValid = $validation->withRequest($this->request)->run();
 
             if($isDataValid){
-                $kotaModel = new KotaModel();
-                $kotaModel->insert([
-                    "kode_kota" => $this->request->getPost('kode_kota'),
-                    "nama" => $this->request->getPost('nama')
+                $matakuliahModel = new MatakuliahModel();
+                $matakuliahModel->insert([
+                    "kode" => $this->request->getPost('kode'),
+                    "matakuliah" => $this->request->getPost('matakuliah'),
+                    "sks" => $this->request->getPost('sks'),                   
+                    "nilai_angka" => $this->request->getPost('nilai_angka'),
+                    "nilai_huruf" => $this->request->getPost('nilai_huruf'),
+                    "semester" => $this->request->getPost('semester'),
                 ]);
             
-                return redirect('kota');
+                return redirect('matakuliah');
             }
         }
-        $data['pageTitle'] = 'Kota';
-        return view('kota/create', $data);
+        $data['pageTitle'] = 'Mata Kuliah';
+        return view('matakuliah/create', $data);
     }
 
     public function update($id)
     {
         // if (empty($this->session->get('user_id'))) return redirect("login");
         
-        $kotaModel = new KotaModel();
-        $data['kota'] = $kotaModel->findById($id);
+        $matakuliahModel = new MatakuliahModel();
+        $data['matakuliah'] = $matakuliahModel->findById($id);
         if ($this->request->is('post') || $this->request->is('put')) {
             $validation =  \Config\Services::validation();
-            $validation->setRules(['kode_kota' => 'required']);
-            $validation->setRules(['nama' => 'required']);
+            $validation->setRules(['kode' => 'required']);
+            $validation->setRules(['matakuliah' => 'required']);
+            $validation->setRules(['sks' => 'required']);
+            $validation->setRules(['nilai_angka' => 'required']);
+            $validation->setRules(['nilai_huruf' => 'required']);
+            $validation->setRules(['semester' => 'required']);
             $isDataValid = $validation->withRequest($this->request)->run();
 
             if($isDataValid){
-                $kotaModel->updateById($id, [
-                    "kode_kota" => $this->request->getPost('kode_kota'),
-                    "nama" => $this->request->getPost('nama')
+                $matakuliahModel->updateById($id, [
+                    "kode" => $this->request->getPost('kode'),
+                    "matakuliah" => $this->request->getPost('matakuliah'),
+                    "sks" => $this->request->getPost('sks'),
+                    "nilai_angka" => $this->request->getPost('nilai_angka'),
+                    "nilai_huruf" => $this->request->getPost('nilai_huruf'),
+                    "semester" => $this->request->getPost('semester'),
                 ]);
                 
-                return redirect('kota');
+                return redirect('matakuliah');
             }
         }
-        $data['pageTitle'] = 'Kota';
-        return view('kota/update', $data);
+        $data['pageTitle'] = 'Mata Kuliah';
+        return view('matakuliah/update', $data);
     }
 
     public function delete($id)
@@ -65,13 +80,13 @@ class Kota extends BaseController
         // if (empty($this->session->get('user_id'))) return redirect("login");
         
         if ($this->request->is('post') || $this->request->is('delete')) {
-            $kotaModel = new KotaModel();
-            $kota = $kotaModel->findById($id);
-            if (isset($kota['id']) && !empty($kota['id'])) {
-                if ($kotaModel->deleteById($id)) {
-                    return json_encode(["message" => "pengahapusan data kota berhasil"]);
+            $matakuliahModel = new MatakuliahModel();
+            $matakuliah = $matakuliahModel->findById($id);
+            if (isset($matakuliah['id']) && !empty($matakuliah['id'])) {
+                if ($matakuliahModel->deleteById($id)) {
+                    return json_encode(["message" => "pengahapusan data mata kuliah berhasil"]);
                 } else {
-                    return json_encode(["message" => "pengahapusan data kota gagal"]);
+                    return json_encode(["message" => "pengahapusan data mata kuliah  gagal"]);
                 }
             } else {
                 return json_encode(["message" => "Invalid ID"]);
@@ -79,8 +94,8 @@ class Kota extends BaseController
         }
         return json_encode(["message" => "Invalid Method"]);
     }
-
-    public function list()
+    /*
+        public function list()
     {
         // if (empty($this->session->get('user_id'))) return redirect("login");
         
@@ -114,5 +129,5 @@ class Kota extends BaseController
         $kotaModel = new KotaModel();
         $data = $kotaModel->lookup($search);
         return json_encode($data);
-    }
+    }*/
 }

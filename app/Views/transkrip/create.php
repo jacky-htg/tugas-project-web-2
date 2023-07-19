@@ -35,10 +35,10 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="program_studi">Program Studi</label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="program_studi" name="program_studi" class="form-control " value="<?= set_value('program_studi') ?>" >
+                        <select class='form-control col-lg-5 itemSearch' id="program_studi" name="program_studi" value="<?= set_value('program_studi') ?>" ></select>
                       </div>
                     </div>
-
+                    
                     <div class="item form-group">
                       <div class="col-md-6 col-sm-6 offset-md-3">
                         <button class="btn btn-primary" type="submit">Submit</button>
@@ -51,4 +51,27 @@
             </div>
           </div>
         </div>
+        <script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
+        <script>
+        $("#program_studi").select2({
+            placeholder: "Select program studi",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/programstudi/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                  return { results: data };
+                }
+            }
+        });
+        </script>
 <?= $this->endSection() ?>

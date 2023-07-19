@@ -20,7 +20,7 @@
                   <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">Nama <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="nama" name="Nama" required="required" class="form-control " value="<?= set_value('nama') ?>" >
+                        <input type="text" id="nama" name="nama" required="required" class="form-control " value="<?= set_value('nama')?set_value('nama'):$programStudi['nama']; ?>" >
                       </div>
                     </div>
 
@@ -28,8 +28,8 @@
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="program_pendidikan">Program Pendidikan</label>
                       <div class="col-md-6 col-sm-6 ">
                         <select id="program_pendidikan" class="form-control" name="program_pendidikan">
-                          <option value="Diploma III">Diploma III</option>
-                          <option value="Diploma IV">Diploma IV</option>
+                          <option value="Diploma III" <?php if (set_value('program_pendidikan')){ echo set_value('program_pendidikan')==='Diploma III'?'selected':'';} else { echo $programStudi['program_pendidikan'] === 'Diploma III'?'selected':'';};?> >Diploma III</option>
+                          <option value="Diploma IV" <?php if (set_value('program_pendidikan')){ echo set_value('program_pendidikan')==='Diploma IV'?'selected':'';} else { echo $programStudi['program_pendidikan'] === 'Diploma IV'?'selected':'';};?> >Diploma IV</option>
                         </select>
                       </div>
                     </div>
@@ -38,9 +38,9 @@
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="akreditasi">Akreditasi</label>
                       <div class="col-md-6 col-sm-6 ">
                         <select id="akreditasi" class="form-control" name="akreditasi">
-                          <option value="Baik">Baik</option>
-                          <option value="Baik Sekali">Baik Sekali</option>
-                          <option value="Unggul">Unggul</option>
+                          <option value="Baik" <?php if (set_value('akreditasi')){ echo set_value('akreditasi')==='Baik'?'selected':'';} else { echo $programStudi['akreditasi'] === 'Baik'?'selected':'';};?> >Baik</option>
+                          <option value="Baik Sekali" <?php if (set_value('akreditasi')){ echo set_value('akreditasi')==='Baik Sekali'?'selected':'';} else { echo $programStudi['akreditasi'] === 'Baik Sekali'?'selected':'';};?> >Baik Sekali</option>
+                          <option value="Unggul" <?php if (set_value('akreditasi')){ echo set_value('akreditasi')==='Unggul'?'selected':'';} else { echo $programStudi['akreditasi'] === 'Unggul'?'selected':'';};?> >Unggul</option>
                         </select>
                       </div>
                     </div>
@@ -48,7 +48,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">SK Akreditasi</label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="sk_akreditasi" name="sk_akreditasi" class="form-control " value="<?= set_value('sk_akreditasi') ?>" >
+                        <input type="text" id="sk_akreditasi" name="sk_akreditasi" class="form-control " value="<?= set_value('sk_akreditasi')?set_value('sk_akreditasi'):$programStudi['sk_akreditasi'] ?>" >
                       </div>
                     </div>
                     <div class="item form-group">

@@ -21,7 +21,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">Nama <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="nama" name="Nama" required="required" class="form-control " value="<?= set_value('nama') ?>" >
+                        <input type="text" id="nama" name="nama" required="required" class="form-control " value="<?= set_value('nama') ?>" >
                       </div>
                     </div>
 
