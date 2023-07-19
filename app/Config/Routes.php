@@ -29,9 +29,10 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 $routes->get('/', 'Home::index');
 $routes->get('/users', 'Users');
-$routes->match(['get', 'post'], '/users/create', 'Users::create');
+$routes->match(['get', 'post'], '/users/create', 'Users::create'); 
 $routes->match(['get', 'post', 'put'], '/users/(:segment)/update', 'Users::update/$1');
 $routes->match(['post', 'delete'], '/users/(:segment)/delete', 'Users::delete/$1');
 $routes->get('/users/(:segment)/verification', 'Users::verification/$1');
@@ -56,9 +57,14 @@ $routes->match(['get', 'post', 'put'], '/transkrip/(:segment)/update', 'Transkri
 $routes->get('/kota', 'Kota');
 $routes->match(['get', 'post'], '/kota/create', 'Kota::create');
 $routes->match(['get', 'post', 'put'], '/kota/(:segment)/update', 'Kota::update/$1');
-$routes->match(['post', 'delete'], '/kota/(:segment)/delete', 'Kota::delete/$1');
+$routes->match(['post', 'delete'],  '/kota/(:segment)/delete', 'Kota::delete/$1');
 $routes->get('/api/kota', 'Kota::list');
 $routes->get('/api/kota/lookup', 'Kota::lookup');
+
+$routes->get('/matakuliah', 'Matakuliah');
+$routes->match(['get', 'post'], '/matakuliah/create', 'Matakuliah::create');
+$routes->match(['get', 'post', 'put'], '/matakuliah/(:segment)/update', 'Matakuliah::update/$1');
+$routes->match(['post', 'delete'],  '/matakuliah/(:segment)/delete', 'Matakuliah::delete/$1');
 
 
 /*
