@@ -56,7 +56,16 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="semester">Semester <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="semester" name="semester" required="required" class="form-control " value="<?= set_value('semester') ?>" >
+                      <select id="semester" class="form-control" name="semester">
+                          <option value="semester I" <?= set_value('semester')==='semester I'?'selected':'';?>>Semester I</option>
+                          <option value="semester II" <?= set_value('semester')==='semester II'?'selected':'';?>>Semester II</option>
+                          <option value="semester III" <?= set_value('semester')==='semester III'?'selected':'';?>>Semester III</option>
+                          <option value="semester IV" <?= set_value('semester')==='semester IV'?'selected':'';?>>Semester IV</option>
+                          <option value="semester V" <?= set_value('semester')==='semester V'?'selected':'';?>>Semester V</option>
+                          <option value="semester VI" <?= set_value('semester')==='semester VI'?'selected':'';?>>Semester VI</option>
+                          <option value="semester VII" <?= set_value('semester')==='semester VII'?'selected':'';?>>Semester VII</option>
+                          <option value="semester VIII" <?= set_value('semester')==='semester VIII'?'selected':'';?>>Semester VIII</option>
+                        </select>
                       </div>
                     </div>
 
