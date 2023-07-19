@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use CodeIgniter\Model;
 use CodeIgniter\Database\Query;
 
@@ -7,13 +9,13 @@ class MatakuliahModel extends Model
 {
   protected $table = 'matakuliah';
   protected $primaryId = 'id';
-  protected $allowedFields = ['kode', 'matakuliah', 'sks','nilai_angka','nilai_huruf','semester'];
+  protected $allowedFields = ['kode', 'matakuliah', 'sks', 'nilai_angka', 'nilai_huruf', 'semester'];
 
-  /*public function list($search, $offset, $limit, $order, $sort)
+  public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id as DT_RowId, kode_kota, nama');
+    $query = $this->select('id as DT_RowId, kode, matakuliah');
     if ($search) {
-      $query = $query->like('kode_kota', $search)->orLike('nama', $search);
+      $query = $query->like('kode', $search)->orLike('matakuliah', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
@@ -23,12 +25,12 @@ class MatakuliahModel extends Model
 
   public function lookup($search)
   {
-    $query = $this->select('id, nama');
-    
+    $query = $this->select('id, matakuliah');
+
     if ($search) {
-      $query = $query->like('nama', $search);
+      $query = $query->like('matakuliah', $search);
     }
-    $query = $query->orderBy("nama", "ASC");
+    $query = $query->orderBy("matakuliah", "ASC");
 
     return $query->findAll();
   }
@@ -36,7 +38,7 @@ class MatakuliahModel extends Model
   public function count($search)
   {
     if ($search) {
-      return $this->like('kode_kota', $search)->orLike('nama', $search)->countAllResults();
+      return $this->like('kode', $search)->orLike('matakuliah', $search)->countAllResults();
     }
     return $this->countAllResults();
   }
@@ -51,8 +53,8 @@ class MatakuliahModel extends Model
   public function findById($id)
   {
     return $this->select('id, kode, matakuliah, sks, nilai_angka, nilai_huruf,semester')
-                ->where('id', $id)
-                ->first();
+      ->where('id', $id)
+      ->first();
   }
 
   public function updateById($id, $data)
@@ -64,4 +66,4 @@ class MatakuliahModel extends Model
   {
     return $this->where('id', $id)->delete();
   }*/
-} 
+}
