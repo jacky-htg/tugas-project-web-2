@@ -11,7 +11,7 @@ class ModelPejabat extends Model
 
   public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id, nama, nip, golongan, jabatan');
+    $query = $this->select('id as DT_RowId, nama, nip, golongan, jabatan');
     if ($search) {
       $query = $query->like('nama', $search)->orLike('nip', $search);
     }
