@@ -63,7 +63,7 @@ class Matakuliah extends BaseController
                     "matakuliah" => $this->request->getPost('matakuliah'),
                     "sks" => $this->request->getPost('sks'),
                     "nilai_angka" => $this->request->getPost('nilai_angka'),
-                    "nilai_huruf" => $this->request->getPost('nilai huruf'),
+                    "nilai_huruf" => $this->request->getPost('nilai_huruf'),
                     "semester" => $this->request->getPost('semester'),
                 ]);
                 
