@@ -39,7 +39,7 @@
       font-weight: bold;
     }
 
-    input[type="text"],
+    input[type="email"],
     input[type="password"] {
       width: 94%;
       padding: 10px;
@@ -80,10 +80,10 @@
 <body>
   <div class="container">
     <h2>Sign In</h2>
-    <form action="process_login.php" method="POST">
+    <form action="<?= base_url('login');?>" method="POST">
       <div class="form-group">
-        <label for="username">Username :</label>
-        <input type="text" id="username" name="username" placeholder="Masukan Username.." required>
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" placeholder="Masukan Email.." required>
       </div>
       <div class="form-group">
         <label for="password">Password :</label>
@@ -94,8 +94,7 @@
           <input type="submit" value="Login" class="btn btn-primary">
       </div> </br>
       <div class="forgot-password">
-        <a href="forgot_password.php">Forgot Password?</a> </br> </br>
-        <a href="register.php">Register?</a>
+        <a href="<?= base_url('forgot-password');?>">Forgot Password?</a> </br> </br>
       </div>
       
     </form>
