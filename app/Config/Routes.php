@@ -60,16 +60,12 @@ $routes->match(['post', 'delete'], '/kota/(:segment)/delete', 'Kota::delete/$1')
 $routes->get('/api/kota', 'Kota::list');
 $routes->get('/api/kota/lookup', 'Kota::lookup');
 
-
 $routes->get('/pejabat', 'Pejabat');
 $routes->match(['get', 'post'], '/pejabat/create', 'Pejabat::create');
 $routes->match(['get', 'post', 'put'], '/pejabat/(:segment)/update', 'Pejabat::update/$1');
 $routes->match(['post', 'delete'], '/pejabat/(:segment)/delete', 'Pejabat::delete/$1');
 $routes->get('/api/pejabat', 'Pejabat::list');
 $routes->get('/api/pejabat/lookup', 'Pejabat::lookup');
-
-
-
 
 /*
  * --------------------------------------------------------------------
