@@ -119,10 +119,7 @@
             background-color: #b42a37;
           }
         </style>
-
-        <script src="<?= base_url('vendors'); ?>/datatables.net/js/jquery.dataTables.min.js"></script>
-        <script src="<?= base_url('vendors'); ?>/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-
+        
         <script>
           $(document).ready(function() {
             $('#myTable').DataTable({
