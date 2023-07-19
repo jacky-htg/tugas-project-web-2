@@ -13,7 +13,7 @@ class MatakuliahModel extends Model
 
   public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id as DT_RowId, kode, matakuliah');
+    $query = $this->select('id as DT_RowId, kode, matakuliah, sks, semester');
     if ($search) {
       $query = $query->like('kode', $search)->orLike('matakuliah', $search);
     }
@@ -62,8 +62,8 @@ class MatakuliahModel extends Model
     return $this->where('id', $id)->update(null, $data);
   }
 
-  /*public function deleteById($id)
+  public function deleteById($id)
   {
     return $this->where('id', $id)->delete();
-  }*/
+  }
 }

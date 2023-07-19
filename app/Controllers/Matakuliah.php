@@ -8,7 +8,8 @@ class Matakuliah extends BaseController
 {
     public function index()
     {
-        return view('matakuliah/index');
+        $data['pageTitle'] = 'Mata Kuliah';
+        return view('matakuliah/index', $data);
     }
 
     public function create()

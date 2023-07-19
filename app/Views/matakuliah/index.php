@@ -20,12 +20,12 @@
                                     <table id="myTable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info" style="width:100%">
                                         <thead>
                                             <tr role="row">
+                                                <th>ID</th>
                                                 <th>Kode</th>
                                                 <th>Matakuliah</th>
                                                 <th>SKS</th>
-                                                <th>Nilai Angka</th>
-                                                <th>Nilai Huruf</th>
                                                 <th>Semester</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,7 +61,11 @@
                 url: '<?= base_url("api/matakuliah"); ?>',
                 dataSrc: 'data'
             },
-            columns: [{
+            columns: [
+                {
+                    data: 'DT_RowId'
+                },
+                {
                     data: 'kode'
                 },
                 {
@@ -69,12 +73,6 @@
                 },
                 {
                     data: 'sks'
-                },
-                {
-                    data: 'nilai_angka'
-                },
-                {
-                    data: 'nilai_huruf'
                 },
                 {
                     data: 'semester'
