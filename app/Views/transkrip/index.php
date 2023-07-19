@@ -119,7 +119,7 @@
             background-color: #b42a37;
           }
         </style>
-        
+
         <script>
           $(document).ready(function() {
             $('#myTable').DataTable({
