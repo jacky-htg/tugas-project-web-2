@@ -47,12 +47,14 @@ $routes->match(['post', 'delete'], '/programstudi/(:segment)/delete', 'ProgramSt
 $routes->get('/api/programstudi', 'ProgramStudi::list');
 $routes->get('/api/programstudi/lookup', 'ProgramStudi::listIdNama');
 
-$routes->post('/transkrip/delete/(:num)', 'TranskripNilaiController::delete/$1');
-
 $routes->get('/api/nilai', 'NilaiController::index');
 
+$routes->get('/transkrip', 'Transkrip');
 $routes->match(['get', 'post'], '/transkrip/create', 'Transkrip::create');
 $routes->match(['get', 'post', 'put'], '/transkrip/(:segment)/update', 'Transkrip::update/$1');
+$routes->post('/transkrip/(:num)/delete', 'Transkrip::delete/$1');
+$routes->get('/api/transkrip', 'Transkrip::list');
+$routes->get('/api/transkrip/lookup', 'Transkrip::lookup');
 
 $routes->get('/kota', 'Kota');
 $routes->match(['get', 'post'], '/kota/create', 'Kota::create');
@@ -66,6 +68,10 @@ $routes->match(['get', 'post'], '/matakuliah/create', 'Matakuliah::create');
 $routes->match(['get', 'post', 'put'], '/matakuliah/(:segment)/update', 'Matakuliah::update/$1');
 $routes->match(['post', 'delete'],  '/matakuliah/(:segment)/delete', 'Matakuliah::delete/$1');
 
+$routes->get('/ijazah', 'Ijazah');
+$routes->match(['get', 'post'], '/ijazah/create', 'Ijazah::create');
+$routes->match(['get', 'post', 'put'], '/ijazah/(:segment)/update', 'Ijazah::update/$1');
+$routes->match(['post', 'delete'], '/ijazah/(:segment)/delete', 'Ijazah::delete/$1');
 
 /*
  * --------------------------------------------------------------------

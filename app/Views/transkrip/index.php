@@ -4,7 +4,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Program Studi</h3>
+                <h3>Transkrip Nilai</h3>
               </div>
             </div>
 
@@ -21,10 +21,9 @@
                             <thead>
                               <tr role="row">
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Program Pendidikan</th>
-                                <th>Akreditasi</th>
-                                <th>SK Akreditasi</th>
+                                <th>Taruna</th>
+                                <th>Ijazah</th>
+                                <th>Program Studi</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -50,9 +49,9 @@
               dom: 'Bfrtip',
               buttons: [
                   {
-                      text: '<button>Add New Program Studi</button>',
+                      text: '<button>Add New Transkrip Nilai</button>',
                       action: function ( e, dt, node, config ) {
-                        window.location = "<?= base_url('programstudi');?>/create";
+                        window.location = "<?= base_url('transkrip');?>/create";
                       }
                   }
               ],
@@ -60,15 +59,14 @@
               'serverSide': true,
               'serverMethod': 'get',
               ajax: {
-                  url: '<?= base_url("api/programstudi");?>',
+                  url: '<?= base_url("api/transkrip");?>',
                   dataSrc: 'data'
               },
               columns: [
                 { data: 'DT_RowId' },
-                { data: 'nama' },
-                { data: 'program_pendidikan' },
-                { data: 'akreditasi'},
-                { data: 'sk_akreditasi'},
+                { data: 'taruna' },
+                { data: 'ijazah' },
+                { data: 'program_studi' },
                 {
                     data: null,
                     defaultContent: '<i data-type="update" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i data-type="delete" class="fa fa-trash-o" aria-hidden="true"></i>',
@@ -83,11 +81,11 @@
               let action = e.target.getAttribute('data-type');
               let id = e.target.parentNode.parentElement.getAttribute("id");
               if (action === "update" ) {
-                window.location = "<?= base_url('programstudi');?>/"+id+"/update"; 
+                window.location = "<?= base_url('transkrip');?>/"+id+"/update"; 
               } else if (action === "delete") {
                 if (confirm("Yakin ingin menghapus data # " + id)) {
                   $.ajax({
-                    url: "<?= base_url('programstudi');?>/"+id+"/delete",
+                    url: "<?= base_url('transkrip');?>/"+id+"/delete",
                     method: "POST",
                     success: function() {
                         myTable.ajax.reload();

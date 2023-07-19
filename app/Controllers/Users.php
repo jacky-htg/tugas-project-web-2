@@ -146,6 +146,7 @@ class Users extends BaseController
                     $this->session->setFlashdata('error', 'Invalid password or username');
                 } else {  
                     $this->session->set('user_id', $user['id']);
+                    $this->session->set('user_nama', $user['name']);
                     return redirect('users');
                 }
                 $data['error'] = $this->session->getFlashdata('error');
