@@ -90,7 +90,7 @@
         <input type="password" id="password" name="password" placeholder="Masukan Password.." required>
       </div>
       <div class="form-group">
-        <div class="g-recaptcha" data-callback="onSubmit" data-sitekey="<?= getenv('captcha_site_key');?>"></div> </br>
+        <!--div class="g-recaptcha" data-sitekey="<?= getenv('captcha_site_key');?>"></div--> </br>
           <input type="submit" value="Login" class="btn btn-primary">
       </div> </br>
       <div class="forgot-password">
@@ -99,10 +99,5 @@
       
     </form>
   </div>
-  <script>
-   function onSubmit(token) {
-     document.getElementById("login-form").submit();
-   }
- </script>
 </body>
 </html>
