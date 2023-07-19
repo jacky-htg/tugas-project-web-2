@@ -214,7 +214,7 @@
               <div class="col-sm-12 emphasis">
                 <a href="<?= base_url('transkrip');?>">
                   <button type="button" class="btn btn-primary btn-sm">
-                    <i class="fa fa-line-chart"> </i> Transakrip Nilai
+                    <i class="fa fa-line-chart"> </i> Transkrip Nilai
                   </button>
                 </a>
               </div>
