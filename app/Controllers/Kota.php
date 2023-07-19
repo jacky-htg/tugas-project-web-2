@@ -7,7 +7,8 @@ class Kota extends BaseController
 {
     public function index()
     {
-        return view("kota/index");
+        $data['pageTitle'] = 'Kota';
+        return view("kota/index", $data);
     }
 
     public function create()
@@ -30,7 +31,8 @@ class Kota extends BaseController
                 return redirect('kota');
             }
         }
-        return view('kota/create');
+        $data['pageTitle'] = 'Kota';
+        return view('kota/create', $data);
     }
 
     public function update($id)
@@ -54,6 +56,7 @@ class Kota extends BaseController
                 return redirect('kota');
             }
         }
+        $data['pageTitle'] = 'Kota';
         return view('kota/update', $data);
     }
 

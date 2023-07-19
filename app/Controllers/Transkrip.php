@@ -14,7 +14,8 @@ class Transkrip extends BaseController
 
     public function index()
     {
-        return view("transkrip/index");
+        $data['pageTitle'] = 'Transkrip Nilai';
+        return view("transkrip/index", $data);
     }
 
     public function delete($id)
@@ -56,7 +57,8 @@ class Transkrip extends BaseController
                 return redirect('transkrip');
             }
         }
-        return view('transkrip/create');
+        $data['pageTitle'] = 'Transkrip Nilai';
+        return view('transkrip/create', $data);
     }
 
     public function update($id)
@@ -82,6 +84,7 @@ class Transkrip extends BaseController
                 return redirect('transkrip');
             }
         }
+        $data['pageTitle'] = 'Transkrip Nilai';
         return view('transkrip/update', $data);
     }
 

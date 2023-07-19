@@ -8,7 +8,8 @@ class ProgramStudi extends BaseController
     public function index()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-        return view('programstudi/index');
+        $data['pageTitle'] = 'Program Studi';
+        return view('programstudi/index', $data);
     }
 
     public function create()
@@ -32,7 +33,8 @@ class ProgramStudi extends BaseController
                 return redirect('programstudi');
             }
         }
-        return view('programstudi/create');
+        $data['pageTitle'] = 'Program Studi';
+        return view('programstudi/create', $data);
     }
 
     public function update($id)
@@ -57,6 +59,7 @@ class ProgramStudi extends BaseController
                 return redirect('programstudi');
             }
         }
+        $data['pageTitle'] = 'Program Studi';
         return view('programstudi/update', $data);
     }
 

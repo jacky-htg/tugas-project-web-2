@@ -12,7 +12,7 @@
     <script src="<?= base_url('vendors');?>/jquery/dist/jquery.min.js"></script>
     <script src="<?= base_url('vendors');?>/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
-    <title>Gentelella Alela! | </title>
+    <title>Sistem Informasi Akademik | <?= $pageTitle;?></title>
 
     <!-- Bootstrap -->
     <link href="<?= base_url('vendors');?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

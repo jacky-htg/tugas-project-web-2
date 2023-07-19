@@ -8,7 +8,8 @@ class Users extends BaseController
     public function index()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-        return view('users/index');
+        $data['pageTitle'] = 'Users';
+        return view('users/index', $data);
     }
 
     public function create()
@@ -37,7 +38,8 @@ class Users extends BaseController
                 return redirect('users');
             }
         }
-        return view('users/create');
+        $data['pageTitle'] = 'Users';
+        return view('users/create', $data);
     }
 
     public function update($id)
@@ -61,6 +63,7 @@ class Users extends BaseController
                 return redirect('users');
             }
         }
+        $data['pageTitle'] = 'Users';
         return view('users/update', $data);
     }
 

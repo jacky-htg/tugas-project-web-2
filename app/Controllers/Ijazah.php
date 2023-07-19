@@ -51,7 +51,8 @@ class Ijazah extends BaseController
                 return redirect('ijazah');
             }
         }
-        return view('ijazah/create');
+        $data['pageTitle'] = 'Ijazah';
+        return view('ijazah/create', $data);
     }
 
     public function update($id)
@@ -95,6 +96,7 @@ class Ijazah extends BaseController
                 return redirect('ijazah');
             }
         }
+        $data['pageTitle'] = 'Ijazah';
         return view('ijazah/update', $data);
     }
 

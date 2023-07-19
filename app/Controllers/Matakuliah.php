@@ -38,7 +38,8 @@ class Matakuliah extends BaseController
                 return redirect('matakuliah');
             }
         }
-        return view('matakuliah/create');
+        $data['pageTitle'] = 'Mata Kuliah';
+        return view('matakuliah/create', $data);
     }
 
     public function update($id)
@@ -70,6 +71,7 @@ class Matakuliah extends BaseController
                 return redirect('matakuliah');
             }
         }
+        $data['pageTitle'] = 'Mata Kuliah';
         return view('matakuliah/update', $data);
     }
 
