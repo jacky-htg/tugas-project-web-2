@@ -11,14 +11,17 @@ class TranskripModel extends Model
 
   public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id as DT_RowId, taruna, ijazah, program_studi');
+    $query = $this->select('transkrip_nilai.id as DT_RowId, taruna.nama as taruna, ijazah.nomer_ijazah as ijazah, program_studi.nama as program_studi');
     if ($search) {
       $query = $query->like('taruna', $search)->orLike('ijazah', $search)->orLike('program_studi', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
     }
-    return $query->findAll($limit, $offset);
+    return $query->join('taruna', 'transkrip_nilai.taruna = taruna.id')
+                 ->join('ijazah', 'transkrip_nilai.ijazah = ijazah.id')
+                 ->join('program_studi', 'transkrip_nilai.program_studi = program_studi.id')
+                 ->findAll($limit, $offset);
   }
 
   public function lookup($search)
@@ -43,8 +46,9 @@ class TranskripModel extends Model
 
   public function findById($id)
   {
-    return $this->select('id, taruna, ijazah, program_studi')
-                ->where('id', $id)
+    return $this->select('transkrip_nilai.id, transkrip_nilai.taruna, transkrip_nilai.ijazah, transkrip_nilai.program_studi as program_studi_id, program_studi.nama as program_studi')
+                ->where('transkrip_nilai.id', $id)
+                ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
                 ->first();
   }
 

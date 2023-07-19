@@ -1,15 +1,17 @@
 <?php
+
 namespace App\Models;
+
 use CodeIgniter\Model;
 use CodeIgniter\Database\Query;
 
-class ProgramStudiModel extends Model
+class IjazahModel extends Model
 {
-  protected $table = 'program_studi';
+  protected $table = 'ijazah';
   protected $primaryId = 'id';
-  protected $allowedFields = ['nama', 'program_pendidikan', 'akreditasi', 'sk_akreditasi'];
+  protected $allowedFields = ['taruna', 'program_studi', 'tanggal_ijazah', 'tanggal_pengesahan', 'gelar_akademik', 'nomer_sk', 'wakil_direktur', 'direktur', 'nomer_ijazah', 'nomer_seri', 'tanggal_yudisium', 'judul_kkw',];
 
-  public function list($search, $offset, $limit, $order, $sort)
+  /*public function list($search, $offset, $limit, $order, $sort)
   {
     $query = $this->select('id as DT_RowId, nama, program_pendidikan, akreditasi, sk_akreditasi');
     if ($search) {
@@ -23,14 +25,14 @@ class ProgramStudiModel extends Model
 
   public function listIdNama($search)
   {
-    $query = $this->select('id, nama as text');
-    
+    $query = $this->select('id, nama');
+
     if ($search) {
       $query = $query->like('nama', $search);
     }
     $query = $query->orderBy("nama", "ASC");
 
-    return $query->findAll(10, 0);
+    return $query->findAll();
   }
 
   public function count($search)
@@ -44,15 +46,15 @@ class ProgramStudiModel extends Model
   public function findByNama($nama)
   {
     return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
-                ->where('nama', $nama)
-                ->first();
-  }
+      ->where('nama', $nama)
+      ->first();
+  }*/
 
   public function findById($id)
   {
-    return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
-                ->where('id', $id)
-                ->first();
+    return $this->select('id, taruna, program_studi , tanggal_ijazah, tanggal_pengesahan, gelar_akademik, nomer_sk, wakil_direktur , direktur , nomer_ijazah, nomer_seri, tanggal_yudisium, judul_kkw')
+      ->where('id', $id)
+      ->first();
   }
 
   public function updateById($id, $data)
@@ -64,4 +66,4 @@ class ProgramStudiModel extends Model
   {
     return $this->where('id', $id)->delete();
   }
-} 
+}
