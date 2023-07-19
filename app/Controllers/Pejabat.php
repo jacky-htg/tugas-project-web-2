@@ -7,7 +7,8 @@ class Pejabat extends BaseController
 {
     public function index()
     {
-        return view("pejabat/index");
+        $data['pageTitle'] = 'Pejabat';
+        return view("pejabat/index", $data);
     }
 
     public function create()
@@ -34,7 +35,8 @@ class Pejabat extends BaseController
                 return redirect('pejabat');
             }
         }
-        return view('pejabat/create');
+        $data['pageTitle'] = 'Pejabat';
+        return view('pejabat/create', $data);
     }
 
     public function update($id)
@@ -62,6 +64,7 @@ class Pejabat extends BaseController
                 return redirect('pejabat');
             }
         }
+        $data['pageTitle'] = 'Pejabat';
         return view('pejabat/update', $data);
     }
 
