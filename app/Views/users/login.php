@@ -1,22 +1,104 @@
-                  <?= validation_list_errors() ?>
-                  <?= $error ? $error : null ?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SIAKAD</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2a3f54;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
 
-                  <?= form_open('login'); ?>
-                  <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="email">Email <span class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6 ">
-                        <input type="email" id="email" name="email" required="required" class="form-control " value="<?= set_value('email') ?>" >
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="password">Password <span class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6 ">
-                        <input type="password" id="password" name="password" required="required" class="form-control" >
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <div class="col-md-6 col-sm-6 offset-md-3">
-                        <button class="btn btn-primary" type="submit">Login</button>
-                      </div>
-                    </div>
-                  <?= form_close() ?>
+    .container {
+      max-width: 400px;
+      padding: 50px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 94%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 3px;
+      background-color: #f2f2f2;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: -10px;
+    }
+
+    .forgot-password a {
+      color: #999;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 3px;
+      background-color: #2a3f54;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #406182;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign In</h2>
+    <form action="process_login.php" method="POST">
+      <div class="form-group">
+        <label for="username">Username :</label>
+        <input type="text" id="username" name="username" placeholder="Masukan Username.." required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password :</label>
+        <input type="password" id="password" name="password" placeholder="Masukan Password.." required>
+      </div>
+      <div class="form-group">
+        <div class="g-recaptcha" data-sitekey="6Ld57SknAAAAAKAmrWA-8L2trwnwrg4vfBSSjNOQ"></div> </br>
+          <input type="submit" value="Login" class="btn btn-primary">
+      </div> </br>
+      <div class="forgot-password">
+        <a href="forgot_password.php">Forgot Password?</a> </br> </br>
+        <a href="register.php">Register?</a>
+      </div>
+      
+    </form>
+  </div>
+</body>
+</html>
