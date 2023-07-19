@@ -32,7 +32,7 @@ $routes->set404Override();
 
 $routes->get('/', 'Home::index');
 $routes->get('/users', 'Users');
-$routes->match(['get', 'post'], '/users/create', 'Users::create'); 
+$routes->match(['get', 'post'], '/users/create', 'Users::create');
 $routes->match(['get', 'post', 'put'], '/users/(:segment)/update', 'Users::update/$1');
 $routes->match(['post', 'delete'], '/users/(:segment)/delete', 'Users::delete/$1');
 $routes->get('/users/(:segment)/verification', 'Users::verification/$1');
@@ -74,6 +74,9 @@ $routes->get('/matakuliah', 'Matakuliah');
 $routes->match(['get', 'post'], '/matakuliah/create', 'Matakuliah::create');
 $routes->match(['get', 'post', 'put'], '/matakuliah/(:segment)/update', 'Matakuliah::update/$1');
 $routes->match(['post', 'delete'],  '/matakuliah/(:segment)/delete', 'Matakuliah::delete/$1');
+
+$routes->get('/api/matakuliah', 'Matakuliah::list');
+$routes->get('/api/matakuliah/lookup', 'Matakuliah::lookup');
 
 $routes->get('/ijazah', 'Ijazah');
 $routes->match(['get', 'post'], '/ijazah/create', 'Ijazah::create');
