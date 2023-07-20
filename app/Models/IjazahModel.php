@@ -26,7 +26,7 @@ class IjazahModel extends Model
     'judul_kkw'
   ];
 
-
+  // function list return array
   public function list($search, $offset, $limit, $order, $sort)
   {
     // Query data dari database
@@ -51,16 +51,56 @@ class IjazahModel extends Model
         ->orLike('program_studi', $search);
     }
 
-    // Jika user melakukan order dan sort data
+    // Jika user/fe melakukan order dan sort data
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
+    } else if (!empty($order)) {
+      // Jika user/fe hanya melakukan order, maka default sort = desc
+      // refer ke default variable di controller
+      $query = $query->orderBy($order, $sort);
+    } else if (!empty($sort)) {
+      // Jika user/fe hanya melakukan sort, maka default kolom order pakai id
+      $query = $query->orderBy('id', $sort);
     }
 
-    // Tampilkan data hasil query
-    // return $query->findAll($limit, $offset);
+    // Jika user/fe melakukan limit data
+    if (!empty($limit)) {
+      $query = $query->limit($limit);
+    }
 
-    // pagination 
+    // Jika user/fe melakukan offset data
+    if (!empty($offset)) {
+      $query = $query->offset($offset);
+    }
+
+    // Return data dengan pagination
     return $query->paginate($limit);
+  }
+
+  public function lookup($search)
+  {
+    // Query data dari database
+    $query = $this->select('
+   id, 
+   taruna, 
+   program_studi, 
+   tanggal_ijazah, 
+   tanggal_pengesahan, 
+   gelar_akademik, 
+   nomer_sk, 
+   wakil_direktur, 
+   direktur,
+   nomer_ijazah, 
+   nomer_seri,
+   tanggal_yudisium, 
+   judul_kkw');
+
+    if ($search) {
+      $query = $query->like('taruna', $search);
+    }
+
+    // Return data dengan pagination
+    return $query->paginate();
   }
 
   /*

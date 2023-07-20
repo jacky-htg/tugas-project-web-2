@@ -8,7 +8,7 @@ class Ijazah extends BaseController
 {
     public function index()
     {
-        echo "Halaman Ijazah";
+        return view("ijazah/index");
     }
 
     public function create()
@@ -126,72 +126,94 @@ class Ijazah extends BaseController
         // Jika fungsi login pada aplikasi ini sudah berjalan uncomment kode di bawah
         // if (empty($this->session->get('user_id'))) return redirect("login");
 
-        // Sanitize request input saat mengakses URL
-        $vars = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        // Nilai Deafult Variable
-        $defDraw = 1;
-        $defStart = 0;
-        $defLength = 10;
-        $defOrder = 'id';
-        $defSort = 'desc';
-        $defSearch = null;
+        // Nilai Default Variable
+        $draw = 1;
+        $offset = 0;
+        $limit = 10;
+        $order = 'id';
+        $sort = 'desc';
+        $search = null;
+
 
         // Deklarasikan variable draw    
         if (!empty($this->request->getVar('draw'))) {
-            // Jika request draw tidak kosong, ambil dari dari request
-            $draw = $this->request->getVar('draw');
-        } else {
-            // Jika kosong maka draw = 1
-            $draw = $defDraw;
+            if ($this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT)) {
+                // Jika request draw tidak kosong, ambil dari dari request
+                $draw = $this->request->getVar('draw');
+            } else {
+                // Data array jika limit bukan angka
+                $pesanError = [
+                    // perlu standar kode error untuk setiap req
+                    "status" => "failed",
+                    // Ambil data bedasarkan filtering dari request
+                    "pesan" => "Draw Harus Berupa Angka"
+                ];
+                // kirim error json ke frontend
+                return json_encode($pesanError);
+            }
         }
 
         // Deklarasikan variabel offset
         if (!empty($this->request->getVar('start'))) {
-            // Jika request start tidak kosong, ambil dari request
-            $offset = $this->request->getVar('start');
-        } else {
-            // Jika kosong maka offset = 0
-            $offset = $defStart;
+            if ($this->request->getVar('start', FILTER_SANITIZE_NUMBER_INT)) {
+                // Jika request start tidak kosong, ambil dari dari request
+                $offset = $this->request->getVar('start');
+            } else {
+                // Data array jika limit bukan angka
+                $pesanError = [
+                    // perlu standar kode error untuk setiap req
+                    "status" => "failed",
+                    // Ambil data bedasarkan filtering dari request
+                    "pesan" => "Starting (offset) Data Harus Berupa Angka"
+                ];
+                // kirim error json ke frontend
+                return json_encode($pesanError);
+            }
         }
 
         // Deklarasikan variable limit data yang ditampilkan
-        if (!empty($this->request->getVar('length'))) {
-            // Jika request length tidak kosong, ambil dari request
-            $limit = $this->request->getVar('length');
-        } else {
-            // Jika kosong maka limit data = 10
-            $limit = $defLength;
-        }
 
-        $columnIndex = isset($vars['order']) ? $vars['order'][0]['column'] : null; // Column index
-        $order = ($columnIndex || $columnIndex === '0') ? $vars['columns'][$columnIndex]['data'] : null; // Column name
+        if (!empty($this->request->getVar('length'))) {
+            // Sanitize url request
+            if ($this->request->getVar('length', FILTER_SANITIZE_NUMBER_INT)) {
+                // Jika request length tidak kosong, ambil dari request
+                $limit = $this->request->getVar('length');
+            } else {
+                // Data array
+                $pesanError = [
+                    // perlu standar kode error untuk setiap req
+                    "status" => "failed",
+                    // Ambil data bedasarkan filtering dari request
+                    "pesan" => "Limit Data Harus Berupa Angka"
+                ];
+                // kirim error json ke frontend
+                return json_encode($pesanError);
+            }
+        }
 
         // Deklarasikan variable sort
         if (!empty($this->request->getVar('sort'))) {
-            // Jika request sort tidak kosong, ambil dari request
-            $sort = $this->request->getVar('sort');
-        } else {
-            // Jika kosong maka sort = desc
-            $sort = $defSort;
+            if ($this->request->getVar('sort', FILTER_SANITIZE_URL)) {
+                // Jika request sort tidak kosong, ambil dari request
+                $sort = $this->request->getVar('sort');
+            }
         }
 
         // Deklarasikan variable cari
         if (!empty($this->request->getVar('cari'))) {
-            // Jika request cari tidak kosong, ambil dari request
-            $search = $this->request->getVar('cari');
-        } else {
-            // Jika kosong maka cari = null
-            $search = $defSearch;
+            if ($this->request->getVar('cari', FILTER_SANITIZE_URL)) {
+                // Jika request cari tidak kosong, ambil dari request
+                $search = $this->request->getVar('cari');
+            }
         }
 
         // Deklarasikan variable order
         if (!empty($this->request->getVar('order'))) {
-            // Jika request cari tidak kosong, ambil dari request
-            $order = $this->request->getVar('order');
-        } else {
-            // Jika kosong maka cari = null
-            $order = $defOrder;
+            if ($this->request->getVar('order', FILTER_SANITIZE_URL)) {
+                // Jika request cari tidak kosong, ambil dari request
+                $order = $this->request->getVar('order');
+            }
         }
 
         // Deklarasikan model ijazah
@@ -204,11 +226,18 @@ class Ijazah extends BaseController
             $count = $ijazahModel->countAllResults();
         }
 
+        // Display Data
+        if ((int) $limit >= (int) $count) {
+            $disp = $count;
+        } else {
+            $disp = $limit;
+        }
+
         // Data array
         $data = [
             "draw" => intval($draw),
             "totalData" => $count,
-            "totalTampilanData" => $count,
+            "totalTampilanData" => $disp,
             // Ambil data bedasarkan filtering dari request
             "data" => $ijazahModel->list($search, $offset, $limit, $order, $sort)
         ];
@@ -220,13 +249,19 @@ class Ijazah extends BaseController
 
     public function lookup()
     {
+        // Jika user belum login redirect ke halaman login
+        // Jika fungsi login pada aplikasi ini sudah berjalan uncomment kode di bawah
         // if (empty($this->session->get('user_id'))) return redirect("login");
-        
+
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['search'])?$params['search']:'';
-        
+        $search = isset($params['cari']) ? $params['cari'] : '';
+
         $ijazahModel = new IjazahModel();
+
         $data = $ijazahModel->lookup($search);
+
+        // Ubah data array dari CI4 kedalam bentuk Java Script Object Notation (JSON)
+        // Untuk dikonsumsi oleh frontEnd
         return json_encode($data);
     }
 }
