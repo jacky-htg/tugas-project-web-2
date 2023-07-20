@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Users extends BaseController
 {
@@ -33,8 +34,36 @@ class Users extends BaseController
                 ]);
                 $user = $userModel->findByEmail($email);
                 $user['password'] = $password;
-                $this->sendEmail($user);
-            
+                //var_dump($this->sendEmail($user)); die();
+                // send email to inform the password
+                $postData = [
+                    'from' => ['email' => 'no-reply@rijalasepnugroho.com'],
+                    'subject' => 'Welcome to SIAKAD UNSIA',
+                    'personalizations' => [[
+                    'to' => [['email' => $user['email']]],
+                    'dynamic_template_data' =>[
+                        'name' => $user['name'],
+                        'app_name' => 'SIAKAD UNSIA',
+                        'username' => $user['email'],
+                        'password' => $password,
+                        'link' => base_url("users/{$user['id']}/verification")
+                    ],
+                    ]],
+                    'template_id' => getenv('sendgrid_email_verification')
+                ];
+
+                $ch = curl_init('https://api.sendgrid.com/v3/mail/send');
+                curl_setopt_array($ch, array(
+                    CURLOPT_POST => TRUE,
+                    CURLOPT_RETURNTRANSFER => TRUE,
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer '.getenv('sendgrid_api_key'),
+                        'Content-Type: application/json'
+                    ),
+                    CURLOPT_POSTFIELDS => json_encode($postData)
+                ));
+                curl_exec($ch);
+
                 return redirect('users');
             }
         }
