@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
-use PHPMailer\PHPMailer\PHPMailer;
 
 class Users extends BaseController
 {
