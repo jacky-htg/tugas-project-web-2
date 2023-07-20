@@ -8,7 +8,8 @@ class Ijazah extends BaseController
 {
     public function index()
     {
-        return view("ijazah/index");
+        $data['pageTitle'] = 'Ijazah';
+        return view("ijazah/index", $data);
     }
 
     public function create()
@@ -131,16 +132,17 @@ class Ijazah extends BaseController
         $draw = 1;
         $offset = 0;
         $limit = 10;
-        $order = 'id';
+        $order = 'ijazah.id';
         $sort = 'desc';
         $search = null;
 
 
         // Deklarasikan variable draw    
         if (!empty($this->request->getVar('draw'))) {
+            
             if ($this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT)) {
                 // Jika request draw tidak kosong, ambil dari dari request
-                $draw = $this->request->getVar('draw');
+                $draw = $this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT);
             } else {
                 // Data array jika limit bukan angka
                 $pesanError = [
@@ -158,7 +160,7 @@ class Ijazah extends BaseController
         if (!empty($this->request->getVar('start'))) {
             if ($this->request->getVar('start', FILTER_SANITIZE_NUMBER_INT)) {
                 // Jika request start tidak kosong, ambil dari dari request
-                $offset = $this->request->getVar('start');
+                $offset = $this->request->getVar('start', FILTER_SANITIZE_NUMBER_INT);
             } else {
                 // Data array jika limit bukan angka
                 $pesanError = [
@@ -178,7 +180,7 @@ class Ijazah extends BaseController
             // Sanitize url request
             if ($this->request->getVar('length', FILTER_SANITIZE_NUMBER_INT)) {
                 // Jika request length tidak kosong, ambil dari request
-                $limit = $this->request->getVar('length');
+                $limit = $this->request->getVar('length', FILTER_SANITIZE_NUMBER_INT);
             } else {
                 // Data array
                 $pesanError = [
@@ -194,25 +196,25 @@ class Ijazah extends BaseController
 
         // Deklarasikan variable sort
         if (!empty($this->request->getVar('sort'))) {
-            if ($this->request->getVar('sort', FILTER_SANITIZE_URL)) {
+            if ($this->request->getVar('sort', FILTER_UNSAFE_RAW)) {
                 // Jika request sort tidak kosong, ambil dari request
-                $sort = $this->request->getVar('sort');
+                $sort = $this->request->getVar('sort', FILTER_UNSAFE_RAW);
             }
         }
 
         // Deklarasikan variable cari
         if (!empty($this->request->getVar('cari'))) {
-            if ($this->request->getVar('cari', FILTER_SANITIZE_URL)) {
+            if ($this->request->getVar('cari', FILTER_UNSAFE_RAW)) {
                 // Jika request cari tidak kosong, ambil dari request
-                $search = $this->request->getVar('cari');
+                $search = $this->request->getVar('cari', FILTER_UNSAFE_RAW);
             }
         }
 
         // Deklarasikan variable order
         if (!empty($this->request->getVar('order'))) {
-            if ($this->request->getVar('order', FILTER_SANITIZE_URL)) {
+            if ($this->request->getVar('order', FILTER_UNSAFE_RAW)) {
                 // Jika request cari tidak kosong, ambil dari request
-                $order = $this->request->getVar('order');
+                $order = $this->request->getVar('order', FILTER_UNSAFE_RAW);
             }
         }
 
@@ -220,11 +222,7 @@ class Ijazah extends BaseController
         $ijazahModel = new IjazahModel();
 
         // Hitung data hasil pencarian
-        if (!empty($this->request->getVar('cari'))) {
-            $count = $ijazahModel->countAllResults($search);
-        } else {
-            $count = $ijazahModel->countAllResults();
-        }
+        $count = $ijazahModel->count($search);
 
         // Display Data
         if ((int) $limit >= (int) $count) {
@@ -236,8 +234,8 @@ class Ijazah extends BaseController
         // Data array
         $data = [
             "draw" => intval($draw),
-            "totalData" => $count,
-            "totalTampilanData" => $disp,
+            "iTotalRecords" => $count,
+            "iTotalDisplayRecords" => $disp,
             // Ambil data bedasarkan filtering dari request
             "data" => $ijazahModel->list($search, $offset, $limit, $order, $sort)
         ];

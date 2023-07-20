@@ -23,15 +23,13 @@
                                 <th>taruna</th>
                                 <th>program studi</th>
                                 <th>tanggal ijazah</th>
-                                <th>tanggal pengesahan</th>
                                 <th>gelar akademik</th>
                                 <th>nomer sk</th>
-                                <th>wakil direktur</th>
                                 <th>direktur</th>
                                 <th>nomer ijazah</th>
                                 <th>nomer seri</th>
-                                <th>tanggal yudisium</th>
                                 <th>judul kkw</th>
+                                <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -66,21 +64,18 @@
               'serverSide': true,
               'serverMethod': 'get',
               ajax: {
-                  url: '<?= base_url("api/Ijazah");?>',
+                  url: '<?= base_url("api/ijazah");?>',
                   dataSrc: 'data'
               },
               columns: [
                 { data: 'taruna' },
                 { data: 'program_studi' },
                 { data: 'tanggal_ijazah' },
-                { data: 'tanggal_pengesahan'},
                 { data: 'gelar_akademik'},
                 { data: 'nomer_sk' },
-                { data: 'wakil_direktur' },
                 { data: 'direktur' },
                 { data: 'nomer_ijazah'},
                 { data: 'nomer_seri'},
-                { data: 'tanggal_yudisium'},
                 { data: 'judul_kkw'},
                 {
                     data: null,

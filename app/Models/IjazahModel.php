@@ -31,9 +31,9 @@ class IjazahModel extends Model
   {
     // Query data dari database
     $query = $this->select('
-   id, 
-   taruna, 
-   program_studi, 
+   ijazah.id DT_RowId, 
+   taruna.nama taruna, 
+   program_studi.nama program_studi, 
    tanggal_ijazah, 
    tanggal_pengesahan, 
    gelar_akademik, 
@@ -43,12 +43,14 @@ class IjazahModel extends Model
    nomer_ijazah, 
    nomer_seri,
    tanggal_yudisium, 
-   judul_kkw');
+   judul_kkw')
+   ->join('taruna' , 'taruna.id = ijazah.taruna')
+   ->join('program_studi', 'program_studi.id = ijazah.program_studi');
 
     // Jika user mencari data dengan menginput kolom search
     if ($search) {
-      $query = $query->like('taruna', $search)
-        ->orLike('program_studi', $search);
+      $query = $query->like('taruna.nama', $search)
+        ->orLike('program_studi.nama', $search);
     }
 
     // Jika user/fe melakukan order dan sort data
@@ -60,7 +62,7 @@ class IjazahModel extends Model
       $query = $query->orderBy($order, $sort);
     } else if (!empty($sort)) {
       // Jika user/fe hanya melakukan sort, maka default kolom order pakai id
-      $query = $query->orderBy('id', $sort);
+      $query = $query->orderBy('ijazah.id', $sort);
     }
 
     // Jika user/fe melakukan limit data
@@ -114,17 +116,17 @@ class IjazahModel extends Model
     $query = $query->orderBy("nama", "ASC");
 
     return $query->findAll();
-  }
+  }*/
 
   public function count($search)
   {
     if ($search) {
-      return $this->like('nama', $search)->orLike('program_pendidikan', $search)->countAllResults();
+      return $this->like('nomer_ijazah', $search)->orLike('nomer_seri', $search)->orLike('judul_kkw', $search)->countAllResults();
     }
     return $this->countAllResults();
   }
 
-  public function findByNama($nama)
+  /*public function findByNama($nama)
   {
     return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
       ->where('nama', $nama)
@@ -145,6 +147,7 @@ class IjazahModel extends Model
 
   public function deleteById($id)
   {
+    var_dump($this->where('id', $id)->delete());die;
     return $this->where('id', $id)->delete();
   }
 }
