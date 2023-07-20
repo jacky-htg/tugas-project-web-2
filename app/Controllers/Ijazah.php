@@ -119,4 +119,114 @@ class Ijazah extends BaseController
         }
         return json_encode(["message" => "Invalid Method"]);
     }
+
+    public function list()
+    {
+        // Jika user belum login redirect ke halaman login
+        // Jika fungsi login pada aplikasi ini sudah berjalan uncomment kode di bawah
+        // if (empty($this->session->get('user_id'))) return redirect("login");
+
+        // Sanitize request input saat mengakses URL
+        $vars = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // Nilai Deafult Variable
+        $defDraw = 1;
+        $defStart = 0;
+        $defLength = 10;
+        $defOrder = 'id';
+        $defSort = 'desc';
+        $defSearch = null;
+
+        // Deklarasikan variable draw    
+        if (!empty($this->request->getVar('draw'))) {
+            // Jika request draw tidak kosong, ambil dari dari request
+            $draw = $this->request->getVar('draw');
+        } else {
+            // Jika kosong maka draw = 1
+            $draw = $defDraw;
+        }
+
+        // Deklarasikan variabel offset
+        if (!empty($this->request->getVar('start'))) {
+            // Jika request start tidak kosong, ambil dari request
+            $offset = $this->request->getVar('start');
+        } else {
+            // Jika kosong maka offset = 0
+            $offset = $defStart;
+        }
+
+        // Deklarasikan variable limit data yang ditampilkan
+        if (!empty($this->request->getVar('length'))) {
+            // Jika request length tidak kosong, ambil dari request
+            $limit = $this->request->getVar('length');
+        } else {
+            // Jika kosong maka limit data = 10
+            $limit = $defLength;
+        }
+
+        $columnIndex = isset($vars['order']) ? $vars['order'][0]['column'] : null; // Column index
+        $order = ($columnIndex || $columnIndex === '0') ? $vars['columns'][$columnIndex]['data'] : null; // Column name
+
+        // Deklarasikan variable sort
+        if (!empty($this->request->getVar('sort'))) {
+            // Jika request sort tidak kosong, ambil dari request
+            $sort = $this->request->getVar('sort');
+        } else {
+            // Jika kosong maka sort = desc
+            $sort = $defSort;
+        }
+
+        // Deklarasikan variable cari
+        if (!empty($this->request->getVar('cari'))) {
+            // Jika request cari tidak kosong, ambil dari request
+            $search = $this->request->getVar('cari');
+        } else {
+            // Jika kosong maka cari = null
+            $search = $defSearch;
+        }
+
+        // Deklarasikan variable order
+        if (!empty($this->request->getVar('order'))) {
+            // Jika request cari tidak kosong, ambil dari request
+            $order = $this->request->getVar('order');
+        } else {
+            // Jika kosong maka cari = null
+            $order = $defOrder;
+        }
+
+        // Deklarasikan model ijazah
+        $ijazahModel = new IjazahModel();
+
+        // Hitung data hasil pencarian
+        if (!empty($this->request->getVar('cari'))) {
+            $count = $ijazahModel->countAllResults($search);
+        } else {
+            $count = $ijazahModel->countAllResults();
+        }
+
+        // Data array
+        $data = [
+            "draw" => intval($draw),
+            "totalData" => $count,
+            "totalTampilanData" => $count,
+            // Ambil data bedasarkan filtering dari request
+            "data" => $ijazahModel->list($search, $offset, $limit, $order, $sort)
+        ];
+
+        // Ubah data array dari CI4 kedalam bentuk Java Script Object Notation (JSON)
+        // Untuk dikonsumsi oleh frontEnd
+        return json_encode($data);
+    }
+
+    public function lookup()
+    {
+        // if (empty($this->session->get('user_id'))) return redirect("login");
+        
+        $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $search = isset($params['search'])?$params['search']:'';
+        
+        $ijazahModel = new IjazahModel();
+        $data = $ijazahModel->lookup($search);
+        return json_encode($data);
+    }
 }

@@ -82,6 +82,8 @@ $routes->get('/ijazah', 'Ijazah');
 $routes->match(['get', 'post'], '/ijazah/create', 'Ijazah::create');
 $routes->match(['get', 'post', 'put'], '/ijazah/(:segment)/update', 'Ijazah::update/$1');
 $routes->match(['post', 'delete'], '/ijazah/(:segment)/delete', 'Ijazah::delete/$1');
+$routes->get('/api/ijazah', 'Ijazah::list');
+$routes->get('/api/ijazah/lookup', 'Ijazah::lookup');
 
 /*
  * --------------------------------------------------------------------
