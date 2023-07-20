@@ -9,20 +9,101 @@ class IjazahModel extends Model
 {
   protected $table = 'ijazah';
   protected $primaryId = 'id';
-  protected $allowedFields = ['taruna', 'program_studi', 'tanggal_ijazah', 'tanggal_pengesahan', 'gelar_akademik', 'nomer_sk', 'wakil_direktur', 'direktur', 'nomer_ijazah', 'nomer_seri', 'tanggal_yudisium', 'judul_kkw',];
 
-  /*public function list($search, $offset, $limit, $order, $sort)
+  // field yang boleh diinput dari front end
+  protected $allowedFields = [
+    'taruna',
+    'program_studi',
+    'tanggal_ijazah',
+    'tanggal_pengesahan',
+    'gelar_akademik',
+    'nomer_sk',
+    'wakil_direktur',
+    'direktur',
+    'nomer_ijazah',
+    'nomer_seri',
+    'tanggal_yudisium',
+    'judul_kkw'
+  ];
+
+  // function list return array
+  public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id as DT_RowId, nama, program_pendidikan, akreditasi, sk_akreditasi');
+    // Query data dari database
+    $query = $this->select('
+   id, 
+   taruna, 
+   program_studi, 
+   tanggal_ijazah, 
+   tanggal_pengesahan, 
+   gelar_akademik, 
+   nomer_sk, 
+   wakil_direktur, 
+   direktur,
+   nomer_ijazah, 
+   nomer_seri,
+   tanggal_yudisium, 
+   judul_kkw');
+
+    // Jika user mencari data dengan menginput kolom search
     if ($search) {
-      $query = $query->like('nama', $search)->orLike('program_pendidikan', $search);
+      $query = $query->like('taruna', $search)
+        ->orLike('program_studi', $search);
     }
+
+    // Jika user/fe melakukan order dan sort data
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
+    } else if (!empty($order)) {
+      // Jika user/fe hanya melakukan order, maka default sort = desc
+      // refer ke default variable di controller
+      $query = $query->orderBy($order, $sort);
+    } else if (!empty($sort)) {
+      // Jika user/fe hanya melakukan sort, maka default kolom order pakai id
+      $query = $query->orderBy('id', $sort);
     }
-    return $query->findAll($limit, $offset);
+
+    // Jika user/fe melakukan limit data
+    if (!empty($limit)) {
+      $query = $query->limit($limit);
+    }
+
+    // Jika user/fe melakukan offset data
+    if (!empty($offset)) {
+      $query = $query->offset($offset);
+    }
+
+    // Return data dengan pagination
+    return $query->paginate($limit);
   }
 
+  public function lookup($search)
+  {
+    // Query data dari database
+    $query = $this->select('
+   id, 
+   taruna, 
+   program_studi, 
+   tanggal_ijazah, 
+   tanggal_pengesahan, 
+   gelar_akademik, 
+   nomer_sk, 
+   wakil_direktur, 
+   direktur,
+   nomer_ijazah, 
+   nomer_seri,
+   tanggal_yudisium, 
+   judul_kkw');
+
+    if ($search) {
+      $query = $query->like('taruna', $search);
+    }
+
+    // Return data dengan pagination
+    return $query->paginate();
+  }
+
+  /*
   public function listIdNama($search)
   {
     $query = $this->select('id, nama');
