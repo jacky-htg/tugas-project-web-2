@@ -146,6 +146,10 @@
                 url: '<?= base_url("api/transkrip"); ?>',
                 dataSrc: 'data'
               },
+              "columnDefs": [{
+                "targets": 3,
+                "orderable": false
+              }],
               columns: [{
                   data: 'taruna'
                 },
