@@ -61,6 +61,20 @@
                         </div>
 
                         <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="wakil_direktur">Wakil Direktur</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <select class='form-control col-lg-5 itemSearch' id="wakil_direktur" name="wakil_direktur" value="<?= set_value('wakil_direktur') ?>" ></select>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="direktur">Direktur</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <select class='form-control col-lg-5 itemSearch' id="direktur" name="direktur" value="<?= set_value('direktur') ?>" ></select>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="wakil_direktur">Wakil Direktur <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" id="wakil_direktur" name="wakil_direktur" required="required" class="form-control " value="<?= set_value('wakil_direktur') ? set_value('wakil_direktur') : $ijazah['wakil_direktur'] ?>">
@@ -72,7 +86,7 @@
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" id="direktur" name="direktur" required="required" class="form-control " value="<?= set_value('direktur') ? set_value('direktur') : $ijazah['direktur'] ?>">
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="nomer_ijazah">Nomor Ijazah <span class="required">*</span></label>
@@ -114,4 +128,54 @@
         </div>
     </div>
 </div>
+<script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
+        <script>
+          $(document).ready( function () {
+              $("#wakil_direktur").select2({
+                allowClear: true,
+                data:[{id: "<?= $ijazah['wakil_direktur'];?>", text: "<?= $ijazah['wakil_direktur'];?>"}],
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: "<?= base_url('api/pejabat/lookup');?>",
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    results: function (data) {
+                      return { results: data };
+                    }
+                }
+            });
+            $('#wakil_direktur').val("<?= $ijazah['wakil_direktur'];?>").trigger('change');
+          });
+            
+          $(document).ready( function () {
+              $("#direktur").select2({
+                allowClear: true,
+                data:[{id: "<?= $ijazah['direktur'];?>", text: "<?= $ijazah['direktur'];?>"}],
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: "<?= base_url('api/pejabat/lookup');?>",
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    results: function (data) {
+                      return { results: data };
+                    }
+                }
+            });
+            $('#direktur').val("<?= $ijazah['direktur'];?>").trigger('change');
+          });
+    </script>
 <?= $this->endSection() ?>

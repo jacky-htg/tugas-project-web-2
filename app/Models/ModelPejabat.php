@@ -23,7 +23,7 @@ class ModelPejabat extends Model
 
   public function lookup($search)
   {
-    $query = $this->select('id, nama');
+    $query = $this->select('id, nama as text');
     
     if ($search) {
       $query = $query->like('nama', $search);
