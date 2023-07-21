@@ -1,4 +1,4 @@
-# Sistem Informasi Akademik :: Tugas Project Pemrograman Web 2
+# SIAKAD :: Tugas Project Pemrograman Web 2
 Sebuah project base tentang sistem akademik menggunakan PHP, Codeigniter 4 dan MySQL.
 
 ## Gert Started
