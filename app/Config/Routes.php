@@ -53,6 +53,7 @@ $routes->get('/transkrip', 'Transkrip');
 $routes->match(['get', 'post'], '/transkrip/create', 'Transkrip::create');
 $routes->match(['get', 'post', 'put'], '/transkrip/(:segment)/update', 'Transkrip::update/$1');
 $routes->post('/transkrip/(:num)/delete', 'Transkrip::delete/$1');
+$routes->get('/transkrip/(:segment)', 'Transkrip::view_transkrip/$1');
 $routes->get('/api/transkrip', 'Transkrip::list');
 $routes->get('/api/transkrip/lookup', 'Transkrip::lookup');
 
