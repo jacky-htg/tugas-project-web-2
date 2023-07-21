@@ -27,7 +27,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="ijazah">Ijazah</label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="ijazah" name="ijazah" class="form-control " value="<?= $transkrip['ijazah'] ?>" >
+                      <select class='form-control col-lg-5 itemSearch' id="ijazah" name="ijazah"></select>
                       </div>
                     </div>
 
@@ -73,6 +73,28 @@
                 }
             });
             $('#program_studi').val("<?= $transkrip['program_studi_id'];?>").trigger('change');
+
+            $("#ijazah").select2({
+                allowClear: true,
+                data:[{id: "<?= $transkrip['ijazah_id'];?>", text: "<?= $transkrip['ijazah'];?>"}],
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: "<?= base_url('api/ijazah/lookup');?>",
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    results: function (data) {
+                      return { results: data };
+                    }
+                }
+            });
+            $('#ijazah').val("<?= $transkrip['ijazah_id'];?>").trigger('change');
           });
           
         

@@ -82,27 +82,14 @@ class IjazahModel extends Model
   public function lookup($search)
   {
     // Query data dari database
-    $query = $this->select('
-   id, 
-   taruna, 
-   program_studi, 
-   tanggal_ijazah, 
-   tanggal_pengesahan, 
-   gelar_akademik, 
-   nomer_sk, 
-   wakil_direktur, 
-   direktur,
-   nomer_ijazah, 
-   nomer_seri,
-   tanggal_yudisium, 
-   judul_kkw');
+    $query = $this->select('id, nomer_ijazah as text');
 
     if ($search) {
-      $query = $query->like('taruna', $search);
+      $query = $query->like('nomer_ijazah', $search);
     }
+    $query = $query->orderBy("nomer_ijazah", "ASC");
 
-    // Return data dengan pagination
-    return $query->paginate();
+    return $query->findAll(10, 0);
   }
 
   /*

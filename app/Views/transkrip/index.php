@@ -122,7 +122,7 @@
 
         <script>
           $(document).ready(function() {
-            $('#myTable').DataTable({
+            let myTable = $('#myTable').DataTable({
               dom: '<"top"lfB>rt<"bottom"ip><"clear">',
               buttons: [{
                 text: 'Add New Transkrip Nilai',
@@ -165,7 +165,7 @@
                     return '<div class="btn-group" role="group">' +
                       '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' +
                       '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm viewBtn"><i class="fa fa-file" aria-hidden="true"></i></button>' +
-                      '<button data-id="' + row.DT_RowId + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>' +
+                      '<button data-id="' + row.DT_RowId + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
                       '</div>';
                   }
                 },

@@ -46,9 +46,10 @@ class TranskripModel extends Model
 
   public function findById($id)
   {
-    return $this->select('transkrip_nilai.id, transkrip_nilai.taruna, transkrip_nilai.ijazah, transkrip_nilai.program_studi as program_studi_id, program_studi.nama as program_studi')
+    return $this->select('transkrip_nilai.id, transkrip_nilai.taruna, transkrip_nilai.ijazah as ijazah_id, ijazah.nomer_ijazah as ijazah, transkrip_nilai.program_studi as program_studi_id, program_studi.nama as program_studi')
                 ->where('transkrip_nilai.id', $id)
                 ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
+                ->join('ijazah', 'ijazah.id = transkrip_nilai.ijazah')
                 ->first();
   }
 

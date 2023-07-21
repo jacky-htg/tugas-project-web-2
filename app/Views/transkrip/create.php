@@ -28,7 +28,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="ijazah">Ijazah</label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="ijazah" name="ijazah" class="form-control " value="<?= set_value('ijazah') ?>" >
+                        <select class='form-control col-lg-5 itemSearch' id="ijazah" name="ijazah" value="<?= set_value('ijazah') ?>" ></select>
                       </div>
                     </div>
 
@@ -60,6 +60,27 @@
             tags: [],
             ajax: {
                 url: "<?= base_url('api/programstudi/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                  return { results: data };
+                }
+            }
+        });
+
+        $("#ijazah").select2({
+            placeholder: "Select ijazah",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/ijazah/lookup');?>",
                 dataType: 'json',
                 type: "GET",
                 quietMillis: 50,

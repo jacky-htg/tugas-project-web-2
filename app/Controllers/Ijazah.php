@@ -252,14 +252,13 @@ class Ijazah extends BaseController
         // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['cari']) ? $params['cari'] : '';
+        $search = isset($params['term'])?$params['term']['term']:'';
 
         $ijazahModel = new IjazahModel();
-
         $data = $ijazahModel->lookup($search);
 
         // Ubah data array dari CI4 kedalam bentuk Java Script Object Notation (JSON)
         // Untuk dikonsumsi oleh frontEnd
-        return json_encode($data);
+        return json_encode(["results" => $data]);
     }
 }
