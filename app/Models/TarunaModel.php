@@ -5,7 +5,7 @@ use CodeIgniter\Database\Query;
 
 class TarunaModel extends Model
 {
-  protected $table = 'Taruna';
+  protected $table = 'taruna';
   protected $primaryId = 'id';
   protected $allowedFields = ['nama' , 'nomer_taruna' , 'tempat_lahir' , 'tanggal_lahir' , 'program_studi' , 'foto'];
 
