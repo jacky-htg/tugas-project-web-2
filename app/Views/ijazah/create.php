@@ -61,18 +61,32 @@
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="wakil_direktur">Wakil Direktur <span class="required">*</span></label>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="wakil_direktur">Wakil Direktur</label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="wakil_direktur" name="wakil_direktur" required="required" class="form-control " value="<?= set_value('wakil_direktur') ?>">
+                                <select class='form-control col-lg-5 itemSearch' id="wakil_direktur" name="wakil_direktur" value="<?= set_value('wakil_direktur') ?>" ></select>
                             </div>
                         </div>
 
                         <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="direktur">Direktur</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <select class='form-control col-lg-5 itemSearch' id="direktur" name="direktur" value="<?= set_value('direktur') ?>" ></select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="wakil_direktur">Wakil Direktur <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="text" id="wakil_direktur" name="wakil_direktur" required="required" class="form-control " value="<?= set_value('wakil_direktur') ?>">
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="direktur">Direktur <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" id="direktur" name="direktur" required="required" class="form-control " value="<?= set_value('direktur') ?>">
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="nomer_ijazah">Nomor Ijazah <span class="required">*</span></label>
@@ -114,4 +128,48 @@
         </div>
     </div>
 </div>
+<script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
+        <script>
+        $("#wakil_direktur").select2({
+            placeholder: "Select pejabat",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/pejabat/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                  return { results: data };
+                }
+            }
+        });
+
+        $("#direktur").select2({
+            placeholder: "Select pejabat",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/pejabat/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                  return { results: data };
+                }
+            }
+        });
+    </script>
 <?= $this->endSection() ?>

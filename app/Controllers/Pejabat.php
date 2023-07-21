@@ -121,6 +121,7 @@ class Pejabat extends BaseController
         
         $modelPejabat = new ModelPejabat();
         $data = $modelPejabat->lookup($search);
-        return json_encode($data);
+        //return json_encode($data);
+        return json_encode(["results" => $data]);
     }
 }
