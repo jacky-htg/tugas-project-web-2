@@ -11,7 +11,7 @@ class NilaiModel extends Model
 
   public function getData($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id, taruna, nilai_angka, nilai_huruf, matakuliah');
+    $query = $this->select('id as DT_RowId, taruna, nilai_angka, nilai_huruf, matakuliah');
     if ($search) {
       $query = $query->like('taruna', $search)->orLike('matakuliah', $search);
     }
@@ -27,5 +27,22 @@ class NilaiModel extends Model
       return $this->like('taruna', $search)->orLike('matakuliah', $search)->countAllResults();
     }
     return $this->countAllResults();
+  }
+
+  public function findById($id)
+  {
+    return $this->select('id, taruna, matakuliah, nilai_angka, nilai_huruf')
+                ->where('id', $id)
+                ->first();
+  }
+
+  public function updateById($id, $data)
+  {
+    return $this->where('id', $id)->update(null, $data);
+  }
+
+  public function deleteById($id)
+  {
+    return $this->where('id', $id)->delete();
   }
 } 

@@ -54,7 +54,11 @@ $routes->match(['post', 'delete'], '/programstudi/(:segment)/delete', 'ProgramSt
 $routes->get('/api/programstudi', 'ProgramStudi::list');
 $routes->get('/api/programstudi/lookup', 'ProgramStudi::listIdNama');
 
-$routes->get('/api/nilai', 'NilaiController::index');
+$routes->get('/nilai', 'NilaiController');
+$routes->match(['get', 'post'], '/nilai/create', 'NilaiController::create');
+$routes->match(['get', 'post', 'put'], '/nilai/(:segment)/update', 'NilaiController::update/$1');
+$routes->match(['post', 'delete'], '/nilai/(:segment)/delete', 'NilaiController::delete/$1');
+$routes->get('/api/nilai', 'NilaiController::list');
 
 $routes->get('/transkrip', 'Transkrip');
 $routes->match(['get', 'post'], '/transkrip/create', 'Transkrip::create');
