@@ -159,8 +159,8 @@
                   data: null,
                   render: function(data, type, row) {
                     return '<div class="btn-group" role="group">' +
-                      '<button data-id="' + row.id + '" class="btn btn-success btn-sm updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' +
-                      '<button data-id="' + row.id + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>' +
+                      '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' +
+                      '<button data-id="' + row.DT_RowId + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>' +
                       '</div>';
                   }
                 },
