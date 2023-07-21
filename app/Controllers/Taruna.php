@@ -80,7 +80,7 @@ class Taruna extends BaseController
         return view('taruna/update', $data);
     }
 
-    //* public function delete($id)
+    public function delete($id)
     {
         // if (empty($this->session->get('user_id'))) return redirect("login");
         
