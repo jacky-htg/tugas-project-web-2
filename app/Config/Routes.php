@@ -40,10 +40,10 @@ $routes->match(['get', 'post'], '/login', 'Users::login');
 $routes->get('/logout', 'Users::logout');
 $routes->get('/api/users', 'Users::list');
 
-$routes->get('/taruna', 'taruna');
-$routes->match(['get', 'post'], '/taruna/create', 'taruna::create');
-$routes->match(['get', 'post', 'put'], '/taruna/(:segment)/update', 'taruna::update/$1');
-$routes->match(['post', 'delete'],  '/taruna/(:segment)/delete', 'taruna::delete/$1');
+$routes->get('/taruna', 'Taruna');
+$routes->match(['get', 'post'], '/taruna/create', 'Taruna::create');
+$routes->match(['get', 'post', 'put'], '/taruna/(:segment)/update', 'Taruna::update/$1');
+$routes->match(['post', 'delete'],  '/taruna/(:segment)/delete', 'Taruna::delete/$1');
 $routes->get('/api/taruna', 'Taruna::list');
 $routes->get('/api/taruna/lookup', 'Taruna::lookup');
 
