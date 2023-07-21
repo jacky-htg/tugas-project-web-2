@@ -13,7 +13,7 @@ class TranskripModel extends Model
   {
     $query = $this->select('transkrip_nilai.id as DT_RowId, taruna.nama as taruna, ijazah.nomer_ijazah as ijazah, program_studi.nama as program_studi');
     if ($search) {
-      $query = $query->like('taruna', $search)->orLike('ijazah', $search)->orLike('program_studi', $search);
+      $query = $query->like('taruna.nama', $search)->orLike('ijazah.nomer_ijazah', $search)->orLike('program_studi.nama', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
