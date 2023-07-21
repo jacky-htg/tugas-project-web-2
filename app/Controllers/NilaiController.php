@@ -5,9 +5,10 @@ use App\Models\NilaiModel;
 
 class NilaiController extends BaseController
 {
-    public function index()
+    public function list()
     {
-
+        if (empty($this->session->get('user_id'))) return redirect("login");
+        
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $draw = isset($params['draw'])? $params['draw']:1;
         $offset = isset($params['start'])? $params['start']:0;

@@ -7,12 +7,14 @@ class Taruna extends BaseController
 {
     public function index()
     {
-        echo "halaman taruna";
+        if (empty($this->session->get('user_id'))) return redirect("login");
+        $data['pageTitle'] = 'Taruna';
+        return view('taruna/index', $data);
     }
 
     public function create()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
@@ -22,7 +24,6 @@ class Taruna extends BaseController
             $validation->setRules(['tempat_lahir' => 'required']);
             $validation->setRules(['tanggal_lahir' => 'required']);
             $validation->setRules(['program_studi' => 'required']);
-            $validation->setRules(['foto' => 'required']);
             
             $isDataValid = $validation->withRequest($this->request)->run();
 
@@ -47,24 +48,21 @@ class Taruna extends BaseController
 
     public function update($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         $TarunaModel = new TarunaModel();
         $data['taruna'] = $TarunaModel->findById($id);
         if ($this->request->is('post') || $this->request->is('put')) {
             $validation =  \Config\Services::validation();
-            $validation->setRules(['id' => 'required']);
             $validation->setRules(['nama' => 'required']);
             $validation->setRules(['nomer_taruna' => 'required']);
             $validation->setRules(['tempat_lahir' => 'required']);
             $validation->setRules(['tanggal_lahir' => 'required']);
             $validation->setRules(['program_studi' => 'required']);
-            $validation->setRules(['foto' => 'required']);
             $isDataValid = $validation->withRequest($this->request)->run();
 
             if($isDataValid){
                 $TarunaModel->updateById($id, [
-                    "id" => $this->request->getPost('id'),
                     "nama" => $this->request->getPost('nama'),
                     "nomer_taruna" => $this->request->getPost('nomer_taruna'),
                     "tempat_lahir" => $this->request->getPost('tempat_lahir'),
@@ -82,13 +80,13 @@ class Taruna extends BaseController
 
     public function delete($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         if ($this->request->is('post') || $this->request->is('delete')) {
             $TarunaModel = new TarunaModel();
-            $Taruna = $TarunaModel->findById($id);
+            $taruna = $TarunaModel->findById($id);
             if (isset($taruna['id']) && !empty($taruna['id'])) {
-                if ($tarunaModel->deleteById($id)) {
+                if ($TarunaModel->deleteById($id)) {
                     return json_encode(["message" => "pengahapusan data taruna berhasil"]);
                 } else {
                     return json_encode(["message" => "pengahapusan data taruna gagal"]);
@@ -102,7 +100,7 @@ class Taruna extends BaseController
 
     public function list()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $draw = isset($params['draw'])?$params['draw']:1;
@@ -126,13 +124,13 @@ class Taruna extends BaseController
 
     public function lookup()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['search'])?$params['search']:'';
+        $search = isset($params['term'])?$params['term']['term']:'';
         
         $TarunaModel = new TarunaModel();
         $data = $TarunaModel->lookup($search);
-        return json_encode($data);
+        return json_encode(["results" => $data]);
     }
 }

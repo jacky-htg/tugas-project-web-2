@@ -42,7 +42,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal_lahir">tanggal_lahir<span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="tanggal_lahir" name="tanggal_lahir" required="required" class="form-control " value="<?= set_value('tanggal_lahir') ?>" >
+                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" required="required" class="form-control " value="<?= set_value('tanggal_lahir') ?>" >
                       </div>
                     </div>
                     
@@ -56,7 +56,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="foto">foto<span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="foto" name="foto" required="required" class="form-control " value="<?= set_value('foto_taruna') ?>" >
+                        <input type="text" id="foto" name="foto" class="form-control " value="<?= set_value('foto_taruna') ?>" >
                       </div>
                     </div>
 

@@ -44,7 +44,8 @@ $routes->get('/taruna', 'taruna');
 $routes->match(['get', 'post'], '/taruna/create', 'taruna::create');
 $routes->match(['get', 'post', 'put'], '/taruna/(:segment)/update', 'taruna::update/$1');
 $routes->match(['post', 'delete'],  '/taruna/(:segment)/delete', 'taruna::delete/$1');
-
+$routes->get('/api/taruna', 'Taruna::list');
+$routes->get('/api/taruna/lookup', 'Taruna::lookup');
 
 $routes->get('/programstudi', 'ProgramStudi');
 $routes->match(['get', 'post'], '/programstudi/create', 'ProgramStudi::create');

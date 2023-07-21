@@ -8,13 +8,14 @@ class Ijazah extends BaseController
 {
     public function index()
     {
+        if (empty($this->session->get('user_id'))) return redirect("login");
         $data['pageTitle'] = 'Ijazah';
         return view("ijazah/index", $data);
     }
 
     public function create()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
@@ -58,7 +59,7 @@ class Ijazah extends BaseController
 
     public function update($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
         $ijazahModel = new IjazahModel();
         $data['ijazah'] = $ijazahModel->findById($id);
@@ -103,7 +104,7 @@ class Ijazah extends BaseController
 
     public function delete($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $ijazahModel = new IjazahModel();
@@ -124,8 +125,7 @@ class Ijazah extends BaseController
     public function list()
     {
         // Jika user belum login redirect ke halaman login
-        // Jika fungsi login pada aplikasi ini sudah berjalan uncomment kode di bawah
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
 
         // Nilai Default Variable
@@ -248,8 +248,7 @@ class Ijazah extends BaseController
     public function lookup()
     {
         // Jika user belum login redirect ke halaman login
-        // Jika fungsi login pada aplikasi ini sudah berjalan uncomment kode di bawah
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $search = isset($params['term'])?$params['term']['term']:'';

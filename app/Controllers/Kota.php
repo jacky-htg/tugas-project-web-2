@@ -7,13 +7,14 @@ class Kota extends BaseController
 {
     public function index()
     {
+        if (empty($this->session->get('user_id'))) return redirect("login");
         $data['pageTitle'] = 'Kota';
         return view("kota/index", $data);
     }
 
     public function create()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
@@ -37,7 +38,7 @@ class Kota extends BaseController
 
     public function update($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         $kotaModel = new KotaModel();
         $data['kota'] = $kotaModel->findById($id);
@@ -62,7 +63,7 @@ class Kota extends BaseController
 
     public function delete($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         if ($this->request->is('post') || $this->request->is('delete')) {
             $kotaModel = new KotaModel();
@@ -82,7 +83,7 @@ class Kota extends BaseController
 
     public function list()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $draw = isset($params['draw'])?$params['draw']:1;
@@ -106,7 +107,7 @@ class Kota extends BaseController
 
     public function lookup()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
         
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $search = isset($params['search'])?$params['search']:'';
