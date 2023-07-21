@@ -178,7 +178,7 @@ class Users extends BaseController
                 } else {  
                     $this->session->set('user_id', $user['id']);
                     $this->session->set('user_nama', $user['name']);
-                    return redirect('users');
+                    return redirect('/');
                 }
                 $data['error'] = $this->session->getFlashdata('error');
             }
