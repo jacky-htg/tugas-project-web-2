@@ -1,109 +1,207 @@
 <?= $this->extend('layouts/page_layout') ?>
 <?= $this->section('content') ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 <div class="right_col" role="main" style="min-height: 3790px;">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h3>Mata Kuliah</h3>
-            </div>
+  <div class="title">
+    <h3>Manajemen Mata Kuliah</h3>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="myTable" class="table table-striped table-bordered" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Kode Mata Kuliah</th>
+                  <th>Nama Mata Kuliah</th>
+                  <th>SKS</th>
+                  <th>Semester</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <div class="clearfix"></div>
+        <script src="<?= base_url('vendors'); ?>/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="<?= base_url('vendors'); ?>/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_content">
-                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table id="myTable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info" style="width:100%">
-                                        <thead>
-                                            <tr role="row">
-                                                <th>ID</th>
-                                                <th>Kode</th>
-                                                <th>Matakuliah</th>
-                                                <th>SKS</th>
-                                                <th>Semester</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        <style>
+          /* Style for the title */
+          .title h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+          }
 
-<script src="<?= base_url('vendors'); ?>/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url('vendors'); ?>/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+          /* Style for Show entries dropdown */
+          div.dataTables_wrapper div.dataTables_length {
+            margin-bottom: 10px;
+          }
 
-<script>
-    $(document).ready(function() {
-        let myTable = $('#myTable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [{
-                text: '<button>Add New Matakuliah</button>',
+          div.dataTables_wrapper div.dataTables_length label {
+            font-weight: 500;
+            margin-right: 10px;
+          }
+
+          div.dataTables_wrapper div.dataTables_length select {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px 8px;
+          }
+
+          /* Style for Show entries dropdown focus */
+          div.dataTables_wrapper div.dataTables_length select:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+          }
+
+          /* Style for the table search box */
+          div.dataTables_wrapper div.dataTables_filter input {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 6px 10px;
+            width: 200px;
+          }
+
+          /* Style for search input focus */
+          div.dataTables_wrapper div.dataTables_filter input:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+          }
+
+          /* Style for pagination buttons */
+          div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+            justify-content: flex-end;
+          }
+
+          /* Optional: Adjust button margin for better spacing */
+          div.dataTables_wrapper div.dataTables_paginate ul.pagination li.paginate_button {
+            margin: 2px;
+          }
+
+          /* Button styles */
+          .btn {
+            border-radius: 15px;
+          }
+
+          .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+          }
+
+          .btn-primary:hover {
+            background-color: #0056b3;
+          }
+
+          .btn-success {
+            background-color: #28a745;
+            color: #fff;
+          }
+
+          .btn-success:hover {
+            background-color: #1b862b;
+          }
+
+          .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+          }
+
+          .btn-danger:hover {
+            background-color: #b42a37;
+          }
+        </style>
+
+        <script>
+          $(document).ready(function() {
+            let myTable = $('#myTable').DataTable({
+              dom: '<"top"lfB>rt<"bottom"ip><"clear">',
+              buttons: [{
+                text: 'Add New Mata Kuliah',
+                className: 'btn btn-primary',
                 action: function(e, dt, node, config) {
-                    window.location = "<?= base_url('matakuliah'); ?>/create";
+                  window.location = "<?= base_url('matakuliah'); ?>/create";
                 }
-            }],
-            'processing': true,
-            'serverSide': true,
-            'serverMethod': 'get',
-            ajax: {
+              }],
+              language: {
+                paginate: {
+                  first: '<i class="fas fa-angle-double-left"></i>', // Font Awesome double left arrow icon
+                  last: '<i class="fas fa-angle-double-right"></i>', // Font Awesome double right arrow icon
+                  next: '<i class="fas fa-angle-right"></i>', // Font Awesome right arrow icon
+                  previous: '<i class="fas fa-angle-left"></i>', // Font Awesome left arrow icon
+                }
+              },
+              'processing': true,
+              'serverSide': true,
+              'serverMethod': 'get',
+              ajax: {
                 url: '<?= base_url("api/matakuliah"); ?>',
                 dataSrc: 'data'
-            },
-            columns: [
-                {
-                    data: 'DT_RowId'
+              },
+              "columnDefs": [{
+                "targets": 3,
+                "orderable": false
+              }],
+              columns: [{
+                  data: 'DT_RowId'
                 },
                 {
-                    data: 'kode'
+                  data: 'kode'
                 },
                 {
-                    data: 'matakuliah'
+                  data: 'matakuliah'
                 },
                 {
-                    data: 'sks'
+                  data: 'sks'
                 },
                 {
-                    data: 'semester'
+                  data: 'semester'
                 },
                 {
-                    data: null,
-                    defaultContent: '<i data-type="update" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i data-type="delete" class="fa fa-trash-o" aria-hidden="true"></i>',
-                    targets: -1
+                  data: null,
+                  render: function(data, type, row) {
+                    return '<div class="btn-group" role="group">' +
+                      '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' +
+                      '<button data-id="' + row.DT_RowId + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
+                      '</div>';
+                  }
                 },
-            ],
-            "ordering": true,
-            order: [],
-        });
+              ],
+              "ordering": true,
+              order: [],
+            });
 
-        myTable.on('click', 'i', function(e) {
-            let action = e.target.getAttribute('data-type');
-            let id = e.target.parentNode.parentElement.getAttribute("id");
-            if (action === "update") {
-                window.location = "<?= base_url('matakuliah'); ?>/" + id + "/update";
-            } else if (action === "delete") {
-                if (confirm("Yakin ingin menghapus data # " + id)) {
-                    $.ajax({
-                        url: "<?= base_url('matakuliah'); ?>/" + id + "/delete",
-                        method: "POST",
-                        success: function() {
-                            myTable.ajax.reload();
-                        }
-                    });
-                }
-            }
-        });
-    });
-</script>
-<?= $this->endSection() ?>
+            $('#addTranskripBtn').on('click', function() {
+              window.location = "<?= base_url('matakuliah'); ?>/create";
+            });
+
+            $('#myTable').on('click', '.updateBtn', function() {
+              let id = $(this).data('id');
+              window.location = "<?= base_url('matakuliah'); ?>/" + id + "/update";
+            });
+
+            $('#myTable').on('click', '.deleteBtn', function() {
+              let id = $(this).data('id');
+              if (confirm("Yakin ingin menghapus data #" + id)) {
+                $.ajax({
+                  url: "<?= base_url('matakuliah'); ?>/" + id + "/delete",
+                  method: "POST",
+                  success: function() {
+                    myTable.ajax.reload();
+                  }
+                });
+              }
+            });
+          });
+        </script>
+        <?= $this->endSection() ?>
