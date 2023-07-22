@@ -52,9 +52,11 @@ class TarunaModel extends Model
   */
   public function findById($id)
   {
-    return $this->select('id, nama, nomer_taruna, tempat_lahir, tanggal_lahir, program_studi, foto')
-                ->where('id', $id)
-                ->first();
+    return $this->select('taruna.id as id, taruna.nama as nama, taruna.nomer_taruna as nomer_taruna, kota.nama as tempat_lahir, taruna.tanggal_lahir as tanggal_lahir, program_studi.nama as program_studi, taruna.foto as foto')
+        ->join('kota',' taruna.tempat_lahir= kota.id')
+        ->join('program_studi',' taruna.program_studi= program_studi.id')
+        ->where('id', $id)
+        ->first();
   }
 
   public function updateById($id, $data)
