@@ -19,18 +19,32 @@
                         <?= form_open("ijazah/{$ijazah['id']}/update"); ?>
 
                         <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="taruna">Taruna </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <select class='form-control col-lg-5 itemSearch' id="taruna" name="taruna" value="<?= set_value('taruna') ?>" ></select>
+                            </div>
+                        </div>
+
+                        <!--<div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="taruna">Taruna <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" id="taruna" name="taruna" required="required" class="form-control " value="<?= set_value('taruna') ? set_value('taruna') : $ijazah['taruna'] ?>">
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="program_studi">Program Studi </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <select class='form-control col-lg-5 itemSearch' id="program_studi" name="program_studi" value="<?= set_value('program_studi') ?>" ></select>
+                            </div>
+                        </div>
+
+                        <!--<div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="program_studi">Program Studi <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" id="program_studi" name="program_studi" required="required" class="form-control " value="<?= set_value('program_studi') ? set_value('program_studi') : $ijazah['program_studi'] ?>">
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal_ijazah">Tanggal Ijazah <span class="required">*</span></label>
@@ -130,6 +144,54 @@
 </div>
 <script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
         <script>
+          $(document).ready( function () {
+              $("#taruna").select2({
+                allowClear: true,
+                data:[{id: "<?= $ijazah['taruna'];?>", text: "<?= $ijazah['taruna'];?>"}],
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: "<?= base_url('api/taruna/lookup');?>",
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    results: function (data) {
+                      return { results: data };
+                    }
+                }
+            });
+            $('#taruna').val("<?= $ijazah['taruna'];?>").trigger('change');
+          });
+
+          $(document).ready( function () {
+              $("#program_studi").select2({
+                allowClear: true,
+                data:[{id: "<?= $ijazah['program_studi'];?>", text: "<?= $ijazah['program_studi'];?>"}],
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: "<?= base_url('api/programstudi/lookup');?>",
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    results: function (data) {
+                      return { results: data };
+                    }
+                }
+            });
+            $('#program_studi').val("<?= $ijazah['program_studi'];?>").trigger('change');
+          });
+
           $(document).ready( function () {
               $("#wakil_direktur").select2({
                 allowClear: true,
