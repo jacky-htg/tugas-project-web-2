@@ -11,14 +11,16 @@ class TarunaModel extends Model
 
   public function list($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id as DT_RowId, nama, nomer_taruna, tempat_lahir, tanggal_lahir, program_studi, foto');
+    $query = $this->select('taruna.id as DT_RowId, taruna.nama as nama, taruna.nomer_taruna as nomer_taruna, kota.nama as tempat_lahir, taruna.tanggal_lahir as tanggal_lahir, program_studi.nama as program_studi, taruna.foto as foto');
     if ($search) {
-      $query = $query->like('nama', $search)->orLike('nomer_taruna', $search);
+      $query = $query->like('taruna.nama', $search)->orLike('taruna.nomer_taruna', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
     }
-    return $query->findAll($limit, $offset);
+    return $query->join('kota',' taruna.tempat_lahir= kota.id')
+        ->join('program_studi',' taruna.program_studi= program_studi.id')
+        ->findAll($limit, $offset);
   }
 
   public function lookup($search)

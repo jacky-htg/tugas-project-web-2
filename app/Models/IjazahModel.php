@@ -38,14 +38,16 @@ class IjazahModel extends Model
    tanggal_pengesahan, 
    gelar_akademik, 
    nomer_sk, 
-   wakil_direktur, 
-   direktur,
+   wakil_direktur.nama as wakil_direktur, 
+   direktur.nama as direktur,
    nomer_ijazah, 
    nomer_seri,
    tanggal_yudisium, 
    judul_kkw')
    ->join('taruna' , 'taruna.id = ijazah.taruna')
-   ->join('program_studi', 'program_studi.id = ijazah.program_studi');
+   ->join('program_studi', 'program_studi.id = ijazah.program_studi')
+   ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
+   ->join('pejabat as wakil_direktur', 'wakil_direktur.id = ijazah.wakil_direktur');
 
     // Jika user mencari data dengan menginput kolom search
     if ($search) {
