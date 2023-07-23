@@ -147,7 +147,7 @@
           $(document).ready( function () {
               $("#taruna").select2({
                 allowClear: true,
-                data:[{id: "<?= $ijazah['taruna'];?>", text: "<?= $ijazah['taruna'];?>"}],
+                data:[{id: "<?= $ijazah['taruna_id'];?>", text: "<?= $ijazah['taruna'];?>"}],
                 minimumInputLength: 2,
                 tags: [],
                 ajax: {
@@ -165,13 +165,11 @@
                     }
                 }
             });
-            $('#taruna').val("<?= $ijazah['taruna'];?>").trigger('change');
-          });
-
-          $(document).ready( function () {
-              $("#program_studi").select2({
+            $('#taruna').val("<?= $ijazah['taruna_id'];?>").trigger('change');
+            
+            $("#program_studi").select2({
                 allowClear: true,
-                data:[{id: "<?= $ijazah['program_studi'];?>", text: "<?= $ijazah['program_studi'];?>"}],
+                data:[{id: "<?= $ijazah['program_studi_id'];?>", text: "<?= $ijazah['program_studi'];?>"}],
                 minimumInputLength: 2,
                 tags: [],
                 ajax: {
@@ -189,13 +187,11 @@
                     }
                 }
             });
-            $('#program_studi').val("<?= $ijazah['program_studi'];?>").trigger('change');
-          });
-
-          $(document).ready( function () {
-              $("#wakil_direktur").select2({
+            $('#program_studi').val("<?= $ijazah['program_studi_id'];?>").trigger('change');
+          
+            $("#wakil_direktur").select2({
                 allowClear: true,
-                data:[{id: "<?= $ijazah['wakil_direktur'];?>", text: "<?= $ijazah['wakil_direktur'];?>"}],
+                data:[{id: "<?= $ijazah['wakil_direktur_id'];?>", text: "<?= $ijazah['wakil_direktur'];?>"}],
                 minimumInputLength: 2,
                 tags: [],
                 ajax: {
@@ -213,13 +209,11 @@
                     }
                 }
             });
-            $('#wakil_direktur').val("<?= $ijazah['wakil_direktur'];?>").trigger('change');
-          });
-            
-          $(document).ready( function () {
-              $("#direktur").select2({
+            $('#wakil_direktur').val("<?= $ijazah['wakil_direktur_id'];?>").trigger('change');
+          
+            $("#direktur").select2({
                 allowClear: true,
-                data:[{id: "<?= $ijazah['direktur'];?>", text: "<?= $ijazah['direktur'];?>"}],
+                data:[{id: "<?= $ijazah['direktur_id'];?>", text: "<?= $ijazah['direktur'];?>"}],
                 minimumInputLength: 2,
                 tags: [],
                 ajax: {
@@ -237,7 +231,7 @@
                     }
                 }
             });
-            $('#direktur').val("<?= $ijazah['direktur'];?>").trigger('change');
+            $('#direktur').val("<?= $ijazah['direktur_id'];?>").trigger('change');
           });
     </script>
 <?= $this->endSection() ?>

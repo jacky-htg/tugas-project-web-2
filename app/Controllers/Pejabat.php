@@ -118,7 +118,7 @@ class Pejabat extends BaseController
         if (empty($this->session->get('user_id'))) return redirect("login");
         
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['search'])?$params['search']:'';
+        $search = isset($params['term'])?$params['term']['term']:'';
         
         $modelPejabat = new ModelPejabat();
         $data = $modelPejabat->lookup($search);
