@@ -25,7 +25,7 @@ class MatakuliahModel extends Model
 
   public function lookup($search)
   {
-    $query = $this->select('id, matakuliah');
+    $query = $this->select('id, matakuliah as text');
 
     if ($search) {
       $query = $query->like('matakuliah', $search);

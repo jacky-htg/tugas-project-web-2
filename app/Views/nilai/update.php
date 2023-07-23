@@ -60,7 +60,7 @@
         </div>
         <script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
         <script>
-          $(document).ready( function () {
+          $(document).ready( function () {  
               $("#taruna").select2({
                 allowClear: true,
                 data:[{id: "<?= $nilai['taruna_id'];?>", text: "<?= $nilai['taruna'];?>"}],
@@ -104,5 +104,6 @@
                 }
             });
             $('#matakuliah').val("<?= $nilai['matakuliah_id'];?>").trigger('change');
+          });
         </script>
 <?= $this->endSection() ?>
