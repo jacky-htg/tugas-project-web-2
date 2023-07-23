@@ -11,14 +11,16 @@ class NilaiModel extends Model
 
   public function getData($search, $offset, $limit, $order, $sort)
   {
-    $query = $this->select('id as DT_RowId, taruna, nilai_angka, nilai_huruf, matakuliah');
+    $query = $this->select('id as DT_RowId, taruna.nama as taruna, nilai_angka, nilai_huruf, matakuliah.matakuliah as matakuliah');
     if ($search) {
-      $query = $query->like('taruna', $search)->orLike('matakuliah', $search);
+      $query = $query->like('taruna.nama', $search)->orLike('matakuliah.nama', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
     }
-    return $query->findAll($limit, $offset);
+    return $query->join('taruna', 'nilai.taruna = taruna.id')
+                ->join('matakuliah', 'nilai.matakuliah = matakuliah.id')
+                ->findAll($limit, $offset);
   }
 
   public function count($search)
