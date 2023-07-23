@@ -21,14 +21,14 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="taruna">Taruna <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="taruna" name="taruna" required="required" class="form-control " value="<?= set_value('taruna') ?>" >
+                         <select class='form-control col-lg-5 itemSearch' id="taruna" name="taruna" value="<?= set_value('taruna') ?>" ></select>
                       </div>
                     </div>
                     
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="matakuliah">Mata Kuliah <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="matakuliah" name="matakuliah" required="required" class="form-control " value="<?= set_value('matakuliah') ?>" >
+                        <select class='form-control col-lg-5 itemSearch' id="matakuliah" name="matakuliah" value="<?= set_value('matakuliah') ?>" ></select>
                       </div>
                     </div>
 
@@ -58,4 +58,47 @@
             </div>
           </div>
         </div>
+  <script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
+        <script>
+        $("#taruna").select2({
+            placeholder: "Select taruna",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/taruna/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                  return { results: data };
+                }
+            }
+        });
+                $("#matakuliah").select2({
+            placeholder: "Select matakuliah",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/matakuliah/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                  return { results: data };
+                }
+            }
+        });
+          </script>       
 <?= $this->endSection() ?>
