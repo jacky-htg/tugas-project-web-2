@@ -13,7 +13,7 @@ class ModelPejabat extends Model
   {
     $query = $this->select('id as DT_RowId, nama, nip, golongan, jabatan');
     if ($search) {
-      $query = $query->like('nama', $search)->orLike('nip', $search);
+      $query = $query->like('nama', $search)->orLike('nip', $search)->orLike('jabatan', $search)->orLike('golongan', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
