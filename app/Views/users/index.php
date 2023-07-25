@@ -168,7 +168,7 @@
                   render: function(data, type, row) {
                     return '<div class="btn-group" role="group">' +
                       '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' +
-                      '<button data-id="' + row.DT_RowId + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
+                      '<button data-id="' + row.DT_RowId + '" data-email="' + row.email + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
                       '</div>';
                   }
                 },
@@ -188,7 +188,10 @@
 
             $('#myTable').on('click', '.deleteBtn', function() {
               let id = $(this).data('id');
-              if (confirm("Yakin ingin menghapus data #" + id)) {
+              let email = $(this).data('email');
+              if (email === "rijal.asep.nugroho@gmail.com") {
+                alert("Anda tidak bisa menghapus akun/user utama");
+              } else if (confirm("Yakin ingin menghapus data #" + id)) {
                 $.ajax({
                   url: "<?= base_url('users'); ?>/" + id + "/delete",
                   method: "POST",
