@@ -13,7 +13,7 @@ class NilaiModel extends Model
   {
     $query = $this->select('nilai.id as DT_RowId, taruna.nama as taruna, nilai.nilai_angka, nilai.nilai_huruf, matakuliah.matakuliah as matakuliah');
     if ($search) {
-      $query = $query->like('taruna.nama', $search)->orLike('matakuliah.nama', $search);
+      $query = $query->like('taruna.nama', $search)->orLike('matakuliah.matakuliah', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
