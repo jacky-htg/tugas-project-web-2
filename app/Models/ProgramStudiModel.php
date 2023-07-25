@@ -13,7 +13,7 @@ class ProgramStudiModel extends Model
   {
     $query = $this->select('id as DT_RowId, nama, program_pendidikan, akreditasi, sk_akreditasi');
     if ($search) {
-      $query = $query->like('nama', $search)->orLike('program_pendidikan', $search);
+      $query = $query->like('nama', $search)->orLike('program_pendidikan', $search)->orLike('akreditasi', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
