@@ -14,11 +14,11 @@ Sebuah project base tentang sistem akademik menggunakan PHP, Codeigniter 4 dan M
 ## Email
 - Buka file .env dan tambahkan baris berikut 
 ```
-  email_config_protocol = smtp
-	email_config_SMTPHost = sandbox.smtp.mailtrap.io
-	email_config_SMTPPort = 2525
-	email_config_SMTPUser = user-mailtrap-anda
-	email_config_SMTPPass = password-mailtrap-anda
-  email_config_mailType = html
-  email_config_senderName = nama-anda
+email_config_protocol = smtp
+email_config_SMTPHost = sandbox.smtp.mailtrap.io
+email_config_SMTPPort = 2525
+email_config_SMTPUser = user-mailtrap-anda
+email_config_SMTPPass = password-mailtrap-anda
+email_config_mailType = html
+email_config_senderName = nama-anda
 ```
