@@ -43,19 +43,12 @@ class TarunaModel extends Model
     return $this->countAllResults();
   }
 
-  /*public function findByNama($nama)
-  {
-    return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
-                ->where('nama', $nama)
-                ->first();
-  }
-  */
   public function findById($id)
   {
     return $this->select('taruna.id as id, taruna.nama as nama, taruna.nomer_taruna as nomer_taruna, kota.nama as tempat_lahir, taruna.tanggal_lahir as tanggal_lahir, program_studi.nama as program_studi, taruna.foto as foto')
         ->join('kota',' taruna.tempat_lahir= kota.id')
         ->join('program_studi',' taruna.program_studi= program_studi.id')
-        ->where('id', $id)
+        ->where('taruna.id', $id)
         ->first();
   }
 
