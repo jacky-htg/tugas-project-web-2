@@ -18,27 +18,34 @@ class Taruna extends BaseController
         
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
-            $validation->setRules(['id' => 'required']);
-            $validation->setRules(['nama' => 'required']);
-            $validation->setRules(['nomer_taruna' => 'required']);
-            $validation->setRules(['tempat_lahir' => 'required']);
-            $validation->setRules(['tanggal_lahir' => 'required']);
-            $validation->setRules(['program_studi' => 'required']);
-            
+            $validation->setRules([
+                'nama' => 'required',
+                'nomer_taruna' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required|valid_date',
+                'program_studi' => 'required',
+                'foto' => 'uploaded[foto]|max_size[foto,1024]|is_image[foto]'
+            ]);
+
             $isDataValid = $validation->withRequest($this->request)->run();
 
             if($isDataValid){
+                // Proses unggah foto
+                $foto = $this->request->getFile('foto');
+                $foto->move(ROOTPATH . 'public/images');
+
+                // Masukkan data taruna ke database
                 $TarunaModel = new TarunaModel();
-                $TarunaModel->insert([
-                    "id" => $this->request->getPost('id'),
-                    "nama" => $this->request->getPost('nama'),
-                    "nomer_taruna" => $this->request->getPost('nomer_taruna'),
-                    "tempat_lahir" => $this->request->getPost('tempat_lahir'),
-                    "tanggal_lahir" => $this->request->getPost('tanggal_lahir'),
-                    "program_studi" => $this->request->getPost('program_studi'),
-                    "foto" => $this->request->getPost('foto')
-                ]);
-            
+                $data = [
+                    'nama' => $this->request->getPost('nama'),
+                    'nomer_taruna' => $this->request->getPost('nomer_taruna'),
+                    'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                    'program_studi' => $this->request->getPost('program_studi'),
+                    'foto' => $foto->getName()
+                ];
+                $TarunaModel->insert($data);
+
                 return redirect('taruna');
             }
         }
@@ -51,26 +58,44 @@ class Taruna extends BaseController
         if (empty($this->session->get('user_id'))) return redirect("login");
         
         $TarunaModel = new TarunaModel();
-        $data['taruna'] = $TarunaModel->findById($id);
+        $taruna = $TarunaModel->findById($id);
+        $data['taruna'] = $taruna;
         if ($this->request->is('post') || $this->request->is('put')) {
             $validation =  \Config\Services::validation();
-            $validation->setRules(['nama' => 'required']);
-            $validation->setRules(['nomer_taruna' => 'required']);
-            $validation->setRules(['tempat_lahir' => 'required']);
-            $validation->setRules(['tanggal_lahir' => 'required']);
-            $validation->setRules(['program_studi' => 'required']);
+            $validation->setRules([
+                'nama' => 'required',
+                'nomer_taruna' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required|valid_date',
+                'program_studi' => 'required'
+            ]);
+            if ($this->request->getFile('foto')->getSize() > 0) {
+                $validation->setRules(['foto' => 'uploaded[foto]|max_size[foto,1024]|is_image[foto]']);
+            }
             $isDataValid = $validation->withRequest($this->request)->run();
 
             if($isDataValid){
-                $TarunaModel->updateById($id, [
-                    "nama" => $this->request->getPost('nama'),
-                    "nomer_taruna" => $this->request->getPost('nomer_taruna'),
-                    "tempat_lahir" => $this->request->getPost('tempat_lahir'),
-                    "tanggal_lahir" => $this->request->getPost('tanggal_lahir'),
-                    "program_studi" => $this->request->getPost('program_studi'),
-                    "foto" => $this->request->getPost('foto')
-                ]);
-                
+                $data = [
+                    'nama' => $this->request->getPost('nama'),
+                    'nomer_taruna' => $this->request->getPost('nomer_taruna'),
+                    'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                    'program_studi' => $this->request->getPost('program_studi'),
+                ];
+
+                if ($this->request->getFile('foto')->getSize() > 0 && $this->request->getFile('foto')->isValid()) {
+                    // Proses unggah foto
+                    $foto = $this->request->getFile('foto');
+                    if ($foto->move(ROOTPATH . 'public/images/')){
+                        $data['foto'] = $foto->getName();
+
+                        // Hapus foto lama jika ada
+                        if (!empty($taruna['foto']) && file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
+                            unlink(dirname(__FILE__).'/../../public/images/' . $taruna['foto']);
+                        }
+                    }
+                }
+                $TarunaModel->update($id, $data);
                 return redirect('taruna');
             }
         }
@@ -87,6 +112,9 @@ class Taruna extends BaseController
             $taruna = $TarunaModel->findById($id);
             if (isset($taruna['id']) && !empty($taruna['id'])) {
                 if ($TarunaModel->deleteById($id)) {
+                    if (!empty($taruna['foto']) && file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
+                        unlink(dirname(__FILE__).'/../../public/images/' . $taruna['foto']);
+                    }
                     return json_encode(["message" => "pengahapusan data taruna berhasil"]);
                 } else {
                     return json_encode(["message" => "pengahapusan data taruna gagal"]);

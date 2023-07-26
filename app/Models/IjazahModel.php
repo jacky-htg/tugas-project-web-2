@@ -31,21 +31,27 @@ class IjazahModel extends Model
   {
     // Query data dari database
     $query = $this->select('
-   ijazah.id DT_RowId, 
+   ijazah.id DT_RowId,
+   ijazah.taruna taruna_id, 
    taruna.nama taruna, 
+   ijazah.program_studi program_studi_id,
    program_studi.nama program_studi, 
    tanggal_ijazah, 
    tanggal_pengesahan, 
    gelar_akademik, 
    nomer_sk, 
-   wakil_direktur, 
-   direktur,
+   ijazah.wakil_direktur wakil_direktur_id,
+   wakil_direktur.nama as wakil_direktur, 
+   ijazah.direktur direktur_id,
+   direktur.nama as direktur,
    nomer_ijazah, 
    nomer_seri,
    tanggal_yudisium, 
    judul_kkw')
    ->join('taruna' , 'taruna.id = ijazah.taruna')
-   ->join('program_studi', 'program_studi.id = ijazah.program_studi');
+   ->join('program_studi', 'program_studi.id = ijazah.program_studi')
+   ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
+   ->join('pejabat as wakil_direktur', 'wakil_direktur.id = ijazah.wakil_direktur');
 
     // Jika user mencari data dengan menginput kolom search
     if ($search) {
@@ -92,19 +98,6 @@ class IjazahModel extends Model
     return $query->findAll(10, 0);
   }
 
-  /*
-  public function listIdNama($search)
-  {
-    $query = $this->select('id, nama');
-
-    if ($search) {
-      $query = $query->like('nama', $search);
-    }
-    $query = $query->orderBy("nama", "ASC");
-
-    return $query->findAll();
-  }*/
-
   public function count($search)
   {
     if ($search) {
@@ -113,17 +106,30 @@ class IjazahModel extends Model
     return $this->countAllResults();
   }
 
-  /*public function findByNama($nama)
-  {
-    return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
-      ->where('nama', $nama)
-      ->first();
-  }*/
-
   public function findById($id)
   {
-    return $this->select('id, taruna, program_studi , tanggal_ijazah, tanggal_pengesahan, gelar_akademik, nomer_sk, wakil_direktur , direktur , nomer_ijazah, nomer_seri, tanggal_yudisium, judul_kkw')
-      ->where('id', $id)
+    return $this->select('ijazah.id, 
+    ijazah.taruna taruna_id, 
+   taruna.nama taruna, 
+   ijazah.program_studi program_studi_id,
+   program_studi.nama program_studi, 
+   tanggal_ijazah, 
+   tanggal_pengesahan, 
+   gelar_akademik, 
+   nomer_sk, 
+   ijazah.wakil_direktur wakil_direktur_id,
+   wakil_direktur.nama as wakil_direktur, 
+   ijazah.direktur direktur_id,
+   direktur.nama as direktur,
+   nomer_ijazah, 
+   nomer_seri,
+   tanggal_yudisium, 
+   judul_kkw')
+        ->join('taruna' , 'taruna.id = ijazah.taruna')
+        ->join('program_studi', 'program_studi.id = ijazah.program_studi')
+        ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
+        ->join('pejabat as wakil_direktur', 'wakil_direktur.id = ijazah.wakil_direktur')
+        ->where('ijazah.id', $id)
       ->first();
   }
 
@@ -134,7 +140,6 @@ class IjazahModel extends Model
 
   public function deleteById($id)
   {
-    var_dump($this->where('id', $id)->delete());die;
     return $this->where('id', $id)->delete();
   }
 }

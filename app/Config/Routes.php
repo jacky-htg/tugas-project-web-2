@@ -40,6 +40,11 @@ $routes->match(['get', 'post'], '/login', 'Users::login');
 $routes->get('/logout', 'Users::logout');
 $routes->get('/api/users', 'Users::list');
 
+$routes->get('/forgot-password', 'ForgotPassword::index');
+$routes->post('/forgot-password', 'ForgotPassword::requestPasswordReset');
+$routes->get('/reset-password/(:segment)', 'ForgotPassword::resetPassword/$1');
+$routes->post('/reset-password', 'ForgotPassword::processResetPassword');
+
 $routes->get('/taruna', 'Taruna');
 $routes->match(['get', 'post'], '/taruna/create', 'Taruna::create');
 $routes->match(['get', 'post', 'put'], '/taruna/(:segment)/update', 'Taruna::update/$1');

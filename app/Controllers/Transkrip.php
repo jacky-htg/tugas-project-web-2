@@ -18,7 +18,10 @@ class Transkrip extends BaseController
 
     public function index()
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+69-mengintegrasikan-view-transkrip-nilai-ke-database
+        if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
+ main
         $data['pageTitle'] = 'Transkrip Nilai';
         return view("transkrip/index", $data);
     }

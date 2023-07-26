@@ -20,7 +20,8 @@
                   <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="taruna">Taruna <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="taruna" name="taruna" required="required" class="form-control " value="<?= $transkrip['taruna'] ?>" >
+                      <select class='form-control col-lg-5 itemSearch' id="taruna" name="taruna"></select>
+                        
                       </div>
                     </div>
 
@@ -52,6 +53,28 @@
         <script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
         <script>
           $(document).ready( function () {
+            $("#taruna").select2({
+                allowClear: true,
+                data:[{id: "<?= $transkrip['taruna_id'];?>", text: "<?= $transkrip['taruna'];?>"}],
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: "<?= base_url('api/taruna/lookup');?>",
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    results: function (data) {
+                      return { results: data };
+                    }
+                }
+            });
+            $('#taruna').val("<?= $transkrip['taruna_id'];?>").trigger('change');
+   
               $("#program_studi").select2({
                 allowClear: true,
                 data:[{id: "<?= $transkrip['program_studi_id'];?>", text: "<?= $transkrip['program_studi'];?>"}],

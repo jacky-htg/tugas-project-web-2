@@ -127,10 +127,10 @@ class Matakuliah extends BaseController
         if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['search']) ? $params['search'] : '';
+        $search = isset($params['term'])?$params['term']['term']:'';
 
         $matakuliahModel = new MatakuliahModel();
         $data = $matakuliahModel->lookup($search);
-        return json_encode($data);
+        return json_encode(['results' => $data]);
     }
 }

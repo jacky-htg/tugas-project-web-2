@@ -15,7 +15,7 @@ class MatakuliahModel extends Model
   {
     $query = $this->select('id as DT_RowId, kode, matakuliah, sks, semester');
     if ($search) {
-      $query = $query->like('kode', $search)->orLike('matakuliah', $search);
+      $query = $query->like('kode', $search)->orLike('matakuliah', $search)->orLike('semester', $search);
     }
     if (!empty($order) && !empty($sort)) {
       $query = $query->orderBy($order, $sort);
@@ -25,7 +25,7 @@ class MatakuliahModel extends Model
 
   public function lookup($search)
   {
-    $query = $this->select('id, matakuliah');
+    $query = $this->select('id, matakuliah as text');
 
     if ($search) {
       $query = $query->like('matakuliah', $search);

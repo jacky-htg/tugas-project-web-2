@@ -33,9 +33,9 @@ class Users extends BaseController
                 ]);
                 $user = $userModel->findByEmail($email);
                 $user['password'] = $password;
-                //var_dump($this->sendEmail($user)); die();
+                $this->sendEmail($user);
                 // send email to inform the password
-                $postData = [
+                /*$postData = [
                     'from' => ['email' => 'no-reply@rijalasepnugroho.com'],
                     'subject' => 'Welcome to SIAKAD UNSIA',
                     'personalizations' => [[
@@ -61,7 +61,7 @@ class Users extends BaseController
                     ),
                     CURLOPT_POSTFIELDS => json_encode($postData)
                 ));
-                curl_exec($ch);
+                curl_exec($ch);*/
 
                 return redirect('users');
             }
@@ -206,18 +206,6 @@ class Users extends BaseController
 
         return $this->email->send();
     }
-
-    private function emailConfig()
-	{
-		$config['protocol'] = getenv('email_config_protocol');
-		$config['SMTPHost'] = getenv('email_config_SMTPHost');
-		$config['SMTPPort'] = getenv('email_config_SMTPPort');
-		$config['SMTPUser'] = getenv('email_config_SMTPUser');
-		$config['SMTPPass'] = getenv('email_config_SMTPPass');
-        $config['mailType'] = getenv('email_config_mailType');
-		
-		return $config;
-	}
 
     private function generatePassword($length)
     {

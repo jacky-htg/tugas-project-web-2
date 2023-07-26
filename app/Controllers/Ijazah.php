@@ -78,7 +78,7 @@ class Ijazah extends BaseController
             $validation->setRules(['tanggal_yudisium' => 'required']);
             $validation->setRules(['judul_kkw' => 'required']);
             $isDataValid = $validation->withRequest($this->request)->run();
-
+            
             if ($isDataValid) {
                 $ijazahModel->updateById($id, [
                     "taruna" => $this->request->getPost('taruna'),
@@ -104,7 +104,7 @@ class Ijazah extends BaseController
 
     public function delete($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        //if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $ijazahModel = new IjazahModel();
