@@ -175,7 +175,7 @@
                 {
                   data: null,
                   render: function(data, type, row) {
-                    return data.foto ? '<img width="75px" height="75px" src="'+data.foto+'"/>': null;
+                    return data.foto ? '<img height="75px" src="<?= base_url('images');?>/'+data.foto+'"/>': null;
                   }
                 },
                 {
