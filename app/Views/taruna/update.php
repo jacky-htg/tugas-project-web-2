@@ -16,7 +16,7 @@
                   <div class="x_content">
                   <?= validation_list_errors() ?>
 
-                  <?= form_open("taruna/{$taruna['id']}/update"); ?>
+                  <?= form_open_multipart("taruna/{$taruna['id']}/update"); ?>
  
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">Nama <span class="required">*</span></label>
@@ -56,7 +56,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="foto">foto</label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="foto" name="foto" class="form-control " value="<?= set_value('foto')?set_value('foto'):$taruna['foto'] ?>" >
+                        <input type="file" id="foto" name="foto" class="form-control " value="<?= set_value('foto')?set_value('foto'):$taruna['foto'] ?>" >
                       </div>
                     </div>
 
