@@ -90,7 +90,7 @@ class Taruna extends BaseController
                         $data['foto'] = $foto->getName();
 
                         // Hapus foto lama jika ada
-                        if (file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
+                        if (!empty($taruna['foto']) && file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
                             unlink(dirname(__FILE__).'/../../public/images/' . $taruna['foto']);
                         }
                     }
@@ -112,7 +112,7 @@ class Taruna extends BaseController
             $taruna = $TarunaModel->findById($id);
             if (isset($taruna['id']) && !empty($taruna['id'])) {
                 if ($TarunaModel->deleteById($id)) {
-                    if (file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
+                    if (!empty($taruna['foto']) && file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
                         unlink(dirname(__FILE__).'/../../public/images/' . $taruna['foto']);
                     }
                     return json_encode(["message" => "pengahapusan data taruna berhasil"]);
