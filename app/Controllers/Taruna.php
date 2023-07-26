@@ -59,6 +59,7 @@ class Taruna extends BaseController
         
         $TarunaModel = new TarunaModel();
         $taruna = $TarunaModel->findById($id);
+        $data['taruna'] = $taruna;
         if ($this->request->is('post') || $this->request->is('put')) {
             $validation =  \Config\Services::validation();
             $validation->setRules([
