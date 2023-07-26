@@ -114,4 +114,52 @@ class Email extends BaseConfig
      * Enable notify message from server
      */
     public bool $DSN = false;
+
+    public $gmail = [
+        'protocol' => 'smtp',
+        'SMTPHost' => 'smtp.gmail.com',
+        'SMTPUser' => 'your-username',
+        'SMTPPass' => 'your-password',
+        'SMTPPort' => 587,
+        'SMTPCrypto' => 'tls',
+        'mailType' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+    ];
+
+    public $sendgrid = [
+        'protocol' => 'smtp',
+        'SMTPHost' => 'smtp.sendgrid.net',
+        'SMTPUser' => 'your-username',
+        'SMTPPass' => 'your-password',
+        'SMTPPort' => 587,
+        'SMTPCrypto' => 'tls',
+        'mailType' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+    ];
+
+    public $mailTrap = [
+        'protocol' => 'smtp',
+        'SMTPHost' => 'smtp.mailtrap.io',
+        'SMTPUser' => 'your-username',
+        'SMTPPass' => 'your-password',
+        'SMTPPort' => 587,
+        'SMTPCrypto' => 'tls',
+        'mailType' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+    ];
+
+    public $outlook = [
+        'protocol' => 'smtp',
+        'SMTPHost' => 'smtp.office365.com',
+        'SMTPUser' => 'your-username',
+        'SMTPPass' => 'your-password',
+        'SMTPPort' => 587,
+        'SMTPCrypto' => 'tls',
+        'mailType' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+    ];
 }
