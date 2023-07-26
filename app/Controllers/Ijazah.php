@@ -57,6 +57,16 @@ class Ijazah extends BaseController
         return view('ijazah/create', $data);
     }
 
+public function view($id)
+{
+    if (empty($this->session->get('user_id'))) return redirect("login");
+
+    $ijazahModel = new IjazahModel();
+    $data['ijazah'] = $ijazahModel->findById($id); 
+    $data['pageTitle'] = 'Ijazah';
+        return view('ijazah/view', $data);
+}
+
     public function update($id)
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
@@ -104,7 +114,7 @@ class Ijazah extends BaseController
 
     public function delete($id)
     {
-        //if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $ijazahModel = new IjazahModel();

@@ -45,6 +45,8 @@ class IjazahModel extends Model
    ijazah.direktur direktur_id,
    direktur.nama as direktur,
    nomer_ijazah, 
+   tanggal_lahir, 
+   program_pendidikan,
    nomer_seri,
    tanggal_yudisium, 
    judul_kkw')
@@ -110,27 +112,34 @@ class IjazahModel extends Model
   {
     return $this->select('ijazah.id, 
     ijazah.taruna taruna_id, 
-   taruna.nama taruna, 
-   ijazah.program_studi program_studi_id,
-   program_studi.nama program_studi, 
-   tanggal_ijazah, 
-   tanggal_pengesahan, 
-   gelar_akademik, 
-   nomer_sk, 
-   ijazah.wakil_direktur wakil_direktur_id,
-   wakil_direktur.nama as wakil_direktur, 
-   ijazah.direktur direktur_id,
-   direktur.nama as direktur,
-   nomer_ijazah, 
-   nomer_seri,
-   tanggal_yudisium, 
-   judul_kkw')
+    taruna.nama taruna, 
+    taruna.nama nomer_taruna,
+    taruna.nama tempat_lahir,
+    taruna.nama tanggal_lahir,
+    ijazah.program_studi program_studi_id,
+    program_studi.nama program_studi, 
+    program_studi.nama program_pendidikan,
+    program_studi.nama akreditasi,
+    tanggal_ijazah, 
+    tanggal_pengesahan, 
+    gelar_akademik, 
+    nomer_sk, 
+    ijazah.wakil_direktur wakil_direktur_id,
+    wakil_direktur.nama as wakil_direktur, 
+    ijazah.direktur direktur_id,
+    direktur.nama as direktur,
+    direktur.nip as direktur_nip,
+    wakil_direktur.nip as wakil_direktur_nip,
+    nomer_ijazah, 
+    nomer_seri,
+    tanggal_yudisium, 
+    judul_kkw')
         ->join('taruna' , 'taruna.id = ijazah.taruna')
         ->join('program_studi', 'program_studi.id = ijazah.program_studi')
         ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
         ->join('pejabat as wakil_direktur', 'wakil_direktur.id = ijazah.wakil_direktur')
         ->where('ijazah.id', $id)
-      ->first();
+        ->first();
   }
 
   public function updateById($id, $data)

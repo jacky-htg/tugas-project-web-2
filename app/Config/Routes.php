@@ -97,6 +97,9 @@ $routes->match(['post', 'delete'], '/ijazah/(:segment)/delete', 'Ijazah::delete/
 $routes->get('/api/ijazah', 'Ijazah::list');
 $routes->get('/api/ijazah/lookup', 'Ijazah::lookup');
 
+$routes->get('/ijazah/(:segment)/view', 'Ijazah::view/$1');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
