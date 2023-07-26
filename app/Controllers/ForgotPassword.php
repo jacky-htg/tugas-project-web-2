@@ -22,26 +22,15 @@ class ForgotPassword extends BaseController
             return redirect()->back()->withInput()->with('error', 'Email tidak ditemukan.');
         }
 
-        // Buat token unik untuk pemulihan kata sandi
-        $token = bin2hex(random_bytes(32));
-
         // Simpan permintaan pemulihan kata sandi ke database
         $forgotPasswordModel = new ForgotPasswordModel();
         $data = [
-            'email' => $email,
-            'token' => $token,
-            'created_at' => date('Y-m-d H:i:s')
+            'user_id' => $user['id']
         ];
-        $forgotPasswordModel->insertRequest($data);
+        $forgotPasswordModel->insert($data);
 
-        // Kirim email dengan tautan pemulihan kata sandi ke pengguna (gunakan library email CI4 untuk mengirim email)
-        $emailMessage = 'Klik tautan berikut untuk mereset kata sandi Anda: ' . base_url('reset-password/' . $token);
-        // Kirim email dengan menggunakan library email CI4
-        $email = \Config\Services::email();
-        $email->setTo($email);
-        $email->setSubject('Permintaan Pemulihan Kata Sandi');
-        $email->setMessage($emailMessage);
-        $email->send();
+        $forgot = $forgotPasswordModel->getByUserId($user['id']);
+        $this->sendEmail($forgot['id'], $email);
 
         return redirect()->to(base_url('forgot-password'))->with('success', 'Permintaan pemulihan kata sandi telah dikirimkan ke email Anda.');
     }
@@ -51,40 +40,66 @@ class ForgotPassword extends BaseController
         $forgotPasswordModel = new ForgotPasswordModel();
 
         // Cari data berdasarkan token
-        $forgotPasswordData = $forgotPasswordModel->getByToken($token);
+        $forgotPasswordData = $forgotPasswordModel->getById($token);
 
         if (!$forgotPasswordData) {
             return redirect()->to(base_url('reset-password'))->with('error', 'Token pemulihan kata sandi tidak valid.');
         }
 
+        if ($forgotPasswordData['is_used']) {
+            return redirect()->to(base_url('reset-password'))->with('error', 'Token sudah digunakan.');
+        }
+
+        if (strtotime($forgotPasswordData['created_at']) < strtotime('-3 days')) {
+            return redirect()->to(base_url('reset-password'))->with('error', 'Token sudah kadaluwarsa.');
+        }
+        
         // Tampilkan halaman form untuk reset kata sandi
         return view('users/reset-password', ['token' => $token]);
     }
 
     public function processResetPassword()
     {
-        $token = $this->request->getPost('token');
-        $password = $this->request->getPost('password');
+        $params = $this->request->getPost(null, FILTER_UNSAFE_RAW); 
+        $token = $params['token'];
+        $password = $params['password'];
 
         $forgotPasswordModel = new ForgotPasswordModel();
-        $forgotPasswordData = $forgotPasswordModel->getByToken($token);
+        $forgotPasswordData = $forgotPasswordModel->getById($token);
 
         if (!$forgotPasswordData) {
             return redirect()->to(base_url('reset-password'))->with('error', 'Token pemulihan kata sandi tidak valid.');
         }
 
-        $email = $forgotPasswordData['email'];
+        if ($forgotPasswordData['is_used']) {
+            return redirect()->to(base_url('reset-password'))->with('error', 'Token sudah digunakan.');
+        }
+
+        if (strtotime($forgotPasswordData['created_at']) < strtotime('-3 days')) {
+            return redirect()->to(base_url('reset-password'))->with('error', 'Token sudah kadaluwarsa.');
+        }
 
         // Lakukan validasi dan ubah kata sandi pengguna di database
         $validationRules = [
-            'password' => 'required|min_length[8]',
+            'password' => [
+                'required',
+                'min_length[10]',
+                static function ($value) {
+                    if(!preg_match('/[A-Z]/', $value)) return false;
+                    if(!preg_match('/[a-z]/', $value)) return false;
+                    if(!preg_match('/[0-9]/', $value)) return false;
+                    if(!preg_match('/[!@#$%^&*()_+-=`~{}|\;:?>.<,"]/', $value)) return false;
+                    return true;
+                },
+            ],
             'password_confirm' => 'matches[password]'
         ];
 
         $validationMessages = [
             'password' => [
                 'required' => 'Kata sandi harus diisi.',
-                'min_length' => 'Kata sandi minimal harus 8 karakter.'
+                'min_length' => 'Kata sandi minimal harus 10 karakter.',
+                2 => 'Your Password not strong'
             ],
             'password_confirm' => [
                 'matches' => 'Konfirmasi kata sandi tidak sesuai.'
@@ -97,14 +112,30 @@ class ForgotPassword extends BaseController
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
-
         // Ubah kata sandi pengguna di database (gantilah UserModel dengan model yang sesuai dengan tabel pengguna di database Anda)
         $userModel = new \App\Models\UserModel();
-        $userModel->update(['email' => $email], ['password' => password_hash($password, PASSWORD_BCRYPT)]);
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $userModel->updateById($forgotPasswordData['user_id'], ['password'=>$passwordHash]);
+        
+        // update data permintaan pemulihan kata sandi dari tabel telah digunakan
+        $forgotPasswordModel->where('BIN_TO_UUID(id)', $token)->update(null, ['is_used' => true]);
 
-        // Hapus data permintaan pemulihan kata sandi dari tabel
-        $forgotPasswordModel->where('token', $token)->delete();
+        return redirect()->to(base_url('login'))->with('success', 'Kata sandi telah berhasil diubah. Silahkan login dengan kata sandi baru Anda.');
+    }
 
-        return redirect()->to(base_url('users/login'))->with('success', 'Kata sandi telah berhasil diubah. Silahkan login dengan kata sandi baru Anda.');
+    private function sendEmail($token, $email)
+    {
+        $url = base_url('reset-password/'.$token);
+        $message = "
+            <p>Anda telah membuat permintaan reset password, silahkan ganti password Anda dengan meng-klik link berikut: {$url}</p>
+        ";
+        
+        $this->email->initialize($this->emailConfig());
+        $this->email->setFrom(getenv('email_config_SMTPUser'), getenv('email_config_senderName'));
+        $this->email->setTo($email);
+        $this->email->setSubject('Reset Password');
+        $this->email->setMessage($message);
+
+        return $this->email->send();
     }
 }

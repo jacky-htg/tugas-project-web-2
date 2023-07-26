@@ -80,6 +80,12 @@
 <body>
   <div class="container">
     <h2>Sign In</h2>
+    <?php if (session()->getFlashdata('error')) : ?>
+        <div><?= session()->getFlashdata('error') ?></div>
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('success')) : ?>
+        <div><?= session()->getFlashdata('success') ?></div>
+    <?php endif; ?>
     <form id="login-form" action="<?= base_url('login');?>" method="POST">
       <div class="form-group">
         <label for="email">Email :</label>

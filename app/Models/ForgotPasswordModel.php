@@ -6,25 +6,21 @@ use CodeIgniter\Model;
 
 class ForgotPasswordModel extends Model
 {
-    protected $table = 'forgot_password';
+    protected $table = 'request_passwords';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['email', 'token', 'created_at'];
+    protected $allowedFields = ['user_id', 'is_used', 'created_at'];
 
-    // Method untuk menyimpan permintaan pemulihan kata sandi
-    public function insertRequest($data)
+    public function getById($id)
     {
-        return $this->insert($data);
+        return $this->select('BIN_TO_UUID(id) as id, BIN_TO_UUID(user_id) as user_id, is_used, created_at')
+                    ->where('BIN_TO_UUID(id)', $id)->first();
     }
 
-    // Method untuk mencari data berdasarkan token
-    public function getByToken($token)
+    public function getByUserId($userId)
     {
-        return $this->where('token', $token)->first();
-    }
-
-    // Method untuk mencari data berdasarkan email
-    public function getByEmail($email)
-    {
-        return $this->where('email', $email)->first();
+        return $this->select('BIN_TO_UUID(id) as id, is_used, created_at')
+                    ->where('user_id', $userId)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
     }
 }
