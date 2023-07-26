@@ -8,14 +8,14 @@ class Matakuliah extends BaseController
 {
     public function index()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
         $data['pageTitle'] = 'Mata Kuliah';
         return view('matakuliah/index', $data);
     }
 
     public function create()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
@@ -47,7 +47,7 @@ class Matakuliah extends BaseController
 
     public function update($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $matakuliahModel = new MatakuliahModel();
         $data['matakuliah'] = $matakuliahModel->findById($id);
@@ -80,7 +80,7 @@ class Matakuliah extends BaseController
 
     public function delete($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $matakuliahModel = new MatakuliahModel();
@@ -100,7 +100,7 @@ class Matakuliah extends BaseController
 
     public function list()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $draw = isset($params['draw']) ? $params['draw'] : 1;
@@ -124,7 +124,7 @@ class Matakuliah extends BaseController
 
     public function lookup()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $search = isset($params['term'])?$params['term']['term']:'';

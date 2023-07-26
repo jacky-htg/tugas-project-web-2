@@ -8,14 +8,14 @@ class Ijazah extends BaseController
 {
     public function index()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
         $data['pageTitle'] = 'Ijazah';
         return view("ijazah/index", $data);
     }
 
     public function create()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
@@ -69,7 +69,7 @@ public function view($id)
 
     public function update($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $ijazahModel = new IjazahModel();
         $data['ijazah'] = $ijazahModel->findById($id);
@@ -114,7 +114,7 @@ public function view($id)
 
     public function delete($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $ijazahModel = new IjazahModel();
@@ -135,7 +135,7 @@ public function view($id)
     public function list()
     {
         // Jika user belum login redirect ke halaman login
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
 
         // Nilai Default Variable
@@ -149,7 +149,7 @@ public function view($id)
 
         // Deklarasikan variable draw    
         if (!empty($this->request->getVar('draw'))) {
-            
+
             if ($this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT)) {
                 // Jika request draw tidak kosong, ambil dari dari request
                 $draw = $this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT);
@@ -258,10 +258,10 @@ public function view($id)
     public function lookup()
     {
         // Jika user belum login redirect ke halaman login
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['term'])?$params['term']['term']:'';
+        $search = isset($params['term']) ? $params['term']['term'] : '';
 
         $ijazahModel = new IjazahModel();
         $data = $ijazahModel->lookup($search);
