@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use CodeIgniter\Model;
 use CodeIgniter\Database\Query;
 
@@ -8,6 +10,8 @@ class TranskripModel extends Model
   protected $table = "transkrip_nilai";
   protected $primaryId = 'id';
   protected $allowedFields = ['taruna', 'ijazah', 'program_studi'];
+
+
 
   public function list($search, $offset, $limit, $order, $sort)
   {
@@ -19,15 +23,16 @@ class TranskripModel extends Model
       $query = $query->orderBy($order, $sort);
     }
     return $query->join('taruna', 'transkrip_nilai.taruna = taruna.id')
-                 ->join('ijazah', 'transkrip_nilai.ijazah = ijazah.id')
-                 ->join('program_studi', 'transkrip_nilai.program_studi = program_studi.id')
-                 ->findAll($limit, $offset);
+      ->join('ijazah', 'transkrip_nilai.ijazah = ijazah.id')
+      ->join('program_studi', 'transkrip_nilai.program_studi = program_studi.id')
+      ->findAll($limit, $offset);
   }
+
 
   public function lookup($search)
   {
     $query = $this->select('id, taruna');
-    
+
     if ($search) {
       $query = $query->like('taruna', $search);
     }
@@ -47,10 +52,10 @@ class TranskripModel extends Model
   public function findById($id)
   {
     return $this->select('transkrip_nilai.id, transkrip_nilai.taruna, transkrip_nilai.ijazah as ijazah_id, ijazah.nomer_ijazah as ijazah, transkrip_nilai.program_studi as program_studi_id, program_studi.nama as program_studi')
-                ->where('transkrip_nilai.id', $id)
-                ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
-                ->join('ijazah', 'ijazah.id = transkrip_nilai.ijazah')
-                ->first();
+      ->where('transkrip_nilai.id', $id)
+      ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
+      ->join('ijazah', 'ijazah.id = transkrip_nilai.ijazah')
+      ->first();
   }
 
   public function updateById($id, $data)
@@ -60,8 +65,32 @@ class TranskripModel extends Model
 
   public function deleteTranskrip($id)
   {
-      $this->delete($id);
+    $this->delete($id);
   }
 
+  public function getTranskripNilai($id)
+  {
+    return $this->select('ijazah.nomer_ijazah as nomer_ijazah, taruna.nama as nama, taruna.nomer_taruna as nomor_taruna, taruna.tempat_lahir as tempat_lahir, taruna.tanggal_lahir as tanggal_lahir, program_studi.nama as jurusan, program_studi.akreditasi as status, program_studi.program_pendidikan as pendidikan, ijazah.tanggal_yudisium as tanggal_yudisium')
+      ->where('transkrip_nilai.id', $id)
+      ->join('ijazah', 'ijazah.id = transkrip_nilai.ijazah')
+      ->join('taruna', 'taruna.id = transkrip_nilai.taruna')
+      ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
+      ->first();
+  }
+}
 
-} 
+class MatakuliahModel extends Model
+{
+  protected $table = "matakuliah";
+  protected $primaryId = 'id';
+  protected $allowedFields = ['kode', 'matakuliah', 'sks', 'nilai_angka', 'nilai_huruf', 'semester'];
+
+  public function getAllMatakuliah($id)
+  {
+    return $this->findAll($id);
+  }
+  public function countMatakuliah($id)
+  {
+    return $this->countAllResults($id);
+  }
+}

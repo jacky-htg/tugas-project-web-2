@@ -3,26 +3,29 @@
 namespace App\Controllers;
 
 use App\Models\TranskripModel;
+use App\Models\MatakuliahModel;
 
 class Transkrip extends BaseController
 {
     protected $transkripNilaiModel;
+    protected $matakuliahModel;
 
     public function __construct()
     {
         $this->transkripNilaiModel = new TranskripModel();
+        $this->matakuliahModel = new MatakuliahModel();
     }
 
     public function index()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
         $data['pageTitle'] = 'Transkrip Nilai';
         return view("transkrip/index", $data);
     }
 
     public function delete($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $transkrip = $this->transkripNilaiModel->findById($id);
@@ -41,7 +44,7 @@ class Transkrip extends BaseController
 
     public function create()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
@@ -67,7 +70,7 @@ class Transkrip extends BaseController
 
     public function update($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $transkripModel = new TranskripModel();
         $data['transkrip'] = $transkripModel->findById($id);
@@ -94,22 +97,36 @@ class Transkrip extends BaseController
 
     public function view_transkrip($id)
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
-        
+        // if (empty($this->session->get('user_id'))) return redirect("login");
         $transkripModel = new TranskripModel();
-        $data['transkrip'] = $transkripModel->findById($id);
+        $data['transkrip'] = $transkripModel->getTranskripNilai($id);
+        $data['lampiran_ijazah'] = $transkripModel->getTranskripNilai($id);
+        $data['nama'] = $transkripModel->getTranskripNilai($id);
+        $data['nomor_taruna'] = $transkripModel->getTranskripNilai($id);
+        $data['tempat_tanggal_lahir'] = $transkripModel->getTranskripNilai($id);
+        $data['pendidikan'] = $transkripModel->getTranskripNilai($id);
+        $data['program_studi'] = $transkripModel->getTranskripNilai($id);
+        $data['status'] = $transkripModel->getTranskripNilai($id);
+        $data['tanggal_yudisium'] = $transkripModel->getTranskripNilai($id);
+        $data['semester'] = $transkripModel->getTranskripNilai($id);
+        $data['nama_matakuliah'] = $transkripModel->getTranskripNilai($id);
+        $data['sks'] = $transkripModel->getTranskripNilai($id);
+        $data['nilai_huruf'] = $transkripModel->getTranskripNilai($id);
+        $data['kode'] = $transkripModel->getTranskripNilai($id);
+
+        $data['matakuliah'] = $this->matakuliahModel->getAllMatakuliah($id);
+
+        $data['pageTitle'] = 'View Transkrip';
+        return view('transkrip/view_transkrip', $data);
 
         if (!$data['transkrip']) {
             return redirect()->to('transkrip')->with('error', 'Transkrip not found');
         }
-
-        $data['pageTitle'] = 'View Transkrip';
-        return view('transkrip/view_transkrip', $data);
     }
 
     public function list()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $draw = isset($params['draw']) ? $params['draw'] : 1;
@@ -133,7 +150,7 @@ class Transkrip extends BaseController
 
     public function lookup()
     {
-        if (empty($this->session->get('user_id'))) return redirect("login");
+        // if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $search = isset($params['search']) ? $params['search'] : '';
