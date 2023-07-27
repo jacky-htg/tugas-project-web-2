@@ -137,7 +137,6 @@ public function view($id)
         // Jika user belum login redirect ke halaman login
         if (empty($this->session->get('user_id'))) return redirect("login");
 
-
         // Nilai Default Variable
         $draw = 1;
         $offset = 0;
@@ -149,7 +148,7 @@ public function view($id)
 
         // Deklarasikan variable draw    
         if (!empty($this->request->getVar('draw'))) {
-            
+
             if ($this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT)) {
                 // Jika request draw tidak kosong, ambil dari dari request
                 $draw = $this->request->getVar('draw', FILTER_SANITIZE_NUMBER_INT);
@@ -261,7 +260,7 @@ public function view($id)
         if (empty($this->session->get('user_id'))) return redirect("login");
 
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['term'])?$params['term']['term']:'';
+        $search = isset($params['term']) ? $params['term']['term'] : '';
 
         $ijazahModel = new IjazahModel();
         $data = $ijazahModel->lookup($search);

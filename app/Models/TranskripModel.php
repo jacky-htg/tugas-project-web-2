@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use CodeIgniter\Model;
 use CodeIgniter\Database\Query;
 
@@ -19,15 +21,15 @@ class TranskripModel extends Model
       $query = $query->orderBy($order, $sort);
     }
     return $query->join('taruna', 'transkrip_nilai.taruna = taruna.id')
-                 ->join('ijazah', 'transkrip_nilai.ijazah = ijazah.id')
-                 ->join('program_studi', 'transkrip_nilai.program_studi = program_studi.id')
-                 ->findAll($limit, $offset);
+      ->join('ijazah', 'transkrip_nilai.ijazah = ijazah.id')
+      ->join('program_studi', 'transkrip_nilai.program_studi = program_studi.id')
+      ->findAll($limit, $offset);
   }
 
   public function lookup($search)
   {
     $query = $this->select('id, taruna');
-    
+
     if ($search) {
       $query = $query->like('taruna', $search);
     }
@@ -47,11 +49,11 @@ class TranskripModel extends Model
   public function findById($id)
   {
     return $this->select('transkrip_nilai.id, transkrip_nilai.taruna as taruna_id, taruna.nama as taruna, transkrip_nilai.ijazah as ijazah_id, ijazah.nomer_ijazah as ijazah, transkrip_nilai.program_studi as program_studi_id, program_studi.nama as program_studi')
-                ->where('transkrip_nilai.id', $id)
-                ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
-                ->join('ijazah', 'ijazah.id = transkrip_nilai.ijazah')
-                ->join('taruna', 'taruna.id = transkrip_nilai.taruna')
-                ->first();
+      ->where('transkrip_nilai.id', $id)
+      ->join('program_studi', 'program_studi.id = transkrip_nilai.program_studi')
+      ->join('ijazah', 'ijazah.id = transkrip_nilai.ijazah')
+      ->join('taruna', 'taruna.id = transkrip_nilai.taruna')
+      ->first();
   }
 
   public function updateById($id, $data)
@@ -61,8 +63,26 @@ class TranskripModel extends Model
 
   public function deleteTranskrip($id)
   {
-      $this->delete($id);
+    $this->delete($id);
   }
 
-
-} 
+  public function getTranskripNilai($id)
+  {
+    return $this->query("select ijazah.nomer_ijazah, taruna.nama as nama_taruna, 
+    taruna.nomer_taruna, 
+    kota.nama as nama_kota, taruna.tanggal_lahir, 
+    program_studi.nama as nama_studi, program_studi.program_pendidikan, 
+    program_studi.akreditasi, ijazah.tanggal_yudisium, matakuliah.kode, 
+    matakuliah.matakuliah, matakuliah.sks, matakuliah.semester, nilai.nilai_huruf, 
+    ijazah.judul_kkw, matakuliah.nilai_angka, direktur.nama as nama_direktur, direktur.nip as nip_direktur, 
+    wakil_direktur.nama as nama_wakil, wakil_direktur.nip as nip_wakil, ijazah.tanggal_ijazah, 
+    ijazah.nomer_ijazah 
+    FROM transkrip_nilai 
+    JOIN taruna ON transkrip_nilai.taruna = taruna.id 
+    JOIN program_studi ON transkrip_nilai.program_studi = program_studi.id 
+    JOIN ijazah ON transkrip_nilai.ijazah = ijazah.id JOIN nilai ON taruna.id = nilai.taruna 
+    JOIN matakuliah ON nilai.matakuliah = matakuliah.id JOIN kota ON taruna.tempat_lahir = kota.id 
+    JOIN pejabat AS direktur ON direktur.id = ijazah.direktur JOIN pejabat AS wakil_direktur ON wakil_direktur.id = ijazah.wakil_direktur
+    Where transkrip_nilai.id = $id")->getResultArray();
+  }
+}

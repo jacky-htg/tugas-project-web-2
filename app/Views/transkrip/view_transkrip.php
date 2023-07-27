@@ -2,166 +2,445 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= $pageTitle ?></title>
+  <script src="https://assets.siakadcloud.com/assets/v1/js/external/jquery.min.js"></script>
+  <script src="https://assets.siakadcloud.com/assets/v1/js/forrep.js" type="text/javascript"></script>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      margin: 20px;
+    .navbar {
+      background-color: #DCDCDC;
+      border: none;
+      padding: 15px 0;
+      width: auto;
     }
 
-    h3 {
-      color: #007BFF;
-      margin-bottom: 10px;
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .navbar-brand {
+      font-size: 20px;
+      font-weight: normal;
+      font-style: italic;
+      color: #333;
+      margin: 0;
+      margin-left: auto;
+      margin-right: auto;
+      padding: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .btn-info {
+      background-color: #9F4B84;
+    }
+
+    .btn-flat {
+      box-shadow: none;
+    }
+
+    .navbar-btn {
+      margin-left: 10px;
+    }
+
+    .navbar-right {
+      margin-right: 20px;
+    }
+
+    .btn-primary[data-type="back"] {
+      background-color: #9F4B84;
+    }
+
+    @font-face {
+      font-family: myFirstFont;
+      src: url(app/Views/transkrip/Calibri/calibrili.ttf);
+    }
+
+    body {
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+      font-family: myFirstFont;
+      margin: auto;
+      margin-top: auto;
+      padding: auto;
     }
 
     h1 {
-      color: #007BFF;
-      margin: 10px 0;
       text-align: center;
     }
 
+    .data-ijazah table,
+    .data-ijazah th,
+    .data-ijazah td {
+      font-size: 14px;
+      width: 100%;
+      text-align: left;
+      border: none;
+    }
+
+    .data-ijazah {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .data-ijazah td:first-child {
+      width: 24%;
+      text-align: justify;
+    }
+
+    .data-ijazah td {
+      padding: 5px;
+    }
+
+    .data-mahasiswa table,
+    .data-mahasiswa th,
+    .data-mahasiswa td {
+      font-size: 14px;
+      width: 100%;
+      text-align: left;
+      border: none;
+    }
+
+    .data-mahasiswa {
+      text-transform: uppercase;
+      width: 120%;
+      border-collapse: collapse;
+    }
+
+    .data-mahasiswa td:first-child {
+      width: 20%;
+      text-align: justify;
+    }
+
+    .data-mahasiswa td {
+      padding: 5px;
+    }
+
     p {
-      font-size: 12px;
-      margin: 1.15px 0;
+      text-indent: 50px;
+      padding: 5px 15px;
+      width: 100%;
+      text-align: justify;
+      letter-spacing: 1px;
+      line-height: 0.2;
+    }
+
+    h2 {
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    .column {
+      float: left;
+      width: 50%;
+      padding: 5px;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
     }
 
     table {
-      font-size: 12px;
-      width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 8px;
+      width: 100%;
+      border: 1px solid #000;
+      border-spacing: 1px;
       text-align: center;
     }
 
     th {
-      background-color: #f2f2f2;
+      text-transform: uppercase;
+      border: 1px solid #000;
+      padding: 3px;
     }
 
-    button {
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-bottom: 20px;
-      cursor: pointer;
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    td {
+      border-left: 1px solid #000;
+      border-bottom: none;
+      padding: 2px;
     }
 
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      color: #007BFF;
-      text-decoration: none;
+    tr:first-child {
+      height: 20px;
     }
 
-    a:hover {
-      text-decoration: underline;
+
+    tr:nth-child(even) {
+      background-color: #FFFFFF;
     }
 
-    @media (max-width: 600px) {
-
-      h1,
-      p,
-      th,
-      td {
+    @media print {
+      body {
+        margin: 0;
         font-size: 12px;
       }
+    }
 
-      table {
-        font-size: 12px;
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other on screens that are smaller than 600 px */
+    @media screen and (max-width: 600px) {
+      .column {
+        width: 100%;
       }
     }
   </style>
 </head>
 
 <body>
-  <button onclick="printTranskrip()">Cetak Transkrip</button>
-  <h1>Transkrip Nilai</h1>
-  <?php
-  // Sample data to simulate the data that would have been retrieved from the database
-  $transkrip = [
-    'ijazah' => [
-      'nomer_ijazah' => '12345',
-      'tanggal_yudisium' => '2023-07-20'
-    ],
-    'taruna' => [
-      'nama' => 'John Doe',
-      'nomer_taruna' => '2023001',
-      'tempat_lahir' => 'Jakarta',
-      'tanggal_lahir' => '2000-01-01',
-      'program_studi' => 'Computer Science',
-      'akreditasi' => 'A (Sangat Baik)'
-    ],
-    'matakuliah' => [
-      [
-        'kode' => 'CS101',
-        'matakuliah' => 'Introduction to Programming',
-        'sks' => '3',
-        'nilai_huruf' => 'A'
-      ],
-      [
-        'kode' => 'CS202',
-        'matakuliah' => 'Data Structures',
-        'sks' => '4',
-        'nilai_huruf' => 'B+'
-      ],
-    ]
-  ];
-  ?>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <p class="navbar-brand">Transkrip Nilai Akademik</p>
+      <button type="button" class="btn btn-primary btn-flat navbar-btn" data-type="back"><i class="fa fa-arrow-left"></i> Kembali</button>
+      <button type="button" class="btn btn-info btn-flat navbar-btn navbar-right" data-type="print"><i class="fa fa-print"></i> Cetak</button>
+    </div>
+  </nav>
 
-  <p><strong>Lampiran nomor ijazah :</strong> <?= $transkrip['ijazah']['nomer_ijazah'] ?? '' ?></p>
-  <p><strong>Nama :</strong> <?= $transkrip['taruna']['nama'] ?? '' ?></p>
-  <p><strong>Nomer Taruna :</strong> <?= $transkrip['taruna']['nomer_taruna'] ?? '' ?></p>
-  <p><strong>Tempat/Tanggal Lahir :</strong> <?= $transkrip['taruna']['tempat_lahir'] ?? '' ?>, <?= $transkrip['taruna']['tanggal_lahir'] ?? '' ?></p>
-  <p><strong>Jurusan/Program Studi :</strong> <?= $transkrip['taruna']['program_studi'] ?? '' ?></p>
-  <p><strong>Status :</strong> <?= $transkrip['taruna']['akreditasi'] ?? '' ?></p>
-  <p><strong>Tanggal Yudisium :</strong> <?= $transkrip['ijazah']['tanggal_yudisium'] ?? '' ?></p>
-
-  <?php if (!empty($transkrip['matakuliah'])) : ?>
+  <div class="data-ijazah">
     <table>
       <tr>
-        <th>No</th>
-        <th>Kode</th>
-        <th>Mata kuliah</th>
-        <th>SKS</th>
-        <th>Nilai</th>
+        <td>Lampiran Ijazah Nomor</td>
+        <td>: &nbsp;<?= $transkrip[0]['nomer_ijazah']; ?></td>
       </tr>
-      <?php foreach ($transkrip['matakuliah'] as $index => $matakuliah) : ?>
-        <tr>
-          <td><?= $index + 1 ?></td>
-          <td><?= $matakuliah['kode'] ?? '' ?></td>
-          <td><?= $matakuliah['matakuliah'] ?? '' ?></td>
-          <td><?= $matakuliah['sks'] ?? '' ?></td>
-          <td><?= $matakuliah['nilai_huruf'] ?? '' ?></td>
-        </tr>
-      <?php endforeach; ?>
     </table>
-  <?php else : ?>
-    <p>No mata kuliah data available.</p>
-  <?php endif; ?>
+  </div>
+  <br>
 
-  <a href="<?= base_url('transkrip') ?>">Back to Transkrip List</a>
+  <h2><u>Transkrip Nilai Akademik</u></h2>
+  <br>
 
-  <script>
-    function printTranskrip() {
-      window.print();
-    }
-  </script>
+  <div class="data-mahasiswa">
+    <table>
+      <tr>
+        <td>Nama</td>
+        <td>: &nbsp;<?= $transkrip[0]['nama_taruna']; ?></td>
+      </tr>
+      <tr>
+        <td>Nomor Taruna</td>
+        <td>: &nbsp;<?= $transkrip[0]['nomer_taruna']; ?></td>
+      </tr>
+      <tr>
+        <td>Tempat/Tanggal Lahir</td>
+        <td>: &nbsp;<?= $transkrip[0]['nama_kota'] . ', '
+                      . $transkrip[0]['tanggal_lahir']; ?></td>
+      </tr>
+      <tr>
+        <td>Jurusan/Program Studi</td>
+        <td>: &nbsp;<?= $transkrip[0]['program_pendidikan'] . ' ' .
+                      $transkrip[0]['nama_studi']; ?></td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>: &nbsp;Terakreditasi "<b><?= $transkrip[0]['akreditasi']; ?></b>"</td>
+      </tr>
+      <tr>
+        <td>Tanggal Yudisium</td>
+        <td>: &nbsp;<?= $transkrip[0]['tanggal_yudisium']; ?></td>
+      </tr>
+    </table>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="column">
+      <table>
+        <tr>
+          <th>No</th>
+          <th>Kode</th>
+          <th style="width: 500px;">Mata Kuliah</th>
+          <th>Sks</th>
+          <th>Nilai</th>
+        </tr>
+        <?php $rowNumber = 1; ?>
+        <?php foreach ($transkrip as $m) : ?>
+          <!--<tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="line-height: 2; text-transform: uppercase;"></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr> -->
+          <tr>
+            <td><?= $rowNumber ?></td>
+            <td><?= $m['kode'] ?></td>
+            <td><?= $m['matakuliah'] ?></td>
+            <td><?= $m['sks'] ?></td>
+            <td><?= $m['nilai_huruf'] ?></td>
+          </tr>
+          <?php $rowNumber++; ?>
+        <?php endforeach; ?>
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <table>
+          <tr>
+            <th>No</th>
+            <th>Kode</th>
+            <th style="width: 500px;">Mata Kuliah</th>
+            <th>SKS</th>
+            <th>Nilai</th>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="border-left: 1px solid #000; text-align: center; padding: 0%;">
+              <h4>Ini Semester 4</h4>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>2</td>
+            <td style="text-align: left;">Data Structures and Algorithms</td>
+            <td>4</td>
+            <td>B+</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="border-left: 1px solid #000; text-align: center; padding: 0%;">
+              <h4>Ini Semester 5</h4>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>2</td>
+            <td style="text-align: left;">Data Structures and Algorithms</td>
+            <td>4</td>
+            <td>B+</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="border-left: 1px solid #000; text-align: center; padding: 0%;">
+              <h4>Ini Semester 6</h4>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>2</td>
+            <td style="text-align: left;">Data Structures and Algorithms</td>
+            <td>4</td>
+            <td>B+</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000; text-align: left; padding: 0%;">
+              <h4>UJIAN AKHIR PROGRAM STUDI</h4>
+            </td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td style="text-align: left;">Introduction to Programming</td>
+            <td>3</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td height="50px" align="left" valign="top" style="border-top: 1px solid #000; padding: 0%;">
+              <h4>JUDUL KERTAS KERJA WAJIB : </h4>
+            </td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="left" valign="top">Introduction to Programming</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+
+      <script>
+        $(document).ready(function() {
+          $('[data-type="back"]').on('click', function() {
+            window.history.back();
+          });
+        });
+      </script>
+
+
 </body>
-
-</html>
 
 </html>

@@ -95,10 +95,9 @@ class Transkrip extends BaseController
     public function view_transkrip($id)
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-        
-        $transkripModel = new TranskripModel();
-        $data['transkrip'] = $transkripModel->findById($id);
 
+        $transkripModel = new TranskripModel();
+        $data['transkrip'] = $transkripModel->getTranskripNilai($id);
         if (!$data['transkrip']) {
             return redirect()->to('transkrip')->with('error', 'Transkrip not found');
         }
