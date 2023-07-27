@@ -69,20 +69,23 @@ class TranskripModel extends Model
   public function getTranskripNilai($id)
   {
     return $this->query("select ijazah.nomer_ijazah, taruna.nama as nama_taruna, 
-    taruna.nomer_taruna, taruna.foto,
-    kota.nama as nama_kota, taruna.tanggal_lahir, 
-    program_studi.nama as nama_studi, program_studi.program_pendidikan, 
-    program_studi.akreditasi, ijazah.tanggal_yudisium, matakuliah.kode, 
-    matakuliah.matakuliah, matakuliah.sks, matakuliah.semester, nilai.nilai_huruf, 
-    ijazah.judul_kkw, matakuliah.nilai_angka, direktur.nama as nama_direktur, direktur.nip as nip_direktur, 
-    wakil_direktur.nama as nama_wakil, wakil_direktur.nip as nip_wakil, ijazah.tanggal_ijazah, 
-    ijazah.nomer_ijazah 
+    taruna.nomer_taruna, taruna.foto, taruna.tanggal_lahir,
+    kota.nama as nama_kota,  
+    program_studi.nama as nama_studi, program_studi.program_pendidikan, program_studi.akreditasi, 
+    ijazah.tanggal_yudisium, ijazah.judul_kkw, ijazah.tanggal_ijazah, ijazah.nomer_ijazah,
+    matakuliah.kode, matakuliah.matakuliah, matakuliah.sks, matakuliah.semester, 
+    nilai.nilai_huruf, nilai.nilai_angka,
+    direktur.nama as nama_direktur, direktur.nip as nip_direktur, 
+    wakil_direktur.nama as nama_wakil, wakil_direktur.nip as nip_wakil
     FROM transkrip_nilai 
     JOIN taruna ON transkrip_nilai.taruna = taruna.id 
     JOIN program_studi ON transkrip_nilai.program_studi = program_studi.id 
-    JOIN ijazah ON transkrip_nilai.ijazah = ijazah.id JOIN nilai ON taruna.id = nilai.taruna 
-    JOIN matakuliah ON nilai.matakuliah = matakuliah.id JOIN kota ON taruna.tempat_lahir = kota.id 
-    JOIN pejabat AS direktur ON direktur.id = ijazah.direktur JOIN pejabat AS wakil_direktur ON wakil_direktur.id = ijazah.wakil_direktur
+    JOIN ijazah ON transkrip_nilai.ijazah = ijazah.id 
+    JOIN nilai ON taruna.id = nilai.taruna 
+    JOIN matakuliah ON nilai.matakuliah = matakuliah.id 
+    JOIN kota ON taruna.tempat_lahir = kota.id 
+    JOIN pejabat AS direktur ON direktur.id = ijazah.direktur 
+    JOIN pejabat AS wakil_direktur ON wakil_direktur.id = ijazah.wakil_direktur
     Where transkrip_nilai.id = $id")->getResultArray();
   }
 }
