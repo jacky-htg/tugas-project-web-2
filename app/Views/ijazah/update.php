@@ -133,7 +133,14 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="nilai_kkw">Nilai KKW <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="nilai_kkw" name="nilai_kkw" required="required" class="form-control " value="<?= set_value('nilai_kkw') ? set_value('nilai_kkw') : $ijazah['nilai_kkw'] ?>">
+                                <select id="nilai_kkw" class="form-control" name="nilai_kkw">
+                                    <option value="A" <?php if (set_value('nilai_kkw')){ echo set_value('nilai_kkw')==='A'?'selected':'';} else { echo $programStudi['nilai_kkw'] === 'A'?'selected':'';};?> >A</option>
+                                    <option value="AB" <?php if (set_value('nilai_kkw')){ echo set_value('nilai_kkw')==='AB'?'selected':'';} else { echo $programStudi['nilai_kkw'] === 'AB'?'selected':'';};?> >AB</option>
+                                    <option value="B" <?php if (set_value('nilai_kkw')){ echo set_value('nilai_kkw')==='B'?'selected':'';} else { echo $programStudi['nilai_kkw'] === 'B'?'selected':'';};?> >B</option>
+                                    <option value="C" <?php if (set_value('nilai_kkw')){ echo set_value('nilai_kkw')==='C'?'selected':'';} else { echo $programStudi['nilai_kkw'] === 'C'?'selected':'';};?> >C</option>
+                                    <option value="D" <?php if (set_value('nilai_kkw')){ echo set_value('nilai_kkw')==='D'?'selected':'';} else { echo $programStudi['nilai_kkw'] === 'D'?'selected':'';};?> >D</option>
+                                    <option value="E" <?php if (set_value('nilai_kkw')){ echo set_value('nilai_kkw')==='E'?'selected':'';} else { echo $programStudi['nilai_kkw'] === 'E'?'selected':'';};?> >E</option>
+                                </select>
                             </div>
                         </div>
 

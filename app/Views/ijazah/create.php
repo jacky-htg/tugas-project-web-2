@@ -133,7 +133,14 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="nilai_kkw">Nilai KKW <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="nilai_kkw" name="nilai_kkw" required="required" class="form-control " value="<?= set_value('nilai_kkw') ?>">
+                                <select id="nilai_kkw" class="form-control" name="nilai_kkw">
+                                    <option value="A">A</option>
+                                    <option value="AB">AB</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                </select>
                             </div>
                         </div>
 
