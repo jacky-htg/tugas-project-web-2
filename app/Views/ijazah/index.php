@@ -188,6 +188,7 @@
                   render: function(data, type, row) {
                     return '<div class="btn-group" role="group">' +
                       '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm updateBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' +
+                      '<button data-id="' + row.DT_RowId + '" class="btn btn-success btn-sm viewBtn"><i class="fa fa-file" aria-hidden="true"></i></button>' +
                       '<button data-id="' + row.DT_RowId + '" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
                       '</div>';
                   }
@@ -199,6 +200,11 @@
 
             $('#addTranskripBtn').on('click', function() {
               window.location = "<?= base_url('ijazah'); ?>/create";
+            });
+
+            $('#myTable').on('click', '.viewBtn', function() {
+              let id = $(this).data('id');
+              window.location = "<?= base_url('ijazah'); ?>/" + id;
             });
 
             $('#myTable').on('click', '.updateBtn', function() {
