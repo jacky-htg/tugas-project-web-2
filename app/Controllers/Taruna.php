@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controllers;
-
 use App\Models\TarunaModel;
 
 class Taruna extends BaseController
@@ -16,7 +15,7 @@ class Taruna extends BaseController
     public function create()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-
+        
         if ($this->request->is('post')) {
             $validation =  \Config\Services::validation();
             $validation->setRules([
@@ -57,7 +56,7 @@ class Taruna extends BaseController
     public function update($id)
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-
+        
         $TarunaModel = new TarunaModel();
         $taruna = $TarunaModel->findById($id);
         $data['taruna'] = $taruna;
@@ -75,16 +74,28 @@ class Taruna extends BaseController
             }
             $isDataValid = $validation->withRequest($this->request)->run();
 
-            if ($isDataValid) {
-                $TarunaModel->updateById($id, [
-                    "nama" => $this->request->getPost('nama'),
-                    "nomer_taruna" => $this->request->getPost('nomer_taruna'),
-                    "tempat_lahir" => $this->request->getPost('tempat_lahir'),
-                    "tanggal_lahir" => $this->request->getPost('tanggal_lahir'),
-                    "program_studi" => $this->request->getPost('program_studi'),
-                    "foto" => $this->request->getPost('foto')
-                ]);
+            if($isDataValid){
+                $data = [
+                    'nama' => $this->request->getPost('nama'),
+                    'nomer_taruna' => $this->request->getPost('nomer_taruna'),
+                    'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                    'program_studi' => $this->request->getPost('program_studi'),
+                ];
 
+                if ($this->request->getFile('foto')->getSize() > 0 && $this->request->getFile('foto')->isValid()) {
+                    // Proses unggah foto
+                    $foto = $this->request->getFile('foto');
+                    if ($foto->move(ROOTPATH . 'public/images/')){
+                        $data['foto'] = $foto->getName();
+
+                        // Hapus foto lama jika ada
+                        if (!empty($taruna['foto']) && file_exists(dirname(__FILE__).'/../../public/images/' . $taruna['foto'])) {
+                            unlink(dirname(__FILE__).'/../../public/images/' . $taruna['foto']);
+                        }
+                    }
+                }
+                $TarunaModel->update($id, $data);
                 return redirect('taruna');
             }
         }
@@ -95,7 +106,7 @@ class Taruna extends BaseController
     public function delete($id)
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-
+        
         if ($this->request->is('post') || $this->request->is('delete')) {
             $TarunaModel = new TarunaModel();
             $taruna = $TarunaModel->findById($id);
@@ -118,16 +129,16 @@ class Taruna extends BaseController
     public function list()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-
+        
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $draw = isset($params['draw']) ? $params['draw'] : 1;
-        $offset = isset($params['start']) ? $params['start'] : 0;
-        $limit = isset($params['length']) ? $params['length'] : 10; // Rows display per page
-        $columnIndex = isset($params['order']) ? $params['order'][0]['column'] : null; // Column index
-        $order = ($columnIndex || $columnIndex === '0') ? $params['columns'][$columnIndex]['data'] : null; // Column name
-        $sort = $order ? $params['order'][0]['dir'] : null; // asc or desc
-        $search = isset($params['search']) ? $params['search']['value'] : ''; // Search value
-
+        $draw = isset($params['draw'])?$params['draw']:1;
+        $offset = isset($params['start'])?$params['start']:0;
+        $limit = isset($params['length'])?$params['length']:10; // Rows display per page
+        $columnIndex = isset($params['order'])? $params['order'][0]['column']:null; // Column index
+        $order = ($columnIndex || $columnIndex === '0')?$params['columns'][$columnIndex]['data']:null; // Column name
+        $sort = $order?$params['order'][0]['dir']:null; // asc or desc
+        $search = isset($params['search'])?$params['search']['value']:''; // Search value
+        
         $TarunaModel = new TarunaModel();
         $count = $TarunaModel->count($search);
         $data = [
@@ -142,10 +153,10 @@ class Taruna extends BaseController
     public function lookup()
     {
         if (empty($this->session->get('user_id'))) return redirect("login");
-
+        
         $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['term']) ? $params['term']['term'] : '';
-
+        $search = isset($params['term'])?$params['term']['term']:'';
+        
         $TarunaModel = new TarunaModel();
         $data = $TarunaModel->lookup($search);
         return json_encode(["results" => $data]);
