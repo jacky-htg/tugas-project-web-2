@@ -72,7 +72,7 @@ class NilaiController extends BaseController
 
     public function delete($id)
     {
-        // if (empty($this->session->get('user_id'))) return redirect("login");
+        if (empty($this->session->get('user_id'))) return redirect("login");
 
         if ($this->request->is('post') || $this->request->is('delete')) {
             $nilaiModel = new NilaiModel();
