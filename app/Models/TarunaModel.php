@@ -45,7 +45,7 @@ class TarunaModel extends Model
 
   public function findById($id)
   {
-    return $this->select('taruna.id as id, taruna.nama as nama, taruna.nomer_taruna as nomer_taruna, kota.nama as tempat_lahir, taruna.tanggal_lahir as tanggal_lahir, program_studi.nama as program_studi, taruna.foto as foto')
+    return $this->select('taruna.id as id, taruna.nama as nama, taruna.nomer_taruna as nomer_taruna, kota.id as kota_id, kota.nama as tempat_lahir, taruna.tanggal_lahir as tanggal_lahir, program_studi.nama as program_studi, taruna.foto as foto')
         ->join('kota',' taruna.tempat_lahir= kota.id')
         ->join('program_studi',' taruna.program_studi= program_studi.id')
         ->where('taruna.id', $id)
