@@ -1,3 +1,16 @@
+<?php 
+  $ipk = $transkrip['total_sks']['total_nilai']/$transkrip['total_sks']['total']; 
+  $predikat = '';
+  if ($ipk >= 3.5) {
+    $predikat = 'DENGAN PUJIAN';
+  } else if ($ipk >= 3) {
+    $predikat = 'SANGAT MEMUASKAN';
+  } else if ($ipk >= 2.5) {
+    $predikat = 'MEMUASKAN';
+  } else if ($ipk >= 2) {
+    $predikat = 'CUKUP';
+  }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -477,6 +490,17 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td align="left" valign="top"><?= $transkrip['base']['judul_kkw'] ;?></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="left" valign="top">
+              JUMLAH SKS : <?= $transkrip['total_sks']['total'] ;?> <br/>
+              IP KUMULATIF : <?= number_format($ipk, 2, '.', '');?> <br/>
+              PREDIKAT KELULUSAN : <?= $predikat;?> <br/>
+            </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
           </tr>

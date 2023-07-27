@@ -121,7 +121,8 @@ class Transkrip extends BaseController
             'semester6' => 0,
             'semester7' => 0,
             'semester8' => 0,
-            'total' => 0
+            'total' => 0,
+            'total_nilai' => 0
         ];
 
         foreach ($transkrip as $i => $v) {
@@ -129,6 +130,7 @@ class Transkrip extends BaseController
                 $data['transkrip']['base'] = $v;
             }
             $data['transkrip']['total_sks']['total'] += $v['sks'];
+            $data['transkrip']['total_sks']['total_nilai'] += $v['nilai_angka'];
 
             if ($v['semester'] === 'semester I') {
                 $data['transkrip']['total_sks']['semester1'] += $v['sks'];
