@@ -35,7 +35,7 @@
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="tempat_lahir">tempat_lahir<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="tempat_lahir" name="tempat_lahir" required="required" class="form-control " value="<?= set_value('tempat_lahir') ?>" >
+                                    <select class='form-control col-lg-5 itemSearch' id="tempat_lahir" name="tempat_lahir" required="required" value="<?= set_value('tempat_lahir') ?>" >
                                 </div>
                             </div>
 
@@ -49,7 +49,7 @@
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="program_studi">program_studi<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="program_studi" name="program_studi" required="required" class="form-control " value="<?= set_value('program_studi') ?>" >
+                                    <select class='form-control col-lg-5 itemSearch' id="program_studi" name="program_studi" required="required" value="<?= set_value('program_studi') ?>" ></select>
                                 </div>
                             </div>
 
@@ -72,4 +72,47 @@
             </div>
         </div>
     </div>
+    <script src="<?= base_url('vendors');?>/select2/dist/js/select2.min.js"></script>
+    <script>
+        $("#tempat_lahir").select2({
+            placeholder: "Select Tempat Lahir",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/kota/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return { results: data };
+                }
+            }
+        });
+        $("#program_studi").select2({
+            placeholder: "Select program studi",
+            allowClear: true,
+            minimumInputLength: 2,
+            tags: [],
+            ajax: {
+                url: "<?= base_url('api/programstudi/lookup');?>",
+                dataType: 'json',
+                type: "GET",
+                quietMillis: 50,
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return { results: data };
+                }
+            }
+        });
+    </script>
 <?= $this->endSection() ?>
