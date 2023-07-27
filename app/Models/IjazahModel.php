@@ -23,7 +23,8 @@ class IjazahModel extends Model
     'nomer_ijazah',
     'nomer_seri',
     'tanggal_yudisium',
-    'judul_kkw'
+    'judul_kkw',
+    'nilai_kkw'
   ];
 
   // function list return array
@@ -49,7 +50,8 @@ class IjazahModel extends Model
    program_pendidikan,
    nomer_seri,
    tanggal_yudisium, 
-   judul_kkw')
+   judul_kkw, 
+   nilai_kkw')
    ->join('taruna' , 'taruna.id = ijazah.taruna')
    ->join('program_studi', 'program_studi.id = ijazah.program_studi')
    ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
@@ -133,7 +135,8 @@ class IjazahModel extends Model
     nomer_ijazah, 
     nomer_seri,
     tanggal_yudisium, 
-    judul_kkw')
+    judul_kkw, 
+    nilai_kkw')
         ->join('taruna' , 'taruna.id = ijazah.taruna')
         ->join('program_studi', 'program_studi.id = ijazah.program_studi')
         ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
