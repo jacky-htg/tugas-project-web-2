@@ -113,13 +113,14 @@ class IjazahModel extends Model
     return $this->select('ijazah.id, 
     ijazah.taruna taruna_id, 
     taruna.nama taruna, 
-    taruna.nama nomer_taruna,
-    taruna.nama tempat_lahir,
-    taruna.nama tanggal_lahir,
+    taruna.nomer_taruna nomer_taruna,
+    kota.nama as tempat_lahir,
+    taruna.tanggal_lahir tanggal_lahir,
     ijazah.program_studi program_studi_id,
     program_studi.nama program_studi, 
-    program_studi.nama program_pendidikan,
-    program_studi.nama akreditasi,
+    program_studi.program_pendidikan program_pendidikan,
+    program_studi.akreditasi akreditasi,
+    program_studi.sk_akreditasi sk_akreditasi,
     tanggal_ijazah, 
     tanggal_pengesahan, 
     gelar_akademik, 
@@ -138,6 +139,7 @@ class IjazahModel extends Model
         ->join('program_studi', 'program_studi.id = ijazah.program_studi')
         ->join('pejabat as direktur', 'direktur.id = ijazah.direktur')
         ->join('pejabat as wakil_direktur', 'wakil_direktur.id = ijazah.wakil_direktur')
+        ->join('kota' , 'kota.id = taruna.tempat_lahir')
         ->where('ijazah.id', $id)
         ->first();
   }
