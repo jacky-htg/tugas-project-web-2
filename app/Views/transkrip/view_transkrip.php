@@ -1,6 +1,5 @@
 <?php 
   $ipk = $transkrip['total_sks']['total_nilai']/$transkrip['total_sks']['total']; 
-  var_dump([$transkrip['total_sks']['total_nilai'], $transkrip['total_sks']['total'], $ipk]);
   $predikat = '';
   if ($ipk >= 3.5) {
     $predikat = 'DENGAN PUJIAN';
@@ -495,15 +494,15 @@
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td align="left" valign="top">
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;" align="left" valign="top">
               JUMLAH SKS : <?= $transkrip['total_sks']['total'] ;?> <br/>
               IP KUMULATIF : <?= number_format($ipk, 2, '.', '');?> <br/>
               PREDIKAT KELULUSAN : <?= $predikat;?> <br/>
             </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;">&nbsp;</td>
           </tr>
         </table>
       </div>
