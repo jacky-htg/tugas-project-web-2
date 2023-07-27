@@ -130,7 +130,7 @@ class Transkrip extends BaseController
                 $data['transkrip']['base'] = $v;
             }
             $data['transkrip']['total_sks']['total'] += $v['sks'];
-            $data['transkrip']['total_sks']['total_nilai'] += $v['nilai_angka'];
+            $data['transkrip']['total_sks']['total_nilai'] += $v['nilai_angka'] * $v['sks'];
 
             if ($v['semester'] === 'semester I') {
                 $data['transkrip']['total_sks']['semester1'] += $v['sks'];
