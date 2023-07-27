@@ -1,6 +1,6 @@
 <?php 
   $ipk = $transkrip['total_sks']['total_nilai']/$transkrip['total_sks']['total']; 
-  var_dump($ipk);
+  var_dump([$transkrip['total_sks']['total_nilai'], $transkrip['total_sks']['total'], $ipk]);
   $predikat = '';
   if ($ipk >= 3.5) {
     $predikat = 'DENGAN PUJIAN';
