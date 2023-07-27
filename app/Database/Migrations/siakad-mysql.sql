@@ -41,7 +41,7 @@ CREATE TABLE `ijazah` (
                           `nomer_seri` varchar(255) DEFAULT NULL,
                           `tanggal_yudisium` date DEFAULT NULL,
                           `judul_kkw` varchar(255) DEFAULT NULL,
-                          `nilai_kkw` enum('A','B','C','D','E') DEFAULT NULL
+                          `nilai_kkw` enum('A','AB','B','C','D','E') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
