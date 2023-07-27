@@ -151,7 +151,7 @@
                 dataSrc: 'data'
               },
               "columnDefs": [{
-                "targets": 3,
+                "targets": 7,
                 "orderable": false
               }],
               columns: [{
