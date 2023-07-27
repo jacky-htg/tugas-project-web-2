@@ -97,11 +97,66 @@ class Transkrip extends BaseController
         if (empty($this->session->get('user_id'))) return redirect("login");
 
         $transkripModel = new TranskripModel();
-        $data['transkrip'] = $transkripModel->getTranskripNilai($id);
-        if (!$data['transkrip']) {
+        $transkrip = $transkripModel->getTranskripNilai($id);
+
+        if (!$transkrip) {
             return redirect()->to('transkrip')->with('error', 'Transkrip not found');
         }
 
+        $data['transkrip']['base'] = [];
+        $data['transkrip']['semester1'] = [];
+        $data['transkrip']['semester2'] = [];
+        $data['transkrip']['semester3'] = [];
+        $data['transkrip']['semester4'] = [];
+        $data['transkrip']['semester5'] = [];
+        $data['transkrip']['semester6'] = [];
+        $data['transkrip']['semester7'] = [];
+        $data['transkrip']['semester8'] = [];
+        $data['transkrip']['total_sks'] = [
+            'semester1' => 0,
+            'semester2' => 0,
+            'semester3' => 0,
+            'semester4' => 0,
+            'semester5' => 0,
+            'semester6' => 0,
+            'semester7' => 0,
+            'semester8' => 0,
+            'total' => 0
+        ];
+
+        foreach ($transkrip as $i => $v) {
+            if ($i === 0) {
+                $data['transkrip']['base'] = $v;
+            }
+            $data['transkrip']['total_sks']['total'] += $v['sks'];
+
+            if ($v['semester'] === 'semester I') {
+                $data['transkrip']['total_sks']['semester1'] += $v['sks'];
+                $data['transkrip']['semester1'][] = $v;
+            } else if ($v['semester'] === 'semester II') {
+                $data['transkrip']['total_sks']['semester2'] += $v['sks'];
+                $data['transkrip']['semester2'][] = $v;
+            } else if ($v['semester'] === 'semester III') {
+                $data['transkrip']['total_sks']['semester3'] += $v['sks'];
+                $data['transkrip']['semester3'][] = $v;
+            } else if ($v['semester'] === 'semester IV') {
+                $data['transkrip']['total_sks']['semester4'] += $v['sks'];
+                $data['transkrip']['semester4'][] = $v;
+            } else if ($v['semester'] === 'semester V') {
+                $data['transkrip']['total_sks']['semester5'] += $v['sks'];
+                $data['transkrip']['semester5'][] = $v;
+            } else if ($v['semester'] === 'semester VI') {
+                $data['transkrip']['total_sks']['semester6'] += $v['sks'];
+                $data['transkrip']['semester6'][] = $v;
+            } else if ($v['semester'] === 'semester VII') {
+                $data['transkrip']['total_sks']['semester7'] += $v['sks'];
+                $data['transkrip']['semester7'][] = $v;
+            } else if ($v['semester'] === 'semester VIII') {
+                $data['transkrip']['total_sks']['semester8'] += $v['sks'];
+                $data['transkrip']['semester8'][] = $v;
+            }
+        }
+        unset($transkrip);
         $data['pageTitle'] = 'View Transkrip';
         return view('transkrip/view_transkrip', $data);
     }

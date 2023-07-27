@@ -69,7 +69,7 @@ class TranskripModel extends Model
   public function getTranskripNilai($id)
   {
     return $this->query("select ijazah.nomer_ijazah, taruna.nama as nama_taruna, 
-    taruna.nomer_taruna, 
+    taruna.nomer_taruna, taruna.foto,
     kota.nama as nama_kota, taruna.tanggal_lahir, 
     program_studi.nama as nama_studi, program_studi.program_pendidikan, 
     program_studi.akreditasi, ijazah.tanggal_yudisium, matakuliah.kode, 
