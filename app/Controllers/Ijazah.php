@@ -31,6 +31,7 @@ class Ijazah extends BaseController
             $validation->setRules(['nomer_seri' => 'required']);
             $validation->setRules(['tanggal_yudisium' => 'required']);
             $validation->setRules(['judul_kkw' => 'required']);
+            $validation->setRules(['nilai_kkw' => 'required']);
             $isDataValid = $validation->withRequest($this->request)->run();
 
             if ($isDataValid) {
@@ -47,7 +48,8 @@ class Ijazah extends BaseController
                     "nomer_ijazah" => $this->request->getPost('nomer_ijazah'),
                     "nomer_seri" => $this->request->getPost('nomer_seri'),
                     "tanggal_yudisium" => $this->request->getPost('tanggal_yudisium'),
-                    "judul_kkw" => $this->request->getPost('judul_kkw')
+                    "judul_kkw" => $this->request->getPost('judul_kkw'),
+                    "nilai_kkw" => $this->request->getPost('nilai_kkw')
                 ]);
 
                 return redirect('ijazah');
@@ -87,6 +89,7 @@ public function view($id)
             $validation->setRules(['nomer_seri' => 'required']);
             $validation->setRules(['tanggal_yudisium' => 'required']);
             $validation->setRules(['judul_kkw' => 'required']);
+            $validation->setRules(['nilai_kkw' => 'required']);
             $isDataValid = $validation->withRequest($this->request)->run();
             
             if ($isDataValid) {
@@ -102,7 +105,8 @@ public function view($id)
                     "nomer_ijazah" => $this->request->getPost('nomer_ijazah'),
                     "nomer_seri" => $this->request->getPost('nomer_seri'),
                     "tanggal_yudisium" => $this->request->getPost('tanggal_yudisium'),
-                    "judul_kkw" => $this->request->getPost('judul_kkw')
+                    "judul_kkw" => $this->request->getPost('judul_kkw'),
+                    "nilai_kkw" => $this->request->getPost('nilai_kkw')
                 ]);
 
                 return redirect('ijazah');
