@@ -1,8 +1,23 @@
-<pre>
-<?php #print_r($ijazah);?>
-</pre>
-
-<?php #die; ?>
+<?php 
+function displayDate($str) {
+  $time = strtotime($str);
+  $bulan = [
+    'Jan' => 'January',
+    'Feb' => 'Februari',
+    'Mar' => 'Maret',
+    'Apr' => 'April',
+    'May' => 'Mei',
+    'Jun' => 'Juni',
+    'Jul' => 'Juli',
+    'Aug' => 'Agustus',
+    'Sep' => 'September',
+    'Oct' => 'Oktober',
+    'Nov' => 'November',
+    'Dec' => 'Desember'
+  ];
+  return (int)date("d", $time) . ' ' . $bulan[date("M", $time)] . ' ' . date("Y", $time);
+} 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -214,7 +229,7 @@
         </div>
         <div class="wrapper">
             <div class="left">Tempat dan Tanggal Lahir</div>
-            <div class="right">: <?= $ijazah["tempat_lahir"] ?>, <?= strtoupper($ijazah["tanggal_lahir"]) ?></div>
+            <div class="right">: <?= $ijazah["tempat_lahir"] ?>, <?= strtoupper(displayDate($ijazah["tanggal_lahir"])) ?></div>
         </div>
         <div class="wrapper">
             <div class="left">Nomor Taruna</div>
@@ -244,7 +259,7 @@
 
 		<div class="wrapper-1">
             <div class="left"></div>
-            <div class="right">Jakarta, <?= $ijazah["tanggal_ijazah"] ?></div>
+            <div class="right">Jakarta, <?= displayDate($ijazah["tanggal_ijazah"]) ?></div>
         </div>
 
     	<div class="wrapper-1">
