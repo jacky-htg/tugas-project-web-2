@@ -72,7 +72,7 @@ class TranskripModel extends Model
     taruna.nomer_taruna, taruna.foto, taruna.tanggal_lahir,
     kota.nama as nama_kota,  
     program_studi.nama as nama_studi, program_studi.program_pendidikan, program_studi.akreditasi, 
-    ijazah.tanggal_yudisium, ijazah.judul_kkw, ijazah.tanggal_ijazah, ijazah.nomer_ijazah,
+    ijazah.tanggal_yudisium, ijazah.judul_kkw, ijazah.nilai_kkw, ijazah.tanggal_ijazah, ijazah.nomer_ijazah,
     matakuliah.kode, matakuliah.matakuliah, matakuliah.sks, matakuliah.semester, 
     nilai.nilai_huruf, nilai.nilai_angka,
     direktur.nama as nama_direktur, direktur.nip as nip_direktur, 

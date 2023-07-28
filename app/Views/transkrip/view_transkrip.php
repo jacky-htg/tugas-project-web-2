@@ -10,6 +10,25 @@ if ($ipk >= 3.5) {
 } else if ($ipk >= 2) {
   $predikat = 'CUKUP';
 }
+        
+function displayDate($str) {
+  $time = strtotime($str);
+  $bulan = [
+    'Jan' => 'January',
+    'Feb' => 'Februari',
+    'Mar' => 'Maret',
+    'Apr' => 'April',
+    'May' => 'Mei',
+    'Jun' => 'Juni',
+    'Jul' => 'Juli',
+    'Aug' => 'Agustus',
+    'Sep' => 'September',
+    'Oct' => 'Oktober',
+    'Nov' => 'November',
+    'Dec' => 'Desember'
+  ];
+  return (int)date("d", $time) . ' ' . $bulan[date("M", $time)] . ' ' . date("Y", $time);
+} 
 ?>
 <!DOCTYPE html>
 <html>
@@ -183,19 +202,17 @@ if ($ipk >= 3.5) {
     table {
       border-collapse: collapse;
       width: 100%;
-      border: 1px solid #000;
-      border-spacing: 1px;
+      margin:0;
+      padding:0;
       text-align: center;
     }
 
     th {
       text-transform: uppercase;
-      border: 1px solid #000;
       padding: 8px;
     }
 
     td {
-      border-left: 1px solid #000;
       border-bottom: none;
       padding: 6px;
     }
@@ -213,18 +230,27 @@ if ($ipk >= 3.5) {
         margin: 0;
         font-size: 12px;
       }
+
+      .foto {
+        width: 4in; 
+        height: 6in;
+      }
     }
 
     @media screen and (max-width: 600px) {
       .column {
         width: 100%;
       }
+
+      .foto {
+        width: 100px; 
+        height: 150px;
+      }
     }
 
     .container_footer {
       max-width: auto;
-      margin: auto;
-      padding: 10px;
+      margin: 0;
     }
 
     .header_footer {
@@ -256,6 +282,10 @@ if ($ipk >= 3.5) {
       padding-top: 15px;
     }
 
+    .signature p {
+      text-align: center;
+    }
+
     .name {
       font-size: 11pt;
       font-weight: bold;
@@ -280,6 +310,45 @@ if ($ipk >= 3.5) {
       font-size: 20px;
       color: #9F4B84;
     }
+
+    .td1 {
+      border-right: 1px solid black; 
+      width:7%;
+    }
+
+    .td2 {
+      border-right: 1px solid black; 
+      width: 15%;
+    }
+
+    .td3 {
+      border-right: 1px solid black; 
+      width: 62%;
+    }
+
+    .td4 {
+      border-right: 1px solid black; 
+      width: 7%;
+    }
+
+    .td5 {
+      width: 9%;
+    }
+
+    .td234{
+      border-right: 1px solid black;
+      width: 84%;
+    }
+
+    table, th, tr {
+      margin:0;
+      padding:0;
+    }
+
+    th {
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+    }
   </style>
 
 </head>
@@ -293,7 +362,7 @@ if ($ipk >= 3.5) {
     </div>
   </nav>
 
-  <div class="data-ijazah">
+  <div class="data-ijazah" style="margin-left:3%;">
     <table>
       <tr>
         <td>Lampiran Ijazah Nomor</td>
@@ -306,7 +375,7 @@ if ($ipk >= 3.5) {
   <h2><u>Transkrip Nilai Akademik</u></h2>
   <br>
 
-  <div class="data-mahasiswa">
+  <div class="data-mahasiswa" style="margin-left:3%;">
     <table>
       <tr>
         <td>Nama</td>
@@ -318,7 +387,7 @@ if ($ipk >= 3.5) {
       </tr>
       <tr>
         <td>Tempat/Tanggal Lahir</td>
-        <td>: &nbsp;<?= $transkrip['base']['nama_kota'] . ', ' . $transkrip['base']['tanggal_lahir']; ?></td>
+        <td>: &nbsp;<?= $transkrip['base']['nama_kota'] . ', ' . displayDate($transkrip['base']['tanggal_lahir']); ?> </td>
       </tr>
       <tr>
         <td>Jurusan/Program Studi</td>
@@ -336,126 +405,138 @@ if ($ipk >= 3.5) {
   </div>
   <br>
 
-  <div class="row">
-    <div class="column">
-      <table>
-        <tr>
-          <th>No</th>
-          <th>Kode</th>
-          <th style="width: 500px;">Mata Kuliah</th>
-          <th>Sks</th>
-          <th>Nilai</th>
-        </tr>
-        <?php $rowNumber = 1; ?>
-        <?php foreach ($transkrip['semester1'] as $i => $m) : ?>
-          <?php if ($i === 0) : ?>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td style="line-height: 2; text-transform: uppercase;">SEMESTER I (<?= $transkrip['total_sks']['semester1']; ?> SKS)</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-          <?php endif; ?>
-          <tr>
-            <td><?= $rowNumber ?></td>
-            <td><?= $m['kode'] ?></td>
-            <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-            <td><?= $m['sks'] ?></td>
-            <td><?= $m['nilai_huruf'] ?></td>
-          </tr>
-          <?php $rowNumber++; ?>
-        <?php endforeach; ?>
-
-        <?php foreach ($transkrip['semester2'] as $i => $m) : ?>
-          <?php if ($i === 0) : ?>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td style="line-height: 2; text-transform: uppercase;">SEMESTER II (<?= $transkrip['total_sks']['semester2']; ?> SKS)</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-          <?php endif; ?>
-          <tr>
-            <td><?= $rowNumber ?></td>
-            <td><?= $m['kode'] ?></td>
-            <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-            <td><?= $m['sks'] ?></td>
-            <td><?= $m['nilai_huruf'] ?></td>
-          </tr>
-          <?php $rowNumber++; ?>
-        <?php endforeach; ?>
-
-        <?php foreach ($transkrip['semester3'] as $i => $m) : ?>
-          <?php if ($i === 0) : ?>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td style="line-height: 2; text-transform: uppercase;">SEMESTER III (<?= $transkrip['total_sks']['semester3']; ?> SKS)</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-          <?php endif; ?>
-          <tr>
-            <td><?= $rowNumber ?></td>
-            <td><?= $m['kode'] ?></td>
-            <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-            <td><?= $m['sks'] ?></td>
-            <td><?= $m['nilai_huruf'] ?></td>
-          </tr>
-          <?php $rowNumber++; ?>
-        <?php endforeach; ?>
-
-        <?php foreach ($transkrip['semester4'] as $i => $m) : ?>
-          <?php if ($i === 0) : ?>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td style="line-height: 2; text-transform: uppercase;">SEMESTER IV (<?= $transkrip['total_sks']['semester4']; ?> SKS)</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-          <?php endif; ?>
-          <tr>
-            <td><?= $rowNumber ?></td>
-            <td><?= $m['kode'] ?></td>
-            <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-            <td><?= $m['sks'] ?></td>
-            <td><?= $m['nilai_huruf'] ?></td>
-          </tr>
-          <?php $rowNumber++; ?>
-        <?php endforeach; ?>
-      </table>
-    </div>
-
-    <div class="row">
-      <div class="column">
+  <div style="display:flex; flex-direction:row; flex-wrap: wrap;">
+    <div class="row" style="flex:49%; border: 1px solid black;">
+      <div class="column" style="width:100%; margin:0; padding:0; margin-top:2px; margin-bottom:2px;">
         <table>
           <tr>
-            <th>No</th>
-            <th>Kode</th>
-            <th style="width: 500px;">Mata Kuliah</th>
-            <th>SKS</th>
-            <th>Nilai</th>
+            <th class="td1">No</th>
+            <th class="td2">Kode</th>
+            <th class="td3">Mata Kuliah</th>
+            <th class="td4">Sks</th>
+            <th class="td5">Nilai</th>
+          </tr>
+          <?php $rowNumber = 1; ?>
+          <?php foreach ($transkrip['semester1'] as $i => $m) : ?>
+            <?php if ($i === 0) : ?>
+              <tr>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER I (<?= $transkrip['total_sks']['semester1']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
+              </tr>
+            <?php endif; ?>
+            <tr>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
+            </tr>
+            <?php $rowNumber++; ?>
+          <?php endforeach; ?>
+
+          <?php foreach ($transkrip['semester2'] as $i => $m) : ?>
+            <?php if ($i === 0) : ?>
+              <tr>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER II (<?= $transkrip['total_sks']['semester2']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
+              </tr>
+            <?php endif; ?>
+            <tr>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
+            </tr>
+            <?php $rowNumber++; ?>
+          <?php endforeach; ?>
+
+          <?php foreach ($transkrip['semester3'] as $i => $m) : ?>
+            <?php if ($i === 0) : ?>
+              <tr>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER III (<?= $transkrip['total_sks']['semester3']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
+              </tr>
+            <?php endif; ?>
+            <tr>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
+            </tr>
+            <?php $rowNumber++; ?>
+          <?php endforeach; ?>
+
+          <?php foreach ($transkrip['semester4'] as $i => $m) : ?>
+            <?php if ($i === 0) : ?>
+              <tr>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER IV (<?= $transkrip['total_sks']['semester4']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
+              </tr>
+            <?php endif; ?>
+            <tr>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
+            </tr>
+            <?php $rowNumber++; ?>
+          <?php endforeach; ?>
+        </table>
+              <table>
+                <tr style="height: 120px; border-bottom: 1px solid black;">
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3">&nbsp;</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
+                </tr>
+              </table>
+      </div>
+    </div>
+    <div class="row" style="flex:2%;">&nbsp;</div>
+
+    <div class="row" style="flex:49%; border: 1px solid black;">
+      <div class="column" style="width:100%; margin:0; padding:0; margin-top:2px; margin-bottom:2px;">
+        <table>
+          <tr>
+            <th class="td1">No</th>
+            <th class="td2">Kode</th>
+            <th class="td3">Mata Kuliah</th>
+            <th class="td4">SKS</th>
+            <th class="td5">Nilai</th>
           </tr>
 
           <?php foreach ($transkrip['semester5'] as $i => $m) : ?>
             <?php if ($i === 0) : ?>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td style="line-height: 2; text-transform: uppercase;">SEMESTER V (<?= $transkrip['total_sks']['semester5']; ?> SKS)</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER V (<?= $transkrip['total_sks']['semester5']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
               </tr>
             <?php endif; ?>
             <tr>
-              <td><?= $rowNumber ?></td>
-              <td><?= $m['kode'] ?></td>
-              <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-              <td><?= $m['sks'] ?></td>
-              <td><?= $m['nilai_huruf'] ?></td>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
             </tr>
             <?php $rowNumber++; ?>
           <?php endforeach; ?>
@@ -463,19 +544,19 @@ if ($ipk >= 3.5) {
           <?php foreach ($transkrip['semester6'] as $i => $m) : ?>
             <?php if ($i === 0) : ?>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td style="line-height: 2; text-transform: uppercase;">SEMESTER VI (<?= $transkrip['total_sks']['semester6']; ?> SKS)</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER VI (<?= $transkrip['total_sks']['semester6']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
               </tr>
             <?php endif; ?>
             <tr>
-              <td><?= $rowNumber ?></td>
-              <td><?= $m['kode'] ?></td>
-              <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-              <td><?= $m['sks'] ?></td>
-              <td><?= $m['nilai_huruf'] ?></td>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
             </tr>
             <?php $rowNumber++; ?>
           <?php endforeach; ?>
@@ -483,19 +564,19 @@ if ($ipk >= 3.5) {
           <?php foreach ($transkrip['semester7'] as $i => $m) : ?>
             <?php if ($i === 0) : ?>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td style="line-height: 2; text-transform: uppercase;">SEMESTER VII (<?= $transkrip['total_sks']['semester7']; ?> SKS)</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER VII (<?= $transkrip['total_sks']['semester7']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
               </tr>
             <?php endif; ?>
             <tr>
-              <td><?= $rowNumber ?></td>
-              <td><?= $m['kode'] ?></td>
-              <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-              <td><?= $m['sks'] ?></td>
-              <td><?= $m['nilai_huruf'] ?></td>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
             </tr>
             <?php $rowNumber++; ?>
           <?php endforeach; ?>
@@ -503,71 +584,87 @@ if ($ipk >= 3.5) {
           <?php foreach ($transkrip['semester8'] as $i => $m) : ?>
             <?php if ($i === 0) : ?>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td style="line-height: 2; text-transform: uppercase;">SEMESTER VIII (<?= $transkrip['total_sks']['semester8']; ?> SKS)</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="td1">&nbsp;</td>
+                <td class="td2">&nbsp;</td>
+                <td class="td3" style="line-height: 2; font-weight:bold; text-transform: uppercase;">SEMESTER VIII (<?= $transkrip['total_sks']['semester8']; ?> SKS)</td>
+                <td class="td4">&nbsp;</td>
+                <td class="td5">&nbsp;</td>
               </tr>
             <?php endif; ?>
             <tr>
-              <td><?= $rowNumber ?></td>
-              <td><?= $m['kode'] ?></td>
-              <td style="text-align: left;"><?= $m['matakuliah'] ?></td>
-              <td><?= $m['sks'] ?></td>
-              <td><?= $m['nilai_huruf'] ?></td>
+              <td class="td1"><?= $rowNumber ?></td>
+              <td class="td2"><?= $m['kode'] ?></td>
+              <td class="td3" style="text-align: left;"><?= $m['matakuliah'] ?></td>
+              <td class="td4"><?= $m['sks'] ?></td>
+              <td class="td5"><?= $m['nilai_huruf'] ?></td>
             </tr>
             <?php $rowNumber++; ?>
           <?php endforeach; ?>
 
           <tr>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
-            <td style="border-top: 1px solid #000; text-align: left; padding: 0%;">
+            <td class="td1" style="border-top: 1px solid #000;">&nbsp;</td>
+            <td class="td234" colspan="3" style="border-top: 1px solid #000; text-align: left; padding: 0%;">
               <h4>UJIAN AKHIR PROGRAM STUDI</h4>
             </td>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
+            <td class="td5" style="border-top: 1px solid #000;">&nbsp;</td>
           </tr>
           <tr>
-            <td>1</td>
-            <td>1</td>
-            <td style="text-align: left;">UJIAN AKHIR PROGRAM SRUDI</td>
-            <td>3</td>
-            <td>A</td>
+            <td class="td1"><?= $rowNumber;?></td>
+            <td class="td234" colspan="3" style="text-align: left;">UJIAN AKHIR PROGRAM STUDI</td>
+            <td class="td5"><?= $transkrip['base']['nilai_kkw'];?></td>
           </tr>
           <tr>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
-            <td height="50px" align="left" valign="top" style="border-top: 1px solid #000; padding: 0%;">
+            <td class="td1" style="border-top: 1px solid #000;">&nbsp;</td>
+            <td colspan="4" height="50px" align="left" valign="top" style="border-top: 1px solid #000; padding: 0%;">
               <h4>JUDUL KERTAS KERJA WAJIB : </h4>
             </td>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
-            <td style="border-top: 1px solid #000;">&nbsp;</td>
           </tr>
           <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td align="left" valign="top"><?= $transkrip['base']['judul_kkw']; ?></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="td1">&nbsp;</td>
+            <td colspan="4" align="center" valign="top"><em><?= $transkrip['base']['judul_kkw']; ?></em></td>
+          </tr>
+          <tr>
+            <td class="td1" style="border-top: 1px solid #000;">&nbsp;</td>
+            <td style="border-top: 1px solid #000;" colspan="4" align="center" valign="top">
+              <table>
+                <tr>
+                  <td align="left">JUMLAH SKS</td>
+                  <td align="left">: <?= $transkrip['total_sks']['total']; ?></td>
+                </tr>
+                <tr>
+                  <td align="left">IP KUMULATIF</td>
+                  <td align="left">: <?= number_format($ipk, 2, '.', ''); ?></td>
+                </tr>
+                <tr>
+                  <td align="left">PREDIKAT KELULUSAN</td>
+                  <td align="left">: <?= $predikat; ?></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr style="height:1px; border-bottom: 1px solid black;">
+          <td class="td1">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
           </tr>
         </table>
       </div>
     </div>
-
+  </div>
+  
     <div class="container_footer">
       <div class="header_footer">
-        <p>KETERANGAN :</p>
-        <p>JUMLAH SKS <?= $transkrip['total_sks']['total']; ?></p>
-        <p>IP KUMULATIF <?= number_format($ipk, 2, '.', ''); ?></p>
-        <p>PREDIKAT KELULUSAN <b>"<?= $predikat; ?>"</b></p>
+        <p>KETERANGAN : A=4;AB=3,50;B=3;BC=2,50;C=2;D=1;E=0</p>
         <br><br><br>
-        <p><?= $transkrip['base']['nama_kota'] . ', ' . $transkrip['base']['tanggal_ijazah']; ?></p>
       </div>
 
       <div class="signature-section">
         <div class="signature">
+          <p>&nbsp;</p>
           <p>Wakil Direktur I</p>
           <p>Politeknik XYZ</p>
           <br>
@@ -576,6 +673,12 @@ if ($ipk >= 3.5) {
         </div>
 
         <div class="signature">
+          <p>&nbsp;</p>
+          <p><img calss="foto" src="<?= base_url("images/{$transkrip['base']['foto']}");?>"/></p>
+        </div>
+
+        <div class="signature">
+          <p>Jakarta, <?=  displayDate($transkrip['base']['tanggal_ijazah']); ?></p>
           <p>Direktur</p>
           <p>Politeknik XYZ</p>
           <br>
