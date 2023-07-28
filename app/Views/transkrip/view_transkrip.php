@@ -245,8 +245,8 @@ function displayDate($str) {
 
     @media screen {
       .foto {
-        width: 100px !important; 
-        height: 150px !important;
+        width: 160px; 
+        height: 240px;
       }
     }
 
