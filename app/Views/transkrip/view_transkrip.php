@@ -401,7 +401,7 @@ function displayDate($str) {
       </tr>
       <tr>
         <td>Tanggal Yudisium</td>
-        <td>: &nbsp;<?= $transkrip['base']['tanggal_yudisium']; ?></td>
+        <td>: &nbsp;<?= displayDate($transkrip['base']['tanggal_yudisium']); ?></td>
       </tr>
     </table>
   </div>
