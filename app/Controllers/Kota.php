@@ -114,6 +114,6 @@ class Kota extends BaseController
         
         $kotaModel = new KotaModel();
         $data = $kotaModel->lookup($search);
-        return json_encode($data);
+        return json_encode(['results' => $data]);
     }
 }
