@@ -1,8 +1,23 @@
-<pre>
-<?php #print_r($ijazah);?>
-</pre>
-
-<?php #die; ?>
+<?php 
+function displayDate($str) {
+  $time = strtotime($str);
+  $bulan = [
+    'Jan' => 'January',
+    'Feb' => 'Februari',
+    'Mar' => 'Maret',
+    'Apr' => 'April',
+    'May' => 'Mei',
+    'Jun' => 'Juni',
+    'Jul' => 'Juli',
+    'Aug' => 'Agustus',
+    'Sep' => 'September',
+    'Oct' => 'Oktober',
+    'Nov' => 'November',
+    'Dec' => 'Desember'
+  ];
+  return (int)date("d", $time) . ' ' . $bulan[date("M", $time)] . ' ' . date("Y", $time);
+} 
+?>
 
 <!DOCTYPE html>
 <html>
