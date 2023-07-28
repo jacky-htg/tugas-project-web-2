@@ -71,7 +71,6 @@ $routes->match(['get', 'post', 'put'], '/transkrip/(:segment)/update', 'Transkri
 $routes->post('/transkrip/(:num)/delete', 'Transkrip::delete/$1');
 $routes->get('/transkrip/(:segment)', 'Transkrip::view_transkrip/$1');
 $routes->get('/api/transkrip', 'Transkrip::list');
-$routes->get('/api/transkrip/lookup', 'Transkrip::lookup');
 
 $routes->get('/kota', 'Kota');
 $routes->match(['get', 'post'], '/kota/create', 'Kota::create');
@@ -91,7 +90,6 @@ $routes->get('/matakuliah', 'Matakuliah');
 $routes->match(['get', 'post'], '/matakuliah/create', 'Matakuliah::create');
 $routes->match(['get', 'post', 'put'], '/matakuliah/(:segment)/update', 'Matakuliah::update/$1');
 $routes->match(['post', 'delete'],  '/matakuliah/(:segment)/delete', 'Matakuliah::delete/$1');
-
 $routes->get('/api/matakuliah', 'Matakuliah::list');
 $routes->get('/api/matakuliah/lookup', 'Matakuliah::lookup');
 

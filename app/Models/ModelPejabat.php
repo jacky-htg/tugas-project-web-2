@@ -42,13 +42,6 @@ class ModelPejabat extends Model
   }
 
 
-/*public function findByNama($nama)
-  {
-    return $this->select('id, nama, nip, golongan, jabatan')
-                ->where('nama', $nama)
-                ->first();
-  }*/
-
   public function findById($id)
   {
     return $this->select('id, nama, nip, golongan, jabatan')

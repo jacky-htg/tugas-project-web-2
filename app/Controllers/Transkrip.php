@@ -186,16 +186,4 @@ class Transkrip extends BaseController
         ];
         return json_encode($data);
     }
-
-    public function lookup()
-    {
-        if (empty($this->session->get('user_id'))) return redirect("login");
-
-        $params = $this->request->getGet(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $search = isset($params['search']) ? $params['search'] : '';
-
-        $transkripModel = new TranskripModel();
-        $data = $transkripModel->lookup($search);
-        return json_encode($data);
-    }
 }

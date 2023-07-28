@@ -43,13 +43,6 @@ class MatakuliahModel extends Model
     return $this->countAllResults();
   }
 
-  /*public function findByNama($nama)
-  {
-    return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
-                ->where('nama', $nama)
-                ->first();
-  }
-  */
   public function findById($id)
   {
     return $this->select('id, kode, matakuliah, sks, nilai_angka, nilai_huruf,semester')

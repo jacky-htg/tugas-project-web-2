@@ -26,18 +26,6 @@ class TranskripModel extends Model
       ->findAll($limit, $offset);
   }
 
-  public function lookup($search)
-  {
-    $query = $this->select('id, taruna');
-
-    if ($search) {
-      $query = $query->like('taruna', $search);
-    }
-    $query = $query->orderBy("taruna", "ASC");
-
-    return $query->findAll();
-  }
-
   public function count($search)
   {
     if ($search) {
@@ -86,6 +74,6 @@ class TranskripModel extends Model
     JOIN kota ON taruna.tempat_lahir = kota.id 
     JOIN pejabat AS direktur ON direktur.id = ijazah.direktur 
     JOIN pejabat AS wakil_direktur ON wakil_direktur.id = ijazah.wakil_direktur
-    Where transkrip_nilai.id = $id")->getResultArray();
+    Where transkrip_nilai.id = ?", [$id])->getResultArray();
   }
 }

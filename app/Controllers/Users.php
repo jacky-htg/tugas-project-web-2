@@ -152,7 +152,7 @@ class Users extends BaseController
 
     public function login()
     {
-        if (!empty($this->session->get('user_id'))) return redirect("users");
+        if (!empty($this->session->get('user_id'))) return redirect("/");
         
         $data["error"] = "";
         if ($this->request->is('post')) {

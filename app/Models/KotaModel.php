@@ -23,7 +23,7 @@ class KotaModel extends Model
 
   public function lookup($search)
   {
-    $query = $this->select('id, nama');
+    $query = $this->select('id, nama as text');
     
     if ($search) {
       $query = $query->like('nama', $search);
@@ -41,13 +41,6 @@ class KotaModel extends Model
     return $this->countAllResults();
   }
 
-  /*public function findByNama($nama)
-  {
-    return $this->select('id, nama, program_pendidikan, akreditasi, sk_akreditasi')
-                ->where('nama', $nama)
-                ->first();
-  }
-  */
   public function findById($id)
   {
     return $this->select('id, kode_kota, nama')
