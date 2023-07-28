@@ -229,7 +229,7 @@ function displayDate($str) {
         </div>
         <div class="wrapper">
             <div class="left">Tempat dan Tanggal Lahir</div>
-            <div class="right">: <?= $ijazah["tempat_lahir"] ?>, <?= strtoupper($ijazah["tanggal_lahir"]) ?></div>
+            <div class="right">: <?= $ijazah["tempat_lahir"] ?>, <?= strtoupper(displayDate($ijazah["tanggal_lahir"])) ?></div>
         </div>
         <div class="wrapper">
             <div class="left">Nomor Taruna</div>
@@ -259,7 +259,7 @@ function displayDate($str) {
 
 		<div class="wrapper-1">
             <div class="left"></div>
-            <div class="right">Jakarta, <?= $ijazah["tanggal_ijazah"] ?></div>
+            <div class="right">Jakarta, <?= displayDate($ijazah["tanggal_ijazah"]) ?></div>
         </div>
 
     	<div class="wrapper-1">
