@@ -243,9 +243,11 @@ function displayDate($str) {
       }
     }
 
-    .foto {
-      width: 100px; 
-      height: 150px;
+    @media screen {
+      .foto {
+        width: 100px !important; 
+        height: 150px !important;
+      }
     }
 
     .container_footer {
