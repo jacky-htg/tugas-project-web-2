@@ -676,7 +676,7 @@ function displayDate($str) {
 
         <div class="signature">
           <p>&nbsp;</p>
-          <p><img calss="foto" src="<?= base_url("images/{$transkrip['base']['foto']}");?>"/></p>
+          <p><img class="foto" src="<?= base_url("images/{$transkrip['base']['foto']}");?>"/></p>
         </div>
 
         <div class="signature">
