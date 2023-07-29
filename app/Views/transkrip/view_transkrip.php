@@ -230,11 +230,6 @@ function displayDate($str) {
         margin: 0;
         font-size: 12px;
       }
-
-      .foto {
-        width: 4in; 
-        height: 6in;
-      }
     }
 
     @media screen and (max-width: 600px) {
